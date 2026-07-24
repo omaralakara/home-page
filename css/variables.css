@@ -1,0 +1,46 @@
+:root {
+  /* Synergi brand tokens audited from the live Elementor design kit. */
+  --color-primary: #1d4e89;
+  --color-primary-deep: #0b2341;
+  --color-primary-ink: #071a31;
+  --color-secondary: #28abe5;
+  --color-secondary-soft: #dff4fc;
+  --color-text: #232324;
+  --color-text-soft: #5c6673;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f4f7fa;
+  --color-surface-blue: #edf5fa;
+  --color-border: #d7e1e9;
+  --color-border-dark: rgba(255, 255, 255, 0.16);
+  --color-white: #ffffff;
+  --color-focus: #ffd15c;
+  --color-success: #8dd8b4;
+
+  --font-brand: "Montserrat", "Avenir Next", "Segoe UI", Arial, sans-serif;
+  --font-display: "Montserrat", "Avenir Next", "Segoe UI", Arial, sans-serif;
+
+  --container: 80rem;
+  --container-narrow: 68rem;
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --section-space: clamp(5rem, 9vw, 8.5rem);
+  --header-height: 5.25rem;
+
+  --step--1: clamp(0.82rem, 0.8rem + 0.1vw, 0.9rem);
+  --step-0: clamp(1rem, 0.95rem + 0.2vw, 1.12rem);
+  --step-1: clamp(1.2rem, 1.05rem + 0.55vw, 1.55rem);
+  --step-2: clamp(1.55rem, 1.2rem + 1.1vw, 2.25rem);
+  --step-3: clamp(2.1rem, 1.45rem + 2.2vw, 3.5rem);
+  --step-4: clamp(2.8rem, 1.7rem + 3.8vw, 5.8rem);
+
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+  --shadow-soft: 0 1.25rem 3.5rem rgba(7, 26, 49, 0.1);
+  --shadow-card: 0 0.8rem 2.2rem rgba(7, 26, 49, 0.08);
+
+  --ease-out: cubic-bezier(0.2, 0.75, 0.25, 1);
+  --duration-fast: 160ms;
+  --duration: 320ms;
+  --duration-slow: 650ms;
+}
