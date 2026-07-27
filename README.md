@@ -19,20 +19,22 @@ No package install or build step is required.
 ## Design strategy
 
 1. **Current issue:** The live homepage has substantial useful content, but it is distributed across repeated sliders, dense text blocks, and sections with weak hierarchy. The SEO H1 also appears after a separate visual hero, delaying the page’s main message.
-2. **Preserved:** Synergi’s audited navy `#1D4E89`, cyan `#28ABE5`, Montserrat typography style, white wordmark, asymmetric button radius, service offering, partner ecosystem, regional language, article links, navigation, metadata intent, and footer destinations.
-3. **Reference principles:** TP informed the confident typography, concise lead statements, and credible service storytelling. Invest in Abu Dhabi informed the guided user journey, numbered pathways, editorial structure, and UAE-focused pacing.
-4. **Uniquely Synergi:** The central creative device is a five-function connected operating system. It represents people, processes, technology, and regional expertise working together without copying either reference.
+2. **Preserved:** Synergi’s audited navy `#1D4E89`, cyan `#28ABE5`, text `#232324`, soft surface `#F3F5F8`, self-hosted Montserrat typography, white wordmark, service offering, partner ecosystem, regional language, article links, navigation, metadata, and footer destinations.
+3. **Reference principles:** Concentrix informed the sharp opening promise, clear service progression, and proof-led pacing. Accenture Managed Services informed the outcome-first pathways and operating-model narrative. Acoup informed the need to establish regional relevance and credibility early.
+4. **Uniquely Synergi:** The hero combines authentic Dubai workplace photography with a direct five-function service rail. It presents Synergi as a boutique regional operating partner without imitating a global consultancy or relying on abstract AI-style graphics.
 5. **SEO:** Existing keyword-focused copy remains in the initial HTML. Every service card and the native benefits disclosure are rendered before JavaScript runs.
-6. **Elementor practicality:** Every section maps to ordinary Elementor containers, headings, buttons, images, icon lists, a lightweight layered card deck, and Loop Grid. The custom interactions require only a small CSS/JavaScript layer.
-7. **Performance:** There is no framework, animation library, autoplay, background video, WebGL, or third-party feed. The five-card service deck uses only CSS transforms on fixed HTML cards. Images use explicit dimensions and below-the-fold lazy loading. Motion respects reduced-motion preferences.
+6. **Elementor practicality:** Every section maps to ordinary Elementor containers, headings, buttons, images, icon lists, a lightweight layered card deck, and Loop Grid. The custom interactions require only a small site-wide CSS/JavaScript layer.
+7. **Performance:** There is no framework, slider library, animation library, WebGL, or third-party feed. The partner loop uses one CSS animation. The figures section uses a single Canvas 2D surface with 340 particles on desktop, 220 on tablet, and 120 on mobile. It pauses offscreen and when the tab is hidden, uses predetermined connections, caps pixel density at 1.5, and reduces its frame budget on smaller screens. Reduced-motion visitors receive immediate static shapes.
 
 ## Main interactions
 
 - Transparent header becomes a dark blurred header after scrolling.
 - Desktop dropdown menus and a full-screen accessible mobile menu.
-- Five-service interactive hero fits inside the initial desktop, tablet, and mobile viewport and responds to hover, focus, click, and touch.
+- Image-led hero fits inside the initial desktop, tablet, and mobile viewport. Its rotating final phrase reserves a fixed width and never wraps onto a new line.
+- The partner ecosystem sits directly below the hero in a seamless, pause-on-hover logo loop with a reduced-motion scroll fallback.
 - Guided business-goal tabs support click, touch, and arrow-key navigation.
 - Core BPO services use an animated layered capability deck with previous/next controls, numbered direct-selection buttons, arrow keys, touch swipes, live announcements, and a fully visible no-JavaScript fallback.
+- Four verified Synergi figures control a lightweight globe and network particle field. The same particles interpolate between client, delivery-hub, experience-ring, and efficiency configurations, with keyboard, hover, and touch controls.
 - Native SEO disclosure keeps all benefits content present in the document.
 - The podcast artwork is a video-ready interaction: it links to the approved episode hub without autoplaying or loading a third-party player.
 - Scroll reveal uses `IntersectionObserver` and is disabled for reduced motion.
@@ -77,6 +79,8 @@ These are optional production recommendations. The location explorer uses five f
 
 Recommended delivery format is AVIF with WebP fallback. Keep the original crop available in WordPress, create responsive sizes, and avoid embedding text inside imagery.
 
+The redesigned prototype now uses `hero-dubai-team.webp`, sourced from [Misbaa eri on Pexels](https://www.pexels.com/photo/modern-office-meeting-with-diverse-team-31709062/) under the Pexels free-use license. The local file is resized to 1600 pixels wide and compressed as WebP for faster initial loading.
+
 ## Location photography used in the concept
 
 All five files are cropped to 960 × 640 WebP, lazy-loaded, and sourced under the Unsplash License.
@@ -94,18 +98,26 @@ All five files are cropped to 960 × 640 WebP, lazy-loaded, and sourced under th
 ```text
 synergi-homepage-concept/
 ├── index.html
+├── components/
+│   └── synergi-impact-section.html
 ├── css/
 │   ├── variables.css
 │   ├── styles.css
-│   └── responsive.css
+│   ├── responsive.css
+│   └── impact-section.css
 ├── js/
-│   └── main.js
+│   ├── main.js
+│   └── impact-section.js
 ├── assets/
 │   ├── images/
 │   ├── icons/
-│   └── svg/
+│   ├── fonts/
+│   ├── svg/
+│   └── video/
 ├── screenshots/
 ├── README.md
+├── SYNERGI-IMPACT-INSTALLATION.md
+├── ELEMENTOR-START-HERE.md
 ├── ELEMENTOR-IMPLEMENTATION.md
 ├── SEO-PRESERVATION.md
 └── CONTENT-MAPPING.md
@@ -117,6 +129,7 @@ synergi-homepage-concept/
 - Replace the static insight cards with an Elementor Pro Loop Grid.
 - Keep social links in the footer. Add a live social feed only if Synergi later confirms that its value justifies the performance and consent cost.
 - Keep the current WordPress URLs. Do not recreate pages under new slugs.
+- Keep the partner motion in CSS and the figures animation in the existing Canvas 2D controller. Do not replace either with a slider plugin, WebGL, or a third-party animation library.
 - Re-test structured data, canonical, title, description, heading order, alt text, analytics, and consent after the design is rebuilt in WordPress.
 
 ## Live-site safety

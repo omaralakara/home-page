@@ -16,19 +16,19 @@ Configure these in **Site Settings → Global Colors**:
 | Secondary | `#28ABE5` | Pathways, active states, links, small accents |
 | Text | `#232324` | Body text |
 | Text Soft | `#5C6673` | Supporting copy |
-| Surface Soft | `#F4F7FA` | Alternating section background |
+| Surface Soft | `#F3F5F8` | Alternating section background |
 | Surface Blue | `#EDF5FA` | Regional and SEO surfaces |
 | Border | `#D7E1E9` | Dividers and card borders |
 
-Do not introduce additional decorative brand colors without approval.
+Use tints of Primary and Secondary for hover and active states. Do not introduce unrelated coral, mint, purple, or orange section accents.
 
 ### Global typography
 
 - Primary family: Montserrat.
 - Body: 400; headings and navigation: 600–700.
-- Load only the weights actually used.
-- H1: responsive clamp equivalent of 45–92px, line height about 1.0–1.08.
-- H2: responsive 34–56px.
+- Self-host one WOFF2 file with `font-display: swap`; do not request Google Fonts at page load.
+- H1: fixed sizes at desktop, tablet, and mobile breakpoints, with line height about 1.0–1.08.
+- H2: fixed sizes at desktop, tablet, and mobile breakpoints.
 - Body: 16–18px with 1.6–1.75 line height.
 - Small uppercase labels: 11–13px with controlled letter spacing.
 
@@ -40,7 +40,7 @@ Do not introduce additional decorative brand colors without approval.
 - Avoid nested “container inside container inside container” patterns.
 - Use Grid or Flexbox controls instead of spacer widgets.
 - Use global gap controls rather than empty columns.
-- Use CSS pseudo-elements for decorative circles and pathways rather than extra widgets.
+- Use CSS pseudo-elements only for restrained lines and state indicators rather than extra widgets.
 - Assign stable CSS classes from this prototype instead of relying on generated Elementor selectors.
 
 ## Section-by-section build
@@ -55,20 +55,26 @@ Do not introduce additional decorative brand colors without approval.
 - **Mobile:** Full-width menu overlay, large touch targets, no mega menu.
 - **Performance:** Do not add a separate sticky-header plugin.
 
-### 2. Interactive hero
+### 2. Image-led executive hero
 
-- **Structure:** One full-width dark container → constrained two-column inner container. Left column contains eyebrow, H1, two paragraphs, CTA row. Right column contains one HTML widget for the five-node interaction.
-- **Widgets:** Heading, Text Editor, Buttons, HTML.
+- **Structure:** One full-width container with a responsive background image → constrained inner container with the H1, concise lead, CTA row, and positioning note. Do not add an eyebrow or a trust/number rail.
+- **Widgets:** Image, Heading, Text Editor, and Buttons.
 - **Pro:** Not required beyond Theme Builder context.
-- **Custom CSS:** Grid background, pathway lines, node placement, responsive stack.
-- **Custom JavaScript:** About 40–60 lines to update the active service label, description, destination, and SVG path.
-- **Mobile:** Replace orbital positions with a compact two-column button grid and one full-width description panel. Keep the whole hero within the initial viewport.
+- **Custom CSS:** Image crop, dark readability overlay, responsive type, and a fixed-width rotating-word slot. The entire “by removing …” phrase must stay on one line at every breakpoint; scale that line down on narrow phones instead of allowing it to wrap.
+- **Custom JavaScript:** Small typewriter controller for the final phrase only. Keep the initial complete phrase in the server HTML.
+- **Mobile:** Keep the full headline and two CTAs visible while leaving a hint of the moving partner section.
+- **Performance:** Use the approved WebP image, preload it, and do not add background video or a third-party player.
 - **Important:** Keep the exact H1 as a real Heading widget set to HTML tag `h1`. Use only one H1.
 
-### 3. Trust strip
+### 3. Partner ecosystem marquee
 
-- **Final concept decision:** Removed because it duplicated the full Partners section and made the page feel longer.
-- **WordPress action:** Do not build this section. Keep the single linked partner grid later on the page.
+- **Placement:** Directly below the hero and before “What does your business need next?”
+- **Structure:** Intro row followed by two identical horizontal logo tracks. The second track is decorative and uses `aria-hidden="true"` so the visual loop is seamless without duplicating links for assistive technology.
+- **Widgets:** Heading, Text Editor, and linked Image widgets inside one horizontal container. Duplicate the visual track once.
+- **Custom CSS:** Constant slow translation, grayscale-to-color logo hover, and pause on hover or keyboard focus.
+- **Mobile:** Keep the same moving row with smaller logo cards. Do not switch to a heavy carousel widget.
+- **Accessibility:** Stop the animation when `prefers-reduced-motion` is active and expose a normal horizontal scroll row instead.
+- **Performance:** Use the existing local logo files with dimensions. No slider library, autoplay timer, or remote logo requests.
 
 ### 4. “What does your business need?” journey
 
@@ -94,18 +100,20 @@ Do not introduce additional decorative brand colors without approval.
 
 ### 6. Our Impact
 
-- **Structure:** Full-width primary-blue container → two-column inner container.
-- **Widgets:** Heading, Text Editor, four numbered inner containers.
+- **Structure:** Centered introduction followed by a four-column number row and one decorative particle canvas.
+- **Widgets:** Heading, Text Editor, four Button widgets, and one HTML widget containing the canvas and caption.
 - **Pro:** No.
-- **Custom CSS:** Large type, restrained circular background using pseudo-elements.
-- **Mobile:** Stack content and keep all qualitative proof points visible.
-- **Approval:** Do not add numeric counters until Synergi supplies verified figures and approval.
-- **Content:** This section also contains the current “Why Choose Synergi” introduction and four reasons, reducing duplication while preserving the live copy.
+- **Custom CSS:** Stripe-inspired number-row pacing using Synergi navy, cyan, pale blue, and white. Numbers receive a subtle active line, lift, and background glow.
+- **Custom JavaScript:** Use one Canvas 2D controller. Particles collapse into the center, then reshape for the selected figure. Nearby dots move gently under the pointer.
+- **Mobile:** Change the number row to a two-by-two grid and lower the particle count from 192 to 110.
+- **Accessibility:** The numbers remain real buttons with `aria-pressed`; the canvas is `aria-hidden`; reduced-motion users receive an immediate static shape.
+- **Performance:** Render only during transitions or active pointer movement, cap device pixel density at 1.5, pause offscreen, and make no third-party requests.
+- **Content:** Use the verified Synergi figures: 50+ clients served, 5 global delivery locations, 100+ years of combined experience, and 10–15% direct savings. Do not reintroduce the removed operational-services network.
 
 ### 7. Why businesses choose Synergi
 
-- **Final concept decision:** Merged into Our Impact.
-- **WordPress action:** Do not create a separate section; place the heading, introduction, and four verified reasons in the right side of the Impact layout.
+- **Final concept decision:** Replaced by the interactive connected-operations network.
+- **WordPress action:** Do not create a separate section.
 
 ### 8. Industries served
 
@@ -149,12 +157,8 @@ Do not introduce additional decorative brand colors without approval.
 
 ### 12. Partners
 
-- **Structure:** Heading followed by a three-column logo grid.
-- **Widgets:** Image Box or Image widgets inside linked containers.
-- **Pro:** No.
-- **Custom CSS:** Grayscale-to-color hover and single-pixel grid dividers.
-- **Mobile:** Two columns, then one on very narrow screens.
-- **Performance:** Convert approved transparent PNG/JPEG files to WebP/AVIF where quality allows. Use image dimensions and lazy loading.
+- **Final concept decision:** Moved directly below the hero as the partner ecosystem marquee in section 3.
+- **WordPress action:** Do not create a second partner section later on the page.
 
 ### 13. Blog and insights
 
@@ -193,10 +197,12 @@ Keep production custom code limited to:
 
 1. Global CSS tokens and shared utility classes.
 2. Header sticky state if the installed Elementor version cannot provide the exact behavior.
-3. Hero service-node controller.
-4. Core-services card carousel controller.
-5. Optional guided-journey tab controller.
-6. Reduced-motion and reveal enhancement.
+3. Core-services card carousel controller.
+4. Optional guided-journey tab controller.
+5. Hero phrase typewriter.
+6. Partner-marquee motion and reduced-motion fallback.
+7. Lightweight Synergi figures Canvas 2D controller.
+8. Reduced-motion and reveal enhancement.
 
 Place JavaScript in one deferred file enqueued by the child theme or a controlled snippets mechanism. Do not paste duplicate scripts into multiple HTML widgets.
 
@@ -222,6 +228,9 @@ Elementor/Elementor Pro, the current SEO plugin, the approved forms solution, an
 - Confirm visible focus states and keyboard operation.
 - Confirm header and menu work at 390px, 768px, 1280px, and 1440px.
 - Confirm no horizontal overflow.
+- Confirm the Synergi figures canvas uses Canvas 2D only, pauses offscreen, and makes no third-party request.
+- Confirm the partner marquee pauses on hover/focus and becomes a static scroll row for reduced-motion users.
+- Confirm the complete “by removing …” phrase stays on one line at 390px, 768px, 1280px, and 1440px.
 - Confirm WebP/AVIF responsive images and dimensions.
 - Confirm dynamic post card categories and dates.
 - Confirm forms, analytics, consent, and spam protection.

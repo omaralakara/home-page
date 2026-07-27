@@ -1,0 +1,440 @@
+/*
+ * Synergi impact statistics
+ * Self-contained component styles. Every selector is component-prefixed so
+ * the section can be moved into Elementor without changing global styles.
+ */
+
+.synergi-impact-section {
+  --synergi-impact-primary: var(--color-primary, #1d4e89);
+  --synergi-impact-accent: var(--color-secondary, #28abe5);
+  --synergi-impact-ink: var(--color-primary-ink, #071a31);
+  --synergi-impact-copy: var(--color-text-soft, #5c6673);
+  --synergi-impact-border: rgba(29, 78, 137, 0.16);
+  --synergi-impact-surface: #fbfaf7;
+  --synergi-impact-height-desktop: 430px;
+  --synergi-impact-height-tablet: 380px;
+  --synergi-impact-height-mobile: 290px;
+  position: relative;
+  overflow: hidden;
+  padding: clamp(3.25rem, 5vw, 4.5rem) 0 0;
+  background:
+    radial-gradient(circle at 50% 100%, rgba(40, 171, 229, 0.08), transparent 42%),
+    linear-gradient(180deg, #fff 0%, var(--synergi-impact-surface) 58%, #f7fafc 100%);
+  color: var(--synergi-impact-ink);
+  isolation: isolate;
+}
+
+.synergi-impact-container {
+  width: min(
+    calc(100% - (2 * var(--gutter, clamp(1.25rem, 4vw, 3.5rem)))),
+    var(--container, 80rem)
+  );
+  margin-inline: auto;
+}
+
+.synergi-impact-heading {
+  display: grid;
+  justify-items: center;
+  max-width: 54rem;
+  margin: 0 auto clamp(2.25rem, 3.5vw, 3rem);
+  text-align: center;
+}
+
+.synergi-impact-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0 0 1.15rem;
+  color: var(--synergi-impact-primary);
+  font-family: var(--font-brand, "Montserrat", "Segoe UI", sans-serif);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.synergi-impact-eyebrow::before {
+  width: 1.6rem;
+  height: 2px;
+  background: var(--synergi-impact-accent);
+  content: "";
+}
+
+.synergi-impact-heading h2 {
+  max-width: 16ch;
+  margin: 0;
+  color: var(--synergi-impact-ink);
+  font-family: var(--font-display, "Montserrat", "Segoe UI", sans-serif);
+  font-size: clamp(2.5rem, 4.2vw, 3.75rem);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.synergi-impact-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--synergi-impact-border);
+  border-bottom: 1px solid var(--synergi-impact-border);
+  list-style: none;
+}
+
+.synergi-impact-stat-item {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.synergi-impact-stat-item + .synergi-impact-stat-item {
+  border-left: 1px solid var(--synergi-impact-border);
+}
+
+.synergi-impact-stat {
+  position: relative;
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  width: 100%;
+  min-height: 10rem;
+  padding: clamp(1.5rem, 2.5vw, 2rem) clamp(1.3rem, 2.8vw, 2.5rem);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  touch-action: manipulation;
+  cursor: pointer;
+  transition:
+    background-color 280ms ease,
+    color 280ms ease,
+    opacity 280ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.synergi-impact-stat::before {
+  position: absolute;
+  top: -1px;
+  right: 50%;
+  left: 50%;
+  height: 3px;
+  background: var(--synergi-impact-accent);
+  content: "";
+  opacity: 0;
+  transition:
+    right 360ms cubic-bezier(0.2, 0.75, 0.25, 1),
+    left 360ms cubic-bezier(0.2, 0.75, 0.25, 1),
+    opacity 180ms ease;
+}
+
+.synergi-impact-stat::after {
+  position: absolute;
+  right: clamp(1.3rem, 2.8vw, 2.5rem);
+  bottom: 1.45rem;
+  width: 0.42rem;
+  height: 0.42rem;
+  border: 1px solid var(--synergi-impact-accent);
+  border-radius: 50%;
+  content: "";
+  opacity: 0;
+  transform: scale(0.45);
+  transition:
+    opacity 220ms ease,
+    transform 360ms cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+.synergi-impact-stat:hover {
+  background: rgba(29, 78, 137, 0.025);
+}
+
+.synergi-impact-stat:focus-visible {
+  z-index: 2;
+  outline: 3px solid var(--color-focus, #ffd15c);
+  outline-offset: -3px;
+}
+
+.synergi-impact-stat.is-active,
+.synergi-impact-stat[aria-pressed="true"] {
+  background: rgba(40, 171, 229, 0.045);
+  color: var(--synergi-impact-primary);
+}
+
+.synergi-impact-stat.is-active::before,
+.synergi-impact-stat[aria-pressed="true"]::before {
+  right: clamp(1.3rem, 2.8vw, 2.5rem);
+  left: clamp(1.3rem, 2.8vw, 2.5rem);
+  opacity: 1;
+}
+
+.synergi-impact-stat.is-active::after,
+.synergi-impact-stat[aria-pressed="true"]::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.synergi-impact-section[data-active-state]:not([data-active-state="default"])
+  .synergi-impact-stat:not(.is-active) {
+  opacity: 0.4;
+}
+
+.synergi-impact-stat-value {
+  display: block;
+  margin-bottom: 0.9rem;
+  color: currentColor;
+  font-family: var(--font-display, "Montserrat", "Segoe UI", sans-serif);
+  font-size: clamp(3rem, 4.2vw, 4.35rem);
+  font-weight: 550;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.07em;
+  line-height: 0.9;
+  white-space: nowrap;
+  transition:
+    color 280ms ease,
+    transform 360ms cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+.synergi-impact-stat.is-active .synergi-impact-stat-value,
+.synergi-impact-stat[aria-pressed="true"] .synergi-impact-stat-value {
+  transform: translateY(-0.18rem);
+}
+
+.synergi-impact-stat-description {
+  display: block;
+  max-width: 15rem;
+  color: var(--synergi-impact-copy);
+  font-family: var(--font-brand, "Montserrat", "Segoe UI", sans-serif);
+  font-size: clamp(0.76rem, 0.72rem + 0.15vw, 0.9rem);
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  line-height: 1.55;
+  transition: color 280ms ease;
+}
+
+.synergi-impact-stat-description > span {
+  display: block;
+}
+
+.synergi-impact-stat.is-active .synergi-impact-stat-description,
+.synergi-impact-stat[aria-pressed="true"] .synergi-impact-stat-description {
+  color: var(--synergi-impact-primary);
+}
+
+.synergi-impact-visual {
+  position: relative;
+  width: 100%;
+  height: var(--synergi-impact-height-desktop);
+  min-height: 0;
+  overflow: hidden;
+  border-bottom: 1px solid var(--synergi-impact-border);
+  background:
+    radial-gradient(ellipse at 50% 106%, rgba(40, 171, 229, 0.13), transparent 49%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(237, 245, 250, 0.48) 100%);
+  contain: layout paint size;
+}
+
+.synergi-impact-visual::before {
+  position: absolute;
+  z-index: -1;
+  right: 5%;
+  bottom: -60%;
+  left: 5%;
+  height: 108%;
+  border: 1px solid rgba(40, 171, 229, 0.13);
+  border-radius: 50% 50% 0 0;
+  content: "";
+  pointer-events: none;
+}
+
+.synergi-impact-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.synergi-impact-visual-label {
+  position: absolute;
+  z-index: 2;
+  top: clamp(1.25rem, 2.5vw, 2rem);
+  right: clamp(1rem, 2.5vw, 2rem);
+  left: clamp(1rem, 2.5vw, 2rem);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: rgba(7, 26, 49, 0.5);
+  font-family: var(--font-brand, "Montserrat", "Segoe UI", sans-serif);
+  font-size: 0.64rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.synergi-impact-visual-label span:last-child {
+  color: var(--synergi-impact-primary);
+  text-align: right;
+}
+
+.synergi-impact-status {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+@media (max-width: 64rem) {
+  .synergi-impact-heading {
+    margin-bottom: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .synergi-impact-heading h2 {
+    font-size: clamp(2.5rem, 6vw, 3.4rem);
+  }
+
+  .synergi-impact-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .synergi-impact-stat-item:nth-child(3) {
+    border-left: 0;
+  }
+
+  .synergi-impact-stat-item:nth-child(n + 3) {
+    border-top: 1px solid var(--synergi-impact-border);
+  }
+
+  .synergi-impact-stat {
+    min-height: 9.5rem;
+  }
+
+  .synergi-impact-stat-value {
+    font-size: clamp(2.9rem, 7vw, 3.8rem);
+  }
+
+  .synergi-impact-visual {
+    height: var(--synergi-impact-height-tablet);
+    min-height: 0;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .synergi-impact-section {
+    padding-top: clamp(3.5rem, 10vw, 4.5rem);
+  }
+
+  .synergi-impact-container {
+    width: min(calc(100% - 2.5rem), var(--container, 80rem));
+  }
+
+  .synergi-impact-heading {
+    margin-bottom: 2rem;
+  }
+
+  .synergi-impact-eyebrow {
+    margin-bottom: 0.9rem;
+    font-size: 0.65rem;
+  }
+
+  .synergi-impact-heading h2 {
+    max-width: 14ch;
+    font-size: clamp(2.15rem, 10.4vw, 2.8rem);
+    line-height: 0.98;
+  }
+
+  .synergi-impact-stat {
+    min-height: 8.3rem;
+    padding: 1.25rem 1rem 1.15rem;
+  }
+
+  .synergi-impact-stat.is-active::before,
+  .synergi-impact-stat[aria-pressed="true"]::before {
+    right: 1rem;
+    left: 1rem;
+  }
+
+  .synergi-impact-stat::after {
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+  .synergi-impact-stat-value {
+    margin-bottom: 0.65rem;
+    font-size: clamp(2.25rem, 10vw, 3rem);
+  }
+
+  .synergi-impact-stat-item:nth-child(4) .synergi-impact-stat-value {
+    font-size: clamp(1.95rem, 8.5vw, 2.5rem);
+  }
+
+  .synergi-impact-stat-description {
+    max-width: 11rem;
+    font-size: clamp(0.65rem, 2.6vw, 0.74rem);
+    line-height: 1.4;
+  }
+
+  .synergi-impact-visual {
+    height: var(--synergi-impact-height-mobile);
+    min-height: 260px;
+  }
+
+  .synergi-impact-visual-label {
+    top: 1.15rem;
+    right: 0.85rem;
+    left: 0.85rem;
+    font-size: 0.54rem;
+    letter-spacing: 0.08em;
+  }
+}
+
+@media (max-width: 23rem) {
+  .synergi-impact-container {
+    width: min(calc(100% - 1.5rem), var(--container, 80rem));
+  }
+
+  .synergi-impact-stat {
+    min-height: 8rem;
+    padding-inline: 0.78rem;
+  }
+
+  .synergi-impact-stat-value {
+    font-size: clamp(2.15rem, 10.8vw, 2.7rem);
+  }
+
+  .synergi-impact-stat-description {
+    font-size: 0.65rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .synergi-impact-stat,
+  .synergi-impact-stat::before,
+  .synergi-impact-stat::after,
+  .synergi-impact-stat-value,
+  .synergi-impact-stat-description {
+    transition-duration: 1ms !important;
+  }
+}
+
+@media print {
+  .synergi-impact-section {
+    padding-block: 3rem;
+    background: #fff;
+  }
+
+  .synergi-impact-visual {
+    display: none;
+  }
+}

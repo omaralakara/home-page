@@ -1,7 +1,7 @@
 # SEO Preservation Plan
 
-Audit date: 23 July 2026  
-Audited URL: `https://synergi.ae/`  
+Audit date: 26 July 2026
+Audited URL: `https://synergi.ae/`
 Method: rendered desktop DOM, metadata, structured data, link, heading, image, and computed-style inspection.
 
 ## Executive safeguard
@@ -9,6 +9,8 @@ Method: rendered desktop DOM, metadata, structured data, link, heading, image, a
 The redesign is a presentation change, not a search-strategy change. The production migration must retain the live URL, primary intent, H1, important regional copy, service copy, internal links, metadata, canonical, and structured-data ownership.
 
 The prototype deliberately keeps keyword-focused content in the initial HTML. JavaScript only changes visual state. Core service and benefits content is not requested from an API after page load.
+
+The particle canvas is a decorative progressive enhancement rather than a replacement for indexable copy. All four Synergi figures remain native button text in the server HTML, and the interaction does not fetch or generate business content.
 
 ## Existing metadata inventory
 
@@ -65,18 +67,18 @@ The production page should use:
   - H3: One heading for each goal panel
 - H2: Our Core BPO Services
   - H3: Five service-card titles
-- H2: From intricate challenges to coordinated progress.
+- H2: Regional context. Enterprise discipline.
   - H3: Why Choose Synergi for BPO in UAE and the Gulf
 - H2: Industries We Serve in UAE and the Gulf
   - H3: Five industry names
-- H2: The Synergi Executive Podcast
+- H2: Conversations for people who run businesses.
 - H2: Transform Your Business with Shared Services
   - H3: Connected support across Gulf markets
 - H2: Local understanding. Connected reach.
 - H2: Technology and expertise, connected.
 - H2: Ideas for operators and decision-makers.
   - H3: Three current article titles
-- H2: Build a more efficient business with Synergi.
+- H2: Make the business simpler to run.
 
 Footer column headings may remain H2 because the footer is a separate landmark. They must not replace the visible page hierarchy.
 
@@ -150,7 +152,7 @@ Current source:
 
 > Synergi transforms intricate challenges into actionable growth strategies. Whether refining efficient workflows, introducing ground-breaking technological tools, or building robust systems, our mission is to identify and overcome the barriers holding your enterprise back. We create tailored solutions to fit your specific needs, helping you succeed. We set a varied growth plan for your business using advanced technology and detailed data. By aligning seamlessly with your objectives, we ensure that your focus remains undistracted – on your core business.
 
-**Handling:** Both paragraphs are preserved visibly in the Our Impact section. No quantitative claims are added.
+**Handling:** The current visual iteration replaces the former Impact treatment with the supplied Synergi figures. Before production, confirm whether these two source paragraphs should remain elsewhere on the page for content continuity.
 
 ### Podcast copy
 

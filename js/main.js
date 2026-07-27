@@ -1,43 +1,11 @@
 document.documentElement.classList.add("js");
 
-const serviceData = {
-  accounting: {
-    title: "Accounting",
-    description: "Clearer finance operations, reporting, tax, and transaction workflows.",
-    label: "Explore Accounting",
-    url: "https://synergi.ae/our-services/accounting/",
-  },
-  "human-resources": {
-    title: "Human Resources",
-    description: "Connected people operations across payroll, development, systems, and the employee lifecycle.",
-    label: "Explore Human Resources",
-    url: "https://synergi.ae/our-services/human-resources/",
-  },
-  procurement: {
-    title: "Procurement",
-    description: "Structured sourcing, governance, contract administration, and spend visibility.",
-    label: "Explore Procurement",
-    url: "https://synergi.ae/our-services/procurement/",
-  },
-  "technology-ai": {
-    title: "Technology & AI",
-    description: "Practical support for users, infrastructure, compliance, collaboration, and managed services.",
-    label: "Explore Technology & AI",
-    url: "https://synergi.ae/our-services/technology-ai/",
-  },
-  marketing: {
-    title: "Marketing",
-    description: "Coordinated brand, communications, experience, events, and fractional leadership support.",
-    label: "Explore Marketing",
-    url: "https://synergi.ae/our-services/marketing/",
-  },
-};
-
 const header = document.querySelector("[data-header]");
 const menuToggle = document.querySelector(".menu-toggle");
 const navigation = document.querySelector(".primary-nav");
 const submenuToggles = [...document.querySelectorAll(".submenu-toggle")];
 const mobileNavigation = window.matchMedia("(max-width: 74rem)");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 function setHeaderState() {
   if (!header) return;
@@ -139,43 +107,9 @@ window.addEventListener("scroll", setHeaderState, { passive: true });
 setHeaderState();
 syncNavigationInteractivity();
 
-const systemNodes = [...document.querySelectorAll(".system-node")];
-const systemTitle = document.querySelector("[data-system-title]");
-const systemDescription = document.querySelector("[data-system-description]");
-const systemLink = document.querySelector("[data-system-link]");
-const systemLines = [...document.querySelectorAll("[data-line]")];
-
-function selectService(key) {
-  const data = serviceData[key];
-  if (!data || !systemTitle || !systemDescription || !systemLink) return;
-
-  systemNodes.forEach((node) => {
-    const active = node.dataset.service === key;
-    node.classList.toggle("is-active", active);
-    node.setAttribute("aria-pressed", String(active));
-  });
-
-  systemLines.forEach((line) => {
-    line.classList.toggle("is-active", line.dataset.line === key);
-  });
-
-  systemTitle.textContent = data.title;
-  systemDescription.textContent = data.description;
-  systemLink.href = data.url;
-  systemLink.innerHTML = `${data.label} <span aria-hidden="true">→</span>`;
-}
-
-systemNodes.forEach((node) => {
-  const activate = () => selectService(node.dataset.service);
-  node.addEventListener("click", activate);
-  node.addEventListener("focus", activate);
-  node.addEventListener("pointerenter", activate);
-});
-
-selectService("accounting");
-
 const needTabs = [...document.querySelectorAll(".need-tab")];
 const needPanels = [...document.querySelectorAll(".need-panel")];
+const needQuestion = document.querySelector(".needs-prompt [data-need-question]");
 
 function selectNeed(selectedTab, moveFocus = false) {
   const targetId = selectedTab.getAttribute("aria-controls");
@@ -190,6 +124,10 @@ function selectNeed(selectedTab, moveFocus = false) {
   needPanels.forEach((panel) => {
     panel.classList.toggle("is-active", panel.id === targetId);
   });
+
+  if (needQuestion && selectedTab.dataset.needQuestion) {
+    needQuestion.textContent = selectedTab.dataset.needQuestion;
+  }
 
   if (moveFocus) selectedTab.focus();
 }
@@ -310,7 +248,289 @@ if (serviceCarousel) {
   showServiceCard(0, false);
 }
 
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const heroTypeword = document.querySelector("[data-hero-typewords]");
+
+if (heroTypeword) {
+  const words = heroTypeword.dataset.heroTypewords
+    .split(",")
+    .map((word) => word.trim())
+    .filter(Boolean);
+
+  if (words.length > 1 && !reducedMotion.matches) {
+    let wordIndex = 0;
+    let charIndex = words[0].length;
+    let deleting = true;
+
+    function tickHeroType() {
+      const currentWord = words[wordIndex];
+      heroTypeword.textContent = currentWord.slice(0, charIndex);
+
+      if (deleting) {
+        if (charIndex > 0) {
+          charIndex -= 1;
+          window.setTimeout(tickHeroType, 46);
+          return;
+        }
+
+        deleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        window.setTimeout(tickHeroType, 220);
+        return;
+      }
+
+      if (charIndex < words[wordIndex].length) {
+        charIndex += 1;
+        window.setTimeout(tickHeroType, 68);
+        return;
+      }
+
+      deleting = true;
+      window.setTimeout(tickHeroType, 1350);
+    }
+
+    window.setTimeout(tickHeroType, 1050);
+  }
+}
+
+const scaleSection = document.querySelector("[data-scale-section]");
+
+if (scaleSection) {
+  const scaleCanvas = scaleSection.querySelector("[data-scale-canvas]");
+  const scaleContext = scaleCanvas?.getContext("2d", { alpha: true });
+  const compactScale = window.matchMedia("(max-width: 47.99rem)");
+
+  if (scaleCanvas && scaleContext) {
+    const FRAME_INTERVAL = 1000 / 30;
+    const LINK_DISTANCE = 130;
+    const LINK_DISTANCE_SQ = LINK_DISTANCE * LINK_DISTANCE;
+
+    let canvasWidth = 1;
+    let canvasHeight = 1;
+    let particles = [];
+    let frameId = 0;
+    let lastStep = 0;
+    let sectionVisible = !("IntersectionObserver" in window);
+
+    function seededValue(index, salt = 0) {
+      const value =
+        Math.sin((index + 1) * (12.9898 + salt * 17.17)) * 43758.5453;
+      return value - Math.floor(value);
+    }
+
+    function createParticles() {
+      const count = compactScale.matches ? 28 : 52;
+
+      particles = Array.from({ length: count }, (_, index) => ({
+        x: seededValue(index, 1) * canvasWidth,
+        y: seededValue(index, 2) * canvasHeight,
+        driftX: (seededValue(index, 3) - 0.5) * 14,
+        driftY: (seededValue(index, 4) - 0.5) * 10,
+        radius: 1.05 + seededValue(index, 5) * 1.35,
+        alpha: 0.28 + seededValue(index, 6) * 0.42,
+        pulse: seededValue(index, 7) * Math.PI * 2,
+      }));
+    }
+
+    function stepParticles(deltaSeconds) {
+      const margin = 14;
+
+      particles.forEach((particle) => {
+        particle.x += particle.driftX * deltaSeconds;
+        particle.y += particle.driftY * deltaSeconds;
+
+        if (particle.x < -margin) particle.x = canvasWidth + margin;
+        else if (particle.x > canvasWidth + margin) particle.x = -margin;
+        if (particle.y < -margin) particle.y = canvasHeight + margin;
+        else if (particle.y > canvasHeight + margin) particle.y = -margin;
+      });
+    }
+
+    function drawParticles(now = performance.now()) {
+      scaleContext.clearRect(0, 0, canvasWidth, canvasHeight);
+      scaleContext.lineWidth = 1;
+
+      for (let first = 0; first < particles.length; first += 1) {
+        for (
+          let second = first + 1;
+          second < particles.length;
+          second += 1
+        ) {
+          const deltaX = particles[first].x - particles[second].x;
+          const deltaY = particles[first].y - particles[second].y;
+          const distanceSquared = deltaX * deltaX + deltaY * deltaY;
+
+          if (distanceSquared < LINK_DISTANCE_SQ) {
+            const strength =
+              1 - Math.sqrt(distanceSquared) / LINK_DISTANCE;
+            scaleContext.strokeStyle =
+              `rgba(96, 182, 232, ${(strength * 0.14).toFixed(3)})`;
+            scaleContext.beginPath();
+            scaleContext.moveTo(
+              particles[first].x,
+              particles[first].y,
+            );
+            scaleContext.lineTo(
+              particles[second].x,
+              particles[second].y,
+            );
+            scaleContext.stroke();
+          }
+        }
+      }
+
+      particles.forEach((particle) => {
+        const twinkle =
+          0.82 + Math.sin(now * 0.0011 + particle.pulse) * 0.18;
+        scaleContext.beginPath();
+        scaleContext.arc(
+          particle.x,
+          particle.y,
+          particle.radius,
+          0,
+          Math.PI * 2,
+        );
+        scaleContext.fillStyle =
+          `rgba(158, 213, 244, ${(particle.alpha * twinkle).toFixed(3)})`;
+        scaleContext.fill();
+      });
+    }
+
+    function shouldAnimateScale() {
+      return sectionVisible && !reducedMotion.matches && !document.hidden;
+    }
+
+    function scheduleScaleFrame() {
+      if (frameId || !shouldAnimateScale()) return;
+      lastStep = lastStep || performance.now();
+      frameId = window.requestAnimationFrame(runScaleFrame);
+    }
+
+    function runScaleFrame(now) {
+      frameId = 0;
+      if (!shouldAnimateScale()) return;
+
+      const elapsed = now - lastStep;
+      if (elapsed >= FRAME_INTERVAL) {
+        lastStep = now - (elapsed % FRAME_INTERVAL);
+        stepParticles(Math.min(elapsed, 120) / 1000);
+        drawParticles(now);
+      }
+
+      scheduleScaleFrame();
+    }
+
+    function stopScaleFrame() {
+      if (!frameId) return;
+      window.cancelAnimationFrame(frameId);
+      frameId = 0;
+    }
+
+    function resizeScaleCanvas() {
+      const bounds = scaleSection.getBoundingClientRect();
+      const density = Math.min(window.devicePixelRatio || 1, 1.5);
+      const nextWidth = Math.max(1, Math.round(bounds.width));
+      const nextHeight = Math.max(1, Math.round(bounds.height));
+      const sizeChanged =
+        Math.abs(nextWidth - canvasWidth) > 24 ||
+        Math.abs(nextHeight - canvasHeight) > 24;
+
+      canvasWidth = nextWidth;
+      canvasHeight = nextHeight;
+      scaleCanvas.width = Math.round(nextWidth * density);
+      scaleCanvas.height = Math.round(nextHeight * density);
+      scaleContext.setTransform(density, 0, 0, density, 0, 0);
+
+      if (sizeChanged || !particles.length) createParticles();
+      drawParticles();
+    }
+
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(resizeScaleCanvas).observe(scaleSection);
+    } else {
+      window.addEventListener("resize", resizeScaleCanvas, {
+        passive: true,
+      });
+    }
+
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(
+        ([entry]) => {
+          sectionVisible = entry.isIntersecting;
+          if (sectionVisible) scheduleScaleFrame();
+          else stopScaleFrame();
+        },
+        { rootMargin: "80px 0px", threshold: 0.01 },
+      ).observe(scaleSection);
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stopScaleFrame();
+      else scheduleScaleFrame();
+    });
+
+    reducedMotion.addEventListener("change", () => {
+      if (reducedMotion.matches) {
+        stopScaleFrame();
+        drawParticles();
+      } else {
+        scheduleScaleFrame();
+      }
+    });
+
+    compactScale.addEventListener("change", () => {
+      createParticles();
+      drawParticles();
+    });
+
+    resizeScaleCanvas();
+    scheduleScaleFrame();
+  }
+
+  const statNumbers = [
+    ...scaleSection.querySelectorAll("[data-stat-number]"),
+  ];
+
+  if (
+    statNumbers.length &&
+    "IntersectionObserver" in window &&
+    !reducedMotion.matches
+  ) {
+    const renderStat = (element, value) => {
+      element.textContent =
+        `${element.dataset.prefix || ""}${value}` +
+        `${element.dataset.suffix || ""}`;
+    };
+
+    const animateStat = (element) => {
+      const target = Number(element.dataset.target || 0);
+      const started = performance.now();
+      const duration = 950;
+
+      const tick = (now) => {
+        const progress = Math.min((now - started) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        renderStat(element, Math.round(target * eased));
+        if (progress < 1) window.requestAnimationFrame(tick);
+      };
+
+      window.requestAnimationFrame(tick);
+    };
+
+    const statObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          statObserver.unobserve(entry.target);
+          animateStat(entry.target);
+        });
+      },
+      { threshold: 0.4 },
+    );
+
+    statNumbers.forEach((element) => statObserver.observe(element));
+  }
+}
+
 const revealItems = [...document.querySelectorAll(".reveal")];
 
 if (reducedMotion.matches || !("IntersectionObserver" in window)) {
