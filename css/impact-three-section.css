@@ -1,0 +1,208 @@
+/*
+ * Interactive Three.js treatment for the Synergi impact section.
+ * Load with impact-three-section.js instead of the older impact-section.js.
+ */
+
+.synergi-impact-section--three {
+  --synergi-impact-three-grid: rgba(29, 78, 137, 0.1);
+  --synergi-impact-three-sky: #e9f7fc;
+  --synergi-impact-three-peach: rgba(255, 170, 125, 0.28);
+  background: linear-gradient(180deg, #fff 0%, #f8fbfd 100%);
+}
+
+.synergi-impact-section--three .synergi-impact-heading h2 {
+  max-width: 24ch;
+  letter-spacing: 0;
+}
+
+.synergi-impact-section--three .synergi-impact-stats {
+  position: relative;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.synergi-impact-section--three .synergi-impact-stat {
+  transition:
+    box-shadow 320ms var(--ease-out, ease),
+    background-color 280ms ease,
+    color 280ms ease,
+    opacity 280ms ease;
+}
+
+.synergi-impact-section--three .synergi-impact-stat:hover:not(.is-active) {
+  background: rgba(40, 171, 229, 0.035);
+  opacity: 0.72;
+}
+
+.synergi-impact-section--three .synergi-impact-stat.is-active,
+.synergi-impact-section--three .synergi-impact-stat[aria-pressed="true"] {
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow:
+    inset 0 0 0 1.5px var(--synergi-impact-accent),
+    0 10px 30px rgba(7, 26, 49, 0.045);
+  color: var(--synergi-impact-ink);
+}
+
+.synergi-impact-section--three[data-active-state]
+  .synergi-impact-stat:not(.is-active) {
+  opacity: 0.48;
+}
+
+.synergi-impact-section--three .synergi-impact-stat.is-active::before,
+.synergi-impact-section--three
+  .synergi-impact-stat[aria-pressed="true"]::before {
+  right: 0;
+  left: 0;
+}
+
+.synergi-impact-section--three .synergi-impact-stat.is-active::after,
+.synergi-impact-section--three
+  .synergi-impact-stat[aria-pressed="true"]::after {
+  background: var(--synergi-impact-accent);
+  box-shadow: 0 0 0 6px rgba(40, 171, 229, 0.12);
+}
+
+.synergi-impact-section--three .synergi-impact-visual {
+  width: 100vw;
+  height: clamp(410px, 45vw, 570px);
+  margin-inline: calc(50% - 50vw);
+  border-top: 0;
+  border-bottom: 1px solid var(--synergi-impact-three-grid);
+  background:
+    radial-gradient(circle at 50% 118%, var(--synergi-impact-three-peach), transparent 34%),
+    radial-gradient(circle at 50% 68%, rgba(40, 171, 229, 0.24), transparent 43%),
+    linear-gradient(180deg, #f8fbfe 0%, var(--synergi-impact-three-sky) 100%);
+  contain: layout paint size;
+  touch-action: pan-y;
+}
+
+.synergi-impact-section--three .synergi-impact-visual::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent calc(25% - 1px),
+      var(--synergi-impact-three-grid) calc(25% - 1px),
+      var(--synergi-impact-three-grid) 25%
+    ),
+    linear-gradient(
+      180deg,
+      var(--synergi-impact-three-grid) 0,
+      transparent 1px,
+      transparent calc(100% - 1px),
+      var(--synergi-impact-three-grid) 100%
+    );
+  box-shadow: none;
+  content: "";
+  pointer-events: none;
+}
+
+.synergi-impact-section--three .synergi-impact-visual::after {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(248, 251, 254, 0.72), transparent 12%, transparent 88%, rgba(248, 251, 254, 0.72)),
+    linear-gradient(180deg, rgba(248, 251, 254, 0.34), transparent 20%, transparent 84%, rgba(233, 247, 252, 0.3));
+  content: "";
+  pointer-events: none;
+}
+
+.synergi-impact-three-canvas {
+  z-index: 2;
+  opacity: 0;
+  filter: saturate(1.08) contrast(1.02);
+  transition:
+    opacity 520ms ease,
+    filter 280ms ease;
+}
+
+.synergi-impact-section--three[data-three-state="ready"]
+  .synergi-impact-three-canvas {
+  opacity: 1;
+}
+
+.synergi-impact-section--three[data-transition-phase="gather"]
+  .synergi-impact-three-canvas {
+  filter: saturate(1.2) brightness(1.08);
+}
+
+.synergi-impact-section--three .synergi-impact-visual-label {
+  z-index: 4;
+  width: min(
+    calc(100% - (2 * var(--gutter, clamp(1.25rem, 4vw, 3.5rem)))),
+    var(--container, 80rem)
+  );
+  margin-inline: auto;
+  color: rgba(7, 26, 49, 0.48);
+}
+
+.synergi-impact-section--three
+  .synergi-impact-visual-label
+  span:last-child {
+  color: var(--synergi-impact-primary);
+}
+
+.synergi-impact-section--three .synergi-impact-three-fallback {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: rgba(7, 26, 49, 0.62);
+  font-size: 0.82rem;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.synergi-impact-section--three[data-three-state="error"]
+  .synergi-impact-three-fallback {
+  opacity: 1;
+}
+
+.elementor-editor-active
+  .synergi-impact-section--three
+  .synergi-impact-three-fallback {
+  opacity: 0.62;
+}
+
+@media (max-width: 64rem) {
+  .synergi-impact-section--three .synergi-impact-visual {
+    height: clamp(360px, 54vw, 480px);
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .synergi-impact-section--three {
+    display: none !important;
+  }
+
+  .synergi-impact-section--three .synergi-impact-visual {
+    height: 350px;
+  }
+
+  .synergi-impact-section--three .synergi-impact-visual-label {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .synergi-impact-section--three
+    .synergi-impact-visual-label
+    span:last-child {
+    max-width: 26ch;
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .synergi-impact-three-canvas {
+    transition-duration: 1ms !important;
+  }
+}
