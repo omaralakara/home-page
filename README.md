@@ -2,6 +2,8 @@
 
 A standalone, responsive homepage redesign prototype for Synergi Business Solutions. It uses semantic HTML, modern CSS, vanilla JavaScript, local images, and lightweight SVG only.
 
+The canonical 2026 content and Elementor blueprint is `HOMEPAGE-STRUCTURE-CONTENT.md`. It supersedes older section-order decisions in the supporting audit notes.
+
 ## Preview
 
 The fastest option is to open `index.html` directly in a browser.
@@ -21,20 +23,21 @@ No package install or build step is required.
 1. **Current issue:** The live homepage has substantial useful content, but it is distributed across repeated sliders, dense text blocks, and sections with weak hierarchy. The SEO H1 also appears after a separate visual hero, delaying the page’s main message.
 2. **Preserved:** Synergi’s audited navy `#1D4E89`, cyan `#28ABE5`, text `#232324`, soft surface `#F3F5F8`, self-hosted Montserrat typography, white wordmark, service offering, partner ecosystem, regional language, article links, navigation, metadata, and footer destinations.
 3. **Reference principles:** Concentrix informed the sharp opening promise, clear service progression, and proof-led pacing. Accenture Managed Services informed the outcome-first pathways and operating-model narrative. Acoup informed the need to establish regional relevance and credibility early.
-4. **Uniquely Synergi:** The hero combines authentic Dubai workplace photography with a direct five-function service rail. It presents Synergi as a boutique regional operating partner without imitating a global consultancy or relying on abstract AI-style graphics.
+4. **Uniquely Synergi:** The hero combines authentic Dubai workplace photography with a direct six-function service journey. It presents Synergi as a boutique regional operating partner without imitating a global consultancy or relying on abstract AI-style graphics.
 5. **SEO:** Existing keyword-focused copy remains in the initial HTML. Every service card and the native benefits disclosure are rendered before JavaScript runs.
 6. **Elementor practicality:** Every section maps to ordinary Elementor containers, headings, buttons, images, icon lists, a lightweight layered card deck, and Loop Grid. The custom interactions require only a small site-wide CSS/JavaScript layer.
-7. **Performance:** There is no framework, slider library, animation library, WebGL, or third-party feed. The partner loop uses one CSS animation. The figures section uses a single Canvas 2D surface with 340 particles on desktop, 220 on tablet, and 120 on mobile. It pauses offscreen and when the tab is hidden, uses predetermined connections, caps pixel density at 1.5, and reduces its frame budget on smaller screens. Reduced-motion visitors receive immediate static shapes.
+7. **Performance:** There is no framework, slider library, animation plugin, WebGL dependency, or third-party social feed on the homepage. The retained Synergi in Numbers design uses one decorative Canvas 2D surface, pauses offscreen, respects reduced motion, and keeps every metric as visible HTML text.
 
 ## Main interactions
 
 - Transparent header becomes a dark blurred header after scrolling.
 - Desktop dropdown menus and a full-screen accessible mobile menu.
-- Image-led hero fits inside the initial desktop, tablet, and mobile viewport. Its rotating final phrase reserves a fixed width and never wraps onto a new line.
-- The partner ecosystem sits directly below the hero in a seamless, pause-on-hover logo loop with a reduced-motion scroll fallback.
-- Guided business-goal tabs support click, touch, and arrow-key navigation.
+- Image-led hero fits inside the initial desktop, tablet, and mobile viewport with one fixed, search-focused H1.
+- A separate supporting line cycles through manual work, silos, delays, and unnecessary overhead without changing the H1 or accessible sentence.
+- The partner ecosystem appears after Synergi in Numbers in a seamless, pause-on-hover logo loop with a reduced-motion scroll fallback.
 - Core BPO services use an animated layered capability deck with previous/next controls, numbered direct-selection buttons, arrow keys, touch swipes, live announcements, and a fully visible no-JavaScript fallback.
-- Four verified Synergi figures control a lightweight globe and network particle field. The same particles interpolate between client, delivery-hub, experience-ring, and efficiency configurations, with keyboard, hover, and touch controls.
+- Industries use a six-image expandable rail: the selected image becomes the wide lead panel, previews remain visible, click and arrow controls wrap continuously, and all six H3 descriptions remain in the initial HTML.
+- Four verified Synergi figures sit above a lightweight decorative particle field; the figures remain readable without animation.
 - Native SEO disclosure keeps all benefits content present in the document.
 - The podcast artwork is a video-ready interaction: it links to the approved episode hub without autoplaying or loading a third-party player.
 - Scroll reveal uses `IntersectionObserver` and is disabled for reduced motion.
@@ -43,9 +46,10 @@ No package install or build step is required.
 ## Content requiring Synergi approval
 
 - Latest podcast episode title, artwork selection, destination, and supporting text. The concept uses the required approval marker.
-- Any future numerical impact claims. The prototype intentionally uses qualitative proof points only.
+- Public approval of the 50+ clients, 5 locations, 100+ combined years, and 10–15% direct savings figures reported in the Company Overview dated 25 June 2026, including the correct savings qualifier.
 - Final approval of the visible article selection and whether it should be date-sorted automatically.
-- Final approval of partner logo files, current outbound links, and partner ordering.
+- Final approval of partner logo files and ordering, plus creation or confirmation of one internal Partners page.
+- Creation or confirmation of the Project Management service page.
 - Confirmation that the five Global Locations entries remain current before launch.
 - Approval of the five location photographs or replacement with Synergi-owned photography before launch.
 - Confirmation that the live footer’s 2026 copyright year should remain static or become dynamic.
@@ -64,7 +68,8 @@ All reused files were copied into `assets/images`; the prototype does not hotlin
 ## Original concept assets
 
 - `assets/svg/connection-field.svg`
-- Five lightweight service icons in `assets/icons`
+- Six lightweight service icons in `assets/icons`
+- Six bespoke, optimized WebP industry scenes in `assets/images/industry-*.webp`
 
 ## Recommended new photography
 
@@ -104,10 +109,13 @@ synergi-homepage-concept/
 │   ├── variables.css
 │   ├── styles.css
 │   ├── responsive.css
-│   └── impact-section.css
+│   ├── executive-redesign.css
+│   ├── impact-section.css
+│   └── impact-three-section.css
 ├── js/
 │   ├── main.js
-│   └── impact-section.js
+│   ├── impact-section.js
+│   └── impact-three-section.js
 ├── assets/
 │   ├── images/
 │   ├── icons/
@@ -115,7 +123,9 @@ synergi-homepage-concept/
 │   ├── svg/
 │   └── video/
 ├── screenshots/
+├── validate_structure.py
 ├── README.md
+├── HOMEPAGE-STRUCTURE-CONTENT.md
 ├── SYNERGI-IMPACT-INSTALLATION.md
 ├── ELEMENTOR-START-HERE.md
 ├── ELEMENTOR-IMPLEMENTATION.md
@@ -123,13 +133,15 @@ synergi-homepage-concept/
 └── CONTENT-MAPPING.md
 ```
 
+The `impact-*` component files are retained only as archived design references. `index.html` no longer loads the removed interactive Numbers option.
+
 ## Production notes
 
 - The prototype preserves the live canonical URL for migration review.
 - Replace the static insight cards with an Elementor Pro Loop Grid.
-- Keep social links in the footer. Add a live social feed only if Synergi later confirms that its value justifies the performance and consent cost.
+- Keep the native Latest from Social Media cards and footer links. Use manually curated content unless Synergi later approves a controlled feed and its performance/consent cost.
 - Keep the current WordPress URLs. Do not recreate pages under new slugs.
-- Keep the partner motion in CSS and the figures animation in the existing Canvas 2D controller. Do not replace either with a slider plugin, WebGL, or a third-party animation library.
+- Keep partner motion in CSS and ship only the retained Canvas 2D numbers treatment with its accessible static fallback.
 - Re-test structured data, canonical, title, description, heading order, alt text, analytics, and consent after the design is rebuilt in WordPress.
 
 ## Live-site safety

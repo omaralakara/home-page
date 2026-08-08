@@ -1,132 +1,101 @@
 # Elementor Start Here
 
-This revision is designed to be rebuilt with native Elementor Containers, Heading, Text Editor, Image, and Button widgets. The only custom behavior is one small site-wide CSS/JavaScript layer; no slider, animation, or background-effect plugin is required.
+Start with `HOMEPAGE-STRUCTURE-CONTENT.md`. It is the canonical 2026 section order, approved working copy, heading map, link map, Elementor widget map, SEO checklist, and client-approval list.
 
-## Recommended build order
+This homepage should be built with native Elementor Containers, Heading, Text Editor, Image, Icon List, Button, and Loop Grid widgets. Custom HTML is reserved for decorative canvases only. Do not place the complete homepage or its search-relevant copy in one HTML widget.
+
+## Build order
 
 1. Header template
-2. Hero
-3. Partner ecosystem marquee
-4. What does your business need next?
-5. Core BPO Services
-6. Connected operations network
-7. Executive Podcast
-8. Shared Services
-9. Regional presence
-10. Blog Loop Grid
-11. Final CTA
-12. Footer template
-
-Keep every major section as a top-level Elementor Container. Do not place the whole page in one HTML widget.
+2. Hero with the single H1 and one-sentence business brief
+3. Six Core BPO Services
+4. Six Industries We Serve groups
+5. Why Choose Synergi
+6. Synergi in Numbers
+7. Nine-partner internal marquee
+8. Executive Podcast
+9. Shared Services regional SEO section
+10. Five Locations with entity and delivered function
+11. Upcoming Events
+12. Insights Loop Grid
+13. Latest from Social Media
+14. Final CTA
+15. Footer template
 
 ## Existing editable helpers
 
-The WordPress folder already includes:
+The WordPress folder contains:
 
-- `synergi-build-editable-elementor-draft.php` for the editable Core BPO Services and Regional Presence container trees.
-- `synergi-homepage-concept-sections.php` as a shortcode-based fallback for those two interaction-heavy sections.
+- `synergi-build-editable-elementor-draft.php` for native editable Services and Locations trees.
+- `synergi-homepage-concept-sections.php` as a shortcode review fallback for Services and Locations.
 
-Use the editable builder first. Keep the shortcode only as a fallback or a fast review method.
+The shortcode is a preview fallback, not the final editing model. Build all indexable copy as native Elementor widgets. Parameterize the target page ID, media IDs, page URLs, and profile URLs before production; do not depend on draft ID `10382`.
 
 ## Hero
 
-Create one full-width Container with class:
+Use a Heading widget set to `H1` with this exact text:
 
-`hero`
+**BPO Services in UAE & the Gulf to Power Your Business**
 
-Add the local WebP as its background or as an Image widget with class `hero-media`. Add one overlay Container with class `hero-shade`, then one constrained inner Container with classes:
+Place this one Text Editor sentence directly beneath it:
 
-`hero-layout container`
+**Synergi runs and transforms non-core business functions through BPO, consulting, manpower augmentation, and technology-enabled shared services across the Gulf.**
 
-Use a real Heading widget set to `h1`. Its content should preserve this structure:
+Do not add a second heading, rotating H1 phrase, trust-stat row, or legacy keyword paragraph inside the hero.
 
-```html
-Make the work behind growth easier to run
-<span class="hero-type-line">
-  <span>by removing</span>
-  <span class="hero-word-slot">
-    <span class="hero-typeword" data-hero-typewords="manual work,silos,delays,extra overhead">manual work</span>
-    <span class="hero-caret" aria-hidden="true"></span>
-  </span>
-</span>
-```
+Add a separate supporting paragraph after the stable lead: **Helping your business remove** `manual work`, `silos`, `delays`, and `unnecessary overhead`. Keep the full H1 and lead unchanged in the initial HTML, place the changing visual word in an `aria-hidden` span, and include the complete stable sentence in an `.sr-only` span for assistive technology. This gives the desired animation without deleting or replacing the SEO topic.
 
-Do not add the old eyebrow. Do not add a statistic or trust rail. The `hero-word-slot` reserves the width of the longest phrase so the heading never reflows when the word changes.
+## Services
 
-## Partner ecosystem marquee
+Create six native service-card Containers: Accounting, Human Resources, Procurement, Technology & AI, Marketing, and Project Management. Each card title is an H3 and each card contains a real link.
 
-Place this section immediately after the hero. Use the top-level class:
+The Project Management page URL is proposed and must be confirmed or created before launch. All six cards should exist in the initial HTML even if JavaScript presents them as a layered deck.
 
-`partner-marquee-section`
+## Industries carousel
 
-Build one intro Container with classes:
+Build six native nested Containers inside one rail Container. Every item uses an Image widget, an H3 Heading widget, and a Text Editor sentence. Assign stable classes/data attributes through **Advanced → CSS Classes** and **Custom Attributes**, then add two real Button controls for previous and next.
 
-`partner-marquee-intro container`
+The first item is wide and the remaining five are narrow image previews. Clicking a preview promotes it to the wide position; the controls and keyboard arrows wrap continuously. On mobile, keep a wide active card plus touch-sized horizontal previews. Do not use Elementor Loop Carousel/Swiper for this treatment because cloned slides can repeat indexable headings. Keep the controller once in the child theme or Elementor Custom Code, not inside every card.
 
-Below it, create a horizontal Container with class `partner-marquee`. Inside, create two identical horizontal Containers with class `partner-marquee-track`.
+## Partners
 
-- First track: nine linked Image widgets with visible partner names or category labels.
-- Second track: duplicate visual content, remove links, and add `aria-hidden="true"` in Advanced → Attributes.
-- Keep the partner order identical in both tracks for a seamless loop.
+Create nine linked Image widgets in the primary track. Every primary logo links to the one internal Partners page. Create a second visual track only for the seamless loop, remove its links, and set `aria-hidden="true"`.
 
-The animation must pause when a logo is hovered or keyboard-focused. Reduced-motion visitors receive one normal horizontal scroll row.
+The proposed `/partners/` page must be confirmed or created before launch. Do not restore the old external logo destinations on the homepage.
 
-## Interactive Synergi figures
+## Synergi in Numbers
 
-Use the complete component in `components/synergi-impact-section.html`. For the first Elementor version, the most reliable approach is one HTML widget containing that semantic markup.
+Use the retained editorial design with native text and its decorative Canvas 2D layer:
 
-Every component class is prefixed with `synergi-impact-`. Keep the top-level `data-synergi-impact` attribute, the four `data-synergi-impact-state` values, and the canvas attribute unchanged. The four statistics are real buttons, so keyboard focus, Enter/Space activation, and mobile tap toggling work without an Elementor interaction add-on.
+- 50+ clients served
+- 5 global delivery locations
+- 100+ combined years of experience
+- 10–15% direct savings
+- Visible source: Company Overview dated 25 June 2026
 
-Enqueue these files once through the child theme or a site-level custom-code manager:
+Values and labels are normal text, not headings. The decorative canvas is `aria-hidden`, never replaces the text, remains available on mobile, and honors reduced motion.
 
-- `css/impact-section.css`
-- `js/impact-section.js`
+## Events, insights, and social
 
-The canvas uses 340 particles on desktop, 220 on tablet, and 120 on mobile. The same particles interpolate between all saved target configurations in 850 milliseconds; they are not destroyed and recreated during a morph. Connections are predetermined, device pixel density is capped at 1.5, and rendering pauses outside the viewport or while the browser tab is hidden.
+- Use manual native Event cards until a genuine Event post type or Media source exists; never invent events or dates.
+- Use Elementor Loop Grid for Insights so current posts can be queried.
+- Use three native, manually curated Social cards for LinkedIn, Instagram, and YouTube. Do not rely on an embedded feed for all visible content.
 
-Canvas is appropriate here because it is decorative and has `aria-hidden="true"`; the four meaningful figures remain accessible and indexable in native HTML. Reduced-motion visitors receive static configurations with immediate state changes.
+## Custom-code boundary
 
-See `SYNERGI-IMPACT-INSTALLATION.md` for the full installation and configuration notes.
+Keep shared CSS and deferred JavaScript in the child theme or one approved site-level custom-code location. Do not paste duplicate scripts into widgets. JavaScript may enhance the service deck, industries rail, partner motion, counters, and decorative number visual, but all meaningful copy and links must work without it.
 
-## Final CTA
+## Acceptance check
 
-Place the CTA directly after the Blog Loop Grid and before the footer. Use:
-
-`section final-cta`
-
-The inner Container uses:
-
-`container final-cta-inner`
-
-Keep two columns on desktop: message on the left and two buttons on the right. Stack on mobile. Use the existing WordPress Contact and Services URLs.
-
-## Where custom code belongs
-
-Keep one CSS file and one deferred JavaScript file in the child theme, then enqueue them once. Do not paste duplicate scripts into individual Elementor widgets.
-
-For a first local Elementor test, the CSS rules are in:
-
-- `css/variables.css`
-- `css/styles.css`
-- `css/responsive.css`
-- `css/executive-redesign.css`
-
-The interaction controller is:
-
-- `js/main.js`
-
-For production, extract only the classes used by the final Elementor page after the layout is approved. This keeps the first experiment fast while avoiding unnecessary CSS long term.
-
-## Quick acceptance check
-
-- No “50+ clients served” row appears in the hero.
-- No “Shared services for UAE and Gulf operators” eyebrow appears.
-- The rotating phrase never changes the H1 height.
-- Partner logos move directly below the hero.
-- “What does your business need next?” and “Our Core BPO Services” are unchanged.
-- The old route/design board is absent.
-- The four figures work with mouse, keyboard, touch, and reduced motion.
-- Dots collapse to the center and reshape when a different figure is selected.
-- Podcast, Shared Services, Regional Presence, and Blog remain in place.
-- The final CTA appears before the footer.
-- No horizontal page overflow at 390px.
+- One H1 only, using the approved regional BPO wording.
+- Six service H3 cards and six industry H3 cards.
+- Six unique industry images, working click/arrow/keyboard selection, and wraparound from item 6 to item 1.
+- Four Why Choose H3 reasons.
+- The single Synergi in Numbers section shows the dated source.
+- Nine partner logos point to one confirmed internal page.
+- Five city H3 cards each show entity and function.
+- Upcoming Events points to Media without fictional details.
+- Social cards point to approved profiles and Contact Us.
+- Shared Services, KSA/Riyadh, Procurement, article, Podcast, Media, Global Locations, and Contact links remain crawlable.
+- Title, description, canonical, and schema ownership remain with the SEO plugin.
+- No horizontal overflow at 390px; all controls work by keyboard and with reduced motion.

@@ -243,26 +243,6 @@
     display: none;
   }
 
-  .needs-journey {
-    grid-template-columns: 1fr;
-  }
-
-  .needs-tabs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-right: 0;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .need-tab {
-    min-height: 4.5rem;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .need-tab:last-child {
-    grid-column: 1 / -1;
-  }
-
   .service-card {
     min-height: 0;
     grid-template-columns: 1fr;
@@ -444,36 +424,6 @@
 
   .node-index {
     font-size: 0.55rem;
-  }
-
-  .needs-journey {
-    min-height: 0;
-    border-radius: var(--radius-lg);
-  }
-
-  .needs-tabs {
-    display: flex;
-    padding: 0.75rem;
-  }
-
-  .need-tab,
-  .need-tab:last-child {
-    grid-column: auto;
-    min-height: 3.8rem;
-    flex: 0 0 auto;
-  }
-
-  .need-tab::after {
-    display: none;
-  }
-
-  .needs-results {
-    min-height: 30rem;
-    padding: 2rem 1.25rem;
-  }
-
-  .need-panel h3 {
-    font-size: var(--step-2);
   }
 
   .service-carousel-head {
@@ -743,7 +693,7 @@
 
   .service-pagination,
   .js .service-pagination {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
   }
 
   .service-pagination button {
@@ -829,7 +779,7 @@
 
   .service-pagination,
   .js .service-pagination {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
   }
 
   .service-pagination button {

@@ -1,5 +1,9 @@
 # SEO Preservation Plan
 
+## 4 August 2026 implementation note
+
+Use `HOMEPAGE-STRUCTURE-CONTENT.md` as the canonical current structure. It adds the requested six-service, six-industry, separate Why Choose, Synergi in Numbers, Partners, five-location, Events, and Social sections while retaining the safeguards in this audit. The interactive Numbers review option is removed. Any older five-card or removed-section language below is historical audit context, not the final build instruction.
+
 Audit date: 26 July 2026
 Audited URL: `https://synergi.ae/`
 Method: rendered desktop DOM, metadata, structured data, link, heading, image, and computed-style inspection.
@@ -10,7 +14,7 @@ The redesign is a presentation change, not a search-strategy change. The product
 
 The prototype deliberately keeps keyword-focused content in the initial HTML. JavaScript only changes visual state. Core service and benefits content is not requested from an API after page load.
 
-The particle canvas is a decorative progressive enhancement rather than a replacement for indexable copy. All four Synergi figures remain native button text in the server HTML, and the interaction does not fetch or generate business content.
+The particle canvas is a decorative progressive enhancement rather than a replacement for indexable copy. All four Synergi figures remain native text in the server HTML, and the animation does not fetch or generate business content.
 
 ## Existing metadata inventory
 
@@ -63,22 +67,25 @@ The Industries introduction is currently an H6. The whole Industries container h
 The production page should use:
 
 - H1: BPO Services in UAE & the Gulf to Power Your Business
-- H2: What does your business need next?
-  - H3: One heading for each goal panel
 - H2: Our Core BPO Services
-  - H3: Five service-card titles
-- H2: Regional context. Enterprise discipline.
-  - H3: Why Choose Synergi for BPO in UAE and the Gulf
-- H2: Industries We Serve in UAE and the Gulf
-  - H3: Five industry names
-- H2: Conversations for people who run businesses.
+  - H3: Six service-card titles
+- H2: Industries We Serve in the UAE and the Gulf
+  - H3: Six requested industry groups
+- H2: Why Choose Synergi for BPO in the UAE and the Gulf
+  - H3: Four reasons to choose Synergi
+- H2: Synergi in Numbers
+- H2: Our Partners
+- H2: The Synergi Executive Podcast
 - H2: Transform Your Business with Shared Services
   - H3: Connected support across Gulf markets
-- H2: Local understanding. Connected reach.
-- H2: Technology and expertise, connected.
-- H2: Ideas for operators and decision-makers.
+- H2: Our Locations
+  - H3: Five city names
+- H2: Upcoming Events
+- H2: Ideas for Operators and Decision-makers
   - H3: Three current article titles
-- H2: Make the business simpler to run.
+- H2: Latest from Social Media
+  - H3: LinkedIn, Instagram, and YouTube card titles
+- H2: Make the Work Behind Growth Easier to Run
 
 Footer column headings may remain H2 because the footer is a separate landmark. They must not replace the visible page hierarchy.
 
@@ -88,7 +95,7 @@ Footer column headings may remain H2 because the footer is a separate landmark. 
 
 > At Synergi, we deliver reliable BPO services in UAE and the Gulf, helping companies streamline operations, cut costs, and focus on growth. From business outsourcing in UAE and across the Gulf to specialized back-office services and customer support outsourcing, we provide solutions tailored to your business needs. Whether you are a startup in Dubai, a growing company in Doha, or an established enterprise in Riyadh, Synergi ensures efficiency and scalability across the region.
 
-**Handling:** The hero uses a concise visible summary so the complete interaction fits within the initial viewport. The full original paragraph remains visible in the Shared Services SEO section.
+**Handling:** The legacy paragraph itself is removed from beneath the hero. Its important UAE, Gulf, shared-services, Procurement, customer-support, KSA/Riyadh, and growth concepts are redistributed naturally across the one-sentence brief, Industries, Shared Services, and closing CTA sections.
 
 ### Core service lists
 
@@ -140,7 +147,7 @@ Footer column headings may remain H2 because the footer is a separate landmark. 
 - Manpower augmentation
 - CXO as a service
 
-**Handling:** Every item remains in the initial HTML inside the five carousel cards. The prototype corrects the visible spelling of “managament” to “management”; obtain editorial approval before production.
+**Handling:** Every item remains in the initial HTML inside the service cards. Project Management is added as card six from the Company Overview. The prototype corrects the visible spelling of “managament” to “management”; obtain editorial approval before production.
 
 ### Expertise and impact copy
 
@@ -260,6 +267,8 @@ The redesign standardizes the Podcast destination to `/executive-podcast/`, whic
 
 ## Partner-link inventory
 
+These external URLs are retained as audit history and may be used on the dedicated Partners page. On the homepage, all nine primary logo links now point to the proposed internal `/partners/` destination, which must be confirmed or created before launch.
+
 | Partner | URL |
 |---|---|
 | innovawave | `https://innovawave.com/` |
@@ -272,7 +281,7 @@ The redesign standardizes the Podcast destination to `/executive-podcast/`, whic
 | Menaitech | `https://menaitech.com/` |
 | Zoho | `https://www.zoho.com/` |
 
-Use `rel="noopener"` for links opened in a new tab. Do not add `nofollow` unless the SEO owner has a policy reason.
+Use `rel="noopener"` for any external links opened in a new tab on the Partners page. Do not add `nofollow` unless the SEO owner has a policy reason.
 
 ## Social-link inventory
 
@@ -322,25 +331,24 @@ Production recommendations:
 3. Keep the Organization name, logo, URL, and social profiles consistent.
 4. Review the primary image after the hero is approved.
 5. Add `PodcastSeries` or `PodcastEpisode` schema only on the relevant podcast templates and only when complete, verified data is available.
-6. Do not add fake FAQ schema. The guided journey and service disclosures are not automatically FAQs.
+6. Do not add fake FAQ schema. The service disclosures are not automatically FAQs.
 7. Verify schema after migration with Google Rich Results Test and Schema.org Validator.
 
 ## Carousel, disclosure, and tab indexability
 
-- All five core service cards/lists and the benefits disclosure are present in the original HTML.
+- All six core service cards/lists and the benefits disclosure are present in the revised HTML.
 - Native `<details>` is acceptable for progressively disclosed content.
 - Carousel and Elementor tab/disclosure output must be checked in page source, not only the browser inspector.
 - Do not fetch SEO copy after click.
 - Do not apply responsive hide classes to keyword content.
 - Do not use `display:none` on large keyword blocks as an SEO technique. Closed disclosure presentation is acceptable only when the content is user-accessible and present in source.
-- The guided-journey panels are supplementary and do not replace the visible service sections.
 
 ## JavaScript-rendering considerations
 
 - Navigation and all primary content work without JavaScript.
-- JavaScript updates the hero service summary but every service has a visible destination and the full lists are rendered later.
-- JavaScript changes the layered position of the service cards and manages inactive-card focus. Without JavaScript, all five cards render as a normal vertical grid.
-- JavaScript coordinates which business-goal panel is visually active; all panels exist in HTML.
+- The hero H1 and one-sentence brief are fixed native HTML and do not depend on JavaScript.
+- The deleting/repeating hero words are a separate `aria-hidden` visual enhancement. A stable complete sentence remains in the HTML, and reduced-motion visitors receive the initial phrase without animation.
+- JavaScript changes the layered position of the service cards and manages inactive-card focus. Without JavaScript, all six cards render as a normal vertical grid.
 - Scroll reveal must never leave content transparent when the observer is unavailable or reduced motion is enabled.
 - Production caching/minification must not delay the script in a way that traps content at opacity zero.
 

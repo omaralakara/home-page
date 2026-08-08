@@ -107,67 +107,167 @@ window.addEventListener("scroll", setHeaderState, { passive: true });
 setHeaderState();
 syncNavigationInteractivity();
 
-const needTabs = [...document.querySelectorAll(".need-tab")];
-const needPanels = [...document.querySelectorAll(".need-panel")];
-const needQuestion = document.querySelector(".needs-prompt [data-need-question]");
+const partnerMarquee = document.querySelector("[data-partner-marquee]");
 
-function selectNeed(selectedTab, moveFocus = false) {
-  const targetId = selectedTab.getAttribute("aria-controls");
+if (partnerMarquee) {
+  const partnerTrack = partnerMarquee.querySelector(".partner-marquee-track");
+  const reducedPartnerMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let partnerLogos = [];
+  let partnerLoopWidth = 0;
+  let partnerPointerId = null;
+  let partnerPointerStartX = 0;
+  let partnerStartScrollLeft = 0;
+  let partnerHasDragged = false;
+  let partnerIsDragging = false;
+  let partnerIsHovered = false;
+  let partnerPreviousFrame = null;
 
-  needTabs.forEach((tab) => {
-    const active = tab === selectedTab;
-    tab.classList.toggle("is-active", active);
-    tab.setAttribute("aria-selected", String(active));
-    tab.tabIndex = active ? 0 : -1;
-  });
+  if (partnerTrack) {
+    [...partnerTrack.querySelectorAll("[data-partner-logo]")].forEach(
+      (logo, index) => {
+        logo.dataset.partnerLogoId = String(index);
+      },
+    );
 
-  needPanels.forEach((panel) => {
-    panel.classList.toggle("is-active", panel.id === targetId);
-  });
+    ["beforebegin", "afterend"].forEach((position) => {
+      const duplicateTrack = partnerTrack.cloneNode(true);
+      duplicateTrack.setAttribute("aria-hidden", "true");
+      duplicateTrack.querySelectorAll("a").forEach((logo) => {
+        logo.tabIndex = -1;
+      });
+      partnerTrack.insertAdjacentElement(position, duplicateTrack);
+    });
 
-  if (needQuestion && selectedTab.dataset.needQuestion) {
-    needQuestion.textContent = selectedTab.dataset.needQuestion;
+    partnerLogos = [...partnerMarquee.querySelectorAll("[data-partner-logo]")];
   }
 
-  if (moveFocus) selectedTab.focus();
-}
+  function highlightPartnerLogo(logo) {
+    partnerIsHovered = Boolean(logo);
+    partnerMarquee.classList.toggle("is-logo-paused", partnerIsHovered);
+  }
 
-needTabs.forEach((tab, index) => {
-  tab.addEventListener("click", () => selectNeed(tab));
-  tab.addEventListener("keydown", (event) => {
-    if (!["ArrowDown", "ArrowRight", "ArrowUp", "ArrowLeft", "Home", "End"].includes(event.key)) {
-      return;
-    }
-
-    event.preventDefault();
-    let nextIndex = index;
-
-    if (event.key === "ArrowDown" || event.key === "ArrowRight") {
-      nextIndex = (index + 1) % needTabs.length;
-    } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
-      nextIndex = (index - 1 + needTabs.length) % needTabs.length;
-    } else if (event.key === "Home") {
-      nextIndex = 0;
-    } else if (event.key === "End") {
-      nextIndex = needTabs.length - 1;
-    }
-
-    selectNeed(needTabs[nextIndex], true);
+  partnerLogos.forEach((logo) => {
+    logo.addEventListener("pointerenter", () => highlightPartnerLogo(logo));
+    logo.addEventListener("pointerleave", () => {
+      if (!partnerMarquee.matches(":focus-within")) highlightPartnerLogo(null);
+    });
+    logo.addEventListener("focus", () => highlightPartnerLogo(logo));
+    logo.addEventListener("blur", () => {
+      window.setTimeout(() => {
+        if (!partnerMarquee.matches(":focus-within")) highlightPartnerLogo(null);
+      }, 0);
+    });
   });
-});
+
+  partnerMarquee.addEventListener("pointerdown", (event) => {
+    if (event.button !== undefined && event.button !== 0) return;
+    partnerPointerId = event.pointerId;
+    partnerPointerStartX = event.clientX;
+    partnerStartScrollLeft = partnerMarquee.scrollLeft;
+    partnerHasDragged = false;
+    partnerIsDragging = true;
+    partnerMarquee.classList.add("is-dragging");
+    partnerMarquee.setPointerCapture?.(event.pointerId);
+  });
+
+  partnerMarquee.addEventListener(
+    "pointermove",
+    (event) => {
+      if (event.pointerId !== partnerPointerId) return;
+      const distance = event.clientX - partnerPointerStartX;
+
+      if (Math.abs(distance) > 4) {
+        partnerHasDragged = true;
+        partnerMarquee.scrollLeft = partnerStartScrollLeft - distance;
+        keepPartnerMarqueeInLoop();
+        event.preventDefault();
+      }
+    },
+    { passive: false },
+  );
+
+  function finishPartnerDrag(event) {
+    if (event.pointerId !== partnerPointerId) return;
+    partnerMarquee.releasePointerCapture?.(event.pointerId);
+    partnerMarquee.classList.remove("is-dragging");
+    partnerPointerId = null;
+    partnerIsDragging = false;
+  }
+
+  partnerMarquee.addEventListener("pointerup", finishPartnerDrag);
+  partnerMarquee.addEventListener("pointercancel", finishPartnerDrag);
+  partnerMarquee.addEventListener("dragstart", (event) => event.preventDefault());
+  partnerMarquee.addEventListener(
+    "click",
+    (event) => {
+      if (!partnerHasDragged) return;
+      event.preventDefault();
+      event.stopPropagation();
+      partnerHasDragged = false;
+    },
+    true,
+  );
+
+  function measurePartnerMarquee(resetPosition = false) {
+    if (!partnerTrack) return;
+    const nextLoopWidth = partnerTrack.getBoundingClientRect().width;
+    if (!nextLoopWidth) return;
+
+    const previousOffset = partnerLoopWidth
+      ? partnerMarquee.scrollLeft - partnerLoopWidth
+      : 0;
+    partnerLoopWidth = nextLoopWidth;
+    partnerMarquee.scrollLeft = resetPosition
+      ? partnerLoopWidth
+      : partnerLoopWidth + previousOffset;
+    keepPartnerMarqueeInLoop();
+  }
+
+  function keepPartnerMarqueeInLoop() {
+    if (!partnerLoopWidth) return;
+    if (partnerMarquee.scrollLeft >= partnerLoopWidth * 2) {
+      partnerMarquee.scrollLeft -= partnerLoopWidth;
+    } else if (partnerMarquee.scrollLeft <= 0) {
+      partnerMarquee.scrollLeft += partnerLoopWidth;
+    }
+  }
+
+  function movePartnerMarquee(timestamp) {
+    if (partnerPreviousFrame === null) partnerPreviousFrame = timestamp;
+    const elapsed = Math.min(timestamp - partnerPreviousFrame, 48);
+    partnerPreviousFrame = timestamp;
+
+    if (
+      !reducedPartnerMotion.matches &&
+      !partnerIsDragging &&
+      !partnerIsHovered &&
+      partnerLoopWidth
+    ) {
+      partnerMarquee.scrollLeft += elapsed * 0.052;
+      keepPartnerMarqueeInLoop();
+    }
+
+    window.requestAnimationFrame(movePartnerMarquee);
+  }
+
+  measurePartnerMarquee(true);
+  window.addEventListener("resize", () => measurePartnerMarquee());
+  window.requestAnimationFrame(movePartnerMarquee);
+}
 
 const serviceCarousel = document.querySelector("[data-service-carousel]");
 
 if (serviceCarousel) {
   const serviceCards = [...serviceCarousel.querySelectorAll("[data-service-card]")];
-  const serviceTabs = [...serviceCarousel.querySelectorAll("[data-service-go]")];
   const previousService = serviceCarousel.querySelector("[data-service-prev]");
   const nextService = serviceCarousel.querySelector("[data-service-next]");
-  const currentService = serviceCarousel.querySelector("[data-service-current]");
   const serviceStatus = serviceCarousel.querySelector("[data-service-status]");
   const serviceViewport = serviceCarousel.querySelector(".service-viewport");
   let activeServiceIndex = 0;
   let pointerStartX = null;
+  let pointerId = null;
+  let dragDistance = 0;
+  let suppressClick = false;
 
   function showServiceCard(index, announce = true) {
     activeServiceIndex = (index + serviceCards.length) % serviceCards.length;
@@ -184,19 +284,11 @@ if (serviceCarousel) {
       card.inert = !active;
     });
 
-    serviceTabs.forEach((tab, tabIndex) => {
-      const active = tabIndex === activeServiceIndex;
-      tab.classList.toggle("is-active", active);
-      tab.setAttribute("aria-pressed", String(active));
-    });
-
-    currentService.textContent = String(activeServiceIndex + 1).padStart(2, "0");
-
     if (announce) {
       const serviceName = serviceCards[activeServiceIndex]
         .querySelector("h3")
         .textContent.trim();
-      serviceStatus.textContent = `Showing ${serviceName}, service ${activeServiceIndex + 1} of ${serviceCards.length}.`;
+      serviceStatus.textContent = `Showing ${serviceName}.`;
     }
   }
 
@@ -206,12 +298,6 @@ if (serviceCarousel) {
 
   nextService.addEventListener("click", () => {
     showServiceCard(activeServiceIndex + 1);
-  });
-
-  serviceTabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      showServiceCard(Number(tab.dataset.serviceGo));
-    });
   });
 
   serviceViewport.addEventListener("keydown", (event) => {
@@ -227,25 +313,452 @@ if (serviceCarousel) {
   serviceViewport.addEventListener(
     "pointerdown",
     (event) => {
-      if (event.pointerType === "mouse") return;
+      if (event.button !== undefined && event.button !== 0) return;
       pointerStartX = event.clientX;
+      pointerId = event.pointerId;
+      dragDistance = 0;
+      suppressClick = false;
+      serviceViewport.classList.add("is-dragging");
+      serviceViewport.setPointerCapture?.(event.pointerId);
     },
-    { passive: true },
   );
 
   serviceViewport.addEventListener(
-    "pointerup",
+    "pointermove",
     (event) => {
-      if (pointerStartX === null) return;
-      const distance = event.clientX - pointerStartX;
-      pointerStartX = null;
-      if (Math.abs(distance) < 45) return;
-      showServiceCard(activeServiceIndex + (distance < 0 ? 1 : -1));
+      if (pointerStartX === null || event.pointerId !== pointerId) return;
+      dragDistance = event.clientX - pointerStartX;
+      if (Math.abs(dragDistance) > 8) {
+        suppressClick = true;
+        event.preventDefault();
+      }
     },
-    { passive: true },
+    { passive: false },
+  );
+
+  function finishServicePointer(event) {
+    if (pointerStartX === null || event.pointerId !== pointerId) return;
+    const distance = dragDistance || event.clientX - pointerStartX;
+    const shouldAdvance =
+      event.type === "pointerup" && Math.abs(distance) >= 45;
+
+    serviceViewport.releasePointerCapture?.(event.pointerId);
+    serviceViewport.classList.remove("is-dragging");
+    pointerStartX = null;
+    pointerId = null;
+    dragDistance = 0;
+    if (event.type !== "pointerup") suppressClick = false;
+
+    if (shouldAdvance) {
+      showServiceCard(activeServiceIndex + (distance < 0 ? 1 : -1));
+    }
+  }
+
+  serviceViewport.addEventListener("pointerup", finishServicePointer);
+  serviceViewport.addEventListener("pointercancel", finishServicePointer);
+  serviceViewport.addEventListener(
+    "click",
+    (event) => {
+      if (!suppressClick) return;
+      event.preventDefault();
+      event.stopPropagation();
+      suppressClick = false;
+    },
+    true,
   );
 
   showServiceCard(0, false);
+}
+
+const industryShowcase = document.querySelector("[data-industry-showcase]");
+
+if (industryShowcase) {
+  const industryRail = industryShowcase.querySelector("[data-industry-rail]");
+  const industryCards = [
+    ...industryShowcase.querySelectorAll("[data-industry-card]"),
+  ];
+  const industryButtons = industryCards.map((card) =>
+    card.querySelector("[data-industry-go]"),
+  );
+  const previousIndustry = industryShowcase.querySelector(
+    "[data-industry-prev]",
+  );
+  const nextIndustry = industryShowcase.querySelector("[data-industry-next]");
+  const currentIndustry = industryShowcase.querySelector(
+    "[data-industry-current]",
+  );
+  const industryStatus = industryShowcase.querySelector(
+    "[data-industry-status]",
+  );
+  const compactIndustryRail = window.matchMedia("(max-width: 61.25rem)");
+  let activeIndustryIndex = 0;
+
+  function showIndustry(index, announce = true, moveFocus = false) {
+    const nextIndustryIndex =
+      (index + industryCards.length) % industryCards.length;
+
+    activeIndustryIndex = nextIndustryIndex;
+
+    industryCards.forEach((card, cardIndex) => {
+      const active = cardIndex === activeIndustryIndex;
+      const title = card.querySelector("h3").textContent.trim();
+
+      card.classList.toggle("is-active", active);
+      card.setAttribute(
+        "aria-label",
+        `${cardIndex + 1} of ${industryCards.length}: ${title}`,
+      );
+      industryButtons[cardIndex].setAttribute(
+        "aria-pressed",
+        String(active),
+      );
+    });
+
+    if (currentIndustry) {
+      currentIndustry.textContent = String(activeIndustryIndex + 1).padStart(
+        2,
+        "0",
+      );
+    }
+
+    if (compactIndustryRail.matches) {
+      window.requestAnimationFrame(() => {
+        const activeCard = industryCards[activeIndustryIndex];
+        const targetLeft = Math.max(
+          0,
+          activeCard.offsetLeft - Math.max(16, industryRail.clientWidth * 0.08),
+        );
+
+        industryRail.scrollTo({
+          left: targetLeft,
+          behavior: reducedMotion.matches ? "auto" : "smooth",
+        });
+      });
+    }
+
+    if (announce) {
+      const title = industryCards[activeIndustryIndex]
+        .querySelector("h3")
+        .textContent.trim();
+      industryStatus.textContent =
+        `Showing ${title}, industry ${activeIndustryIndex + 1} of ${industryCards.length}.`;
+    }
+
+    if (moveFocus) {
+      industryButtons[activeIndustryIndex].focus({ preventScroll: true });
+    }
+  }
+
+  previousIndustry.addEventListener("click", () => {
+    showIndustry(activeIndustryIndex - 1);
+  });
+
+  nextIndustry.addEventListener("click", () => {
+    showIndustry(activeIndustryIndex + 1);
+  });
+
+  industryButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      showIndustry(Number(button.dataset.industryGo));
+    });
+  });
+
+  industryRail.addEventListener("keydown", (event) => {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
+      return;
+    }
+
+    event.preventDefault();
+
+    if (event.key === "ArrowLeft") {
+      showIndustry(activeIndustryIndex - 1, true, true);
+    }
+    if (event.key === "ArrowRight") {
+      showIndustry(activeIndustryIndex + 1, true, true);
+    }
+    if (event.key === "Home") showIndustry(0, true, true);
+    if (event.key === "End") {
+      showIndustry(industryCards.length - 1, true, true);
+    }
+  });
+
+  showIndustry(0, false);
+}
+
+const industryQueue = document.querySelector("[data-industry-queue]");
+
+if (industryQueue) {
+  const industryQueueRail = industryQueue.querySelector(
+    "[data-industry-queue-rail]",
+  );
+  const industryQueueCards = [
+    ...industryQueue.querySelectorAll("[data-industry-queue-card]"),
+  ];
+  const industryQueueButtons = industryQueueCards.map((card) =>
+    card.querySelector("[data-industry-queue-go]"),
+  );
+  const previousQueueIndustry = industryQueue.querySelector(
+    "[data-industry-queue-prev]",
+  );
+  const nextQueueIndustry = industryQueue.querySelector(
+    "[data-industry-queue-next]",
+  );
+  const industryQueueStatus = industryQueue.querySelector(
+    "[data-industry-queue-status]",
+  );
+  const compactIndustryQueue = window.matchMedia("(max-width: 47.99rem)");
+  let industryQueueOrder = [...industryQueueCards];
+  let industryQueueMoving = false;
+  let pendingIndustryQueueCard = null;
+  let industryQueuePointerStartX = null;
+  let industryQueuePointerId = null;
+  let suppressIndustryQueueClick = false;
+
+  function syncIndustryQueue() {
+    industryQueueOrder.forEach((card, position) => {
+      const active = position === 0;
+
+      card.dataset.industryQueuePosition = String(position);
+      card.classList.toggle("is-active", active);
+      industryQueueButtons[industryQueueCards.indexOf(card)].setAttribute(
+        "aria-pressed",
+        String(active),
+      );
+    });
+  }
+
+  function moveIndustryQueueTo(card, announce = true, moveFocus = false) {
+    if (!card || !industryQueueOrder.includes(card)) return;
+
+    if (industryQueueMoving) {
+      pendingIndustryQueueCard = card;
+      return;
+    }
+
+    const selectedPosition = industryQueueOrder.indexOf(card);
+
+    if (selectedPosition === 0) {
+      if (moveFocus) {
+        industryQueueButtons[industryQueueCards.indexOf(card)].focus({
+          preventScroll: true,
+        });
+      }
+      return;
+    }
+
+    industryQueueMoving = true;
+    const transitionDuration = reducedMotion.matches ? 0 : 900;
+    const previousOrder = [...industryQueueOrder];
+    const outgoingCards = previousOrder.slice(0, selectedPosition);
+    const remainingCards = previousOrder.slice(selectedPosition);
+    const nextOrder = [...remainingCards, ...outgoingCards];
+
+    function finishIndustryQueueMove() {
+      industryQueueMoving = false;
+      const activeCard = industryQueueOrder[0];
+      const activeTitle = activeCard.querySelector("h3").textContent.trim();
+
+      if (announce && industryQueueStatus) {
+        industryQueueStatus.textContent = `Showing ${activeTitle}.`;
+      }
+
+      if (moveFocus) {
+        industryQueueButtons[industryQueueCards.indexOf(activeCard)].focus({
+          preventScroll: true,
+        });
+      }
+
+      if (pendingIndustryQueueCard) {
+        const pendingCard = pendingIndustryQueueCard;
+        pendingIndustryQueueCard = null;
+        moveIndustryQueueTo(pendingCard, true, moveFocus);
+      }
+    }
+
+    if (compactIndustryQueue.matches) {
+      const mobileFadeDuration = reducedMotion.matches ? 0 : 140;
+
+      industryQueueRail.classList.add("is-mobile-changing");
+
+      window.setTimeout(() => {
+        industryQueueOrder = nextOrder;
+        industryQueueOrder.forEach((queueCard) =>
+          industryQueueRail.append(queueCard),
+        );
+        syncIndustryQueue();
+
+        window.requestAnimationFrame(() => {
+          industryQueueRail.classList.remove("is-mobile-changing");
+        });
+
+        window.setTimeout(
+          finishIndustryQueueMove,
+          reducedMotion.matches ? 0 : 260,
+        );
+      }, mobileFadeDuration);
+      return;
+    }
+
+    industryQueueCards.forEach((queueCard) => {
+      queueCard.style.transition = "none";
+    });
+
+    industryQueueOrder = nextOrder;
+    industryQueueOrder.forEach((queueCard) => industryQueueRail.append(queueCard));
+    syncIndustryQueue();
+    void industryQueueRail.offsetWidth;
+
+    const firstTailRect = outgoingCards[0].getBoundingClientRect();
+    const lastTailRect = outgoingCards[
+      outgoingCards.length - 1
+    ].getBoundingClientRect();
+    const reservedTailWidth = lastTailRect.right - firstTailRect.left;
+
+    industryQueueOrder = previousOrder;
+    industryQueueOrder.forEach((queueCard) => industryQueueRail.append(queueCard));
+    syncIndustryQueue();
+    void industryQueueRail.offsetWidth;
+
+    industryQueueCards.forEach((queueCard) => {
+      queueCard.style.transition = "";
+    });
+
+    const tailPlaceholder = document.createElement("span");
+    tailPlaceholder.className = "industry-queue-placeholder";
+    tailPlaceholder.setAttribute("aria-hidden", "true");
+    industryQueueRail.append(tailPlaceholder);
+
+    industryQueueRail.style.setProperty(
+      "--industry-queue-step-duration",
+      `${transitionDuration}ms`,
+    );
+    void industryQueueRail.offsetWidth;
+
+    window.requestAnimationFrame(() => {
+      outgoingCards.forEach((queueCard) => {
+        queueCard.classList.add("is-exiting");
+      });
+      industryQueueOrder = nextOrder;
+      syncIndustryQueue();
+      tailPlaceholder.style.flexBasis = `${reservedTailWidth}px`;
+    });
+
+    window.setTimeout(() => {
+      industryQueueCards.forEach((queueCard) => {
+        queueCard.style.transition = "none";
+      });
+      tailPlaceholder.style.transition = "none";
+
+      industryQueueOrder.forEach((queueCard) => industryQueueRail.append(queueCard));
+      outgoingCards.forEach((queueCard) => {
+        queueCard.classList.remove("is-exiting");
+      });
+      tailPlaceholder.remove();
+      syncIndustryQueue();
+      void industryQueueRail.offsetWidth;
+
+      window.requestAnimationFrame(() => {
+        industryQueueCards.forEach((queueCard) => {
+          queueCard.style.transition = "";
+        });
+        finishIndustryQueueMove();
+      });
+    }, transitionDuration);
+  }
+
+  previousQueueIndustry.addEventListener("click", () => {
+    moveIndustryQueueTo(
+      industryQueueOrder[industryQueueOrder.length - 1],
+      true,
+      true,
+    );
+  });
+
+  nextQueueIndustry.addEventListener("click", () => {
+    moveIndustryQueueTo(industryQueueOrder[1], true, true);
+  });
+
+  industryQueueCards.forEach((card, cardIndex) => {
+    industryQueueButtons[cardIndex].addEventListener("click", (event) => {
+      if (suppressIndustryQueueClick) {
+        event.preventDefault();
+        return;
+      }
+      moveIndustryQueueTo(card);
+    });
+  });
+
+  industryQueueRail.addEventListener("pointerdown", (event) => {
+    if (!compactIndustryQueue.matches || !event.isPrimary) return;
+
+    industryQueuePointerStartX = event.clientX;
+    industryQueuePointerId = event.pointerId;
+    industryQueueRail.setPointerCapture(event.pointerId);
+  });
+
+  industryQueueRail.addEventListener("pointerup", (event) => {
+    if (
+      industryQueuePointerStartX === null ||
+      event.pointerId !== industryQueuePointerId
+    ) {
+      return;
+    }
+
+    const swipeDistance = event.clientX - industryQueuePointerStartX;
+    industryQueuePointerStartX = null;
+    industryQueuePointerId = null;
+
+    if (Math.abs(swipeDistance) < 44) return;
+
+    suppressIndustryQueueClick = true;
+    window.setTimeout(() => {
+      suppressIndustryQueueClick = false;
+    }, 0);
+
+    if (swipeDistance < 0) {
+      moveIndustryQueueTo(industryQueueOrder[1]);
+    } else {
+      moveIndustryQueueTo(
+        industryQueueOrder[industryQueueOrder.length - 1],
+      );
+    }
+  });
+
+  industryQueueRail.addEventListener("pointercancel", () => {
+    industryQueuePointerStartX = null;
+    industryQueuePointerId = null;
+  });
+
+  industryQueueRail.addEventListener("keydown", (event) => {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
+      return;
+    }
+
+    event.preventDefault();
+
+    if (event.key === "ArrowLeft") {
+      moveIndustryQueueTo(
+        industryQueueOrder[industryQueueOrder.length - 1],
+        true,
+        true,
+      );
+    }
+    if (event.key === "ArrowRight") {
+      moveIndustryQueueTo(industryQueueOrder[1], true, true);
+    }
+    if (event.key === "Home") {
+      moveIndustryQueueTo(industryQueueCards[0], true, true);
+    }
+    if (event.key === "End") {
+      moveIndustryQueueTo(
+        industryQueueCards[industryQueueCards.length - 1],
+        true,
+        true,
+      );
+    }
+  });
+
+  syncIndustryQueue();
 }
 
 const heroTypeword = document.querySelector("[data-hero-typewords]");
