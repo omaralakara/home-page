@@ -5675,23 +5675,28 @@ li,
 }
 
 /* Service deck structure inspired by the approved stacked-card reference. */
+.services-section {
+  padding-block: clamp(2.5rem, 4vw, 3.5rem);
+}
+
 .service-carousel {
-  min-height: 44rem;
+  min-height: 39.5rem;
 }
 
 .service-deck-stage {
-  padding: 1rem 4rem 3.25rem 0;
+  padding: 0.5rem 4rem 2.5rem 0;
 }
 
 .js .service-viewport,
 .js .service-track {
-  min-height: 41rem;
+  min-height: 36.5rem;
 }
 
 .service-card,
 .js .service-card {
-  height: 41rem;
-  padding: clamp(2.6rem, 4vw, 3.35rem);
+  height: 36.5rem;
+  align-items: stretch;
+  padding: clamp(2.2rem, 3.3vw, 2.8rem);
   border-radius: 1.6rem;
 }
 
@@ -5721,23 +5726,29 @@ li,
 }
 
 .service-card-intro {
-  display: block;
+  display: grid;
+  grid-template-rows: 4.65rem 7.7rem 3.65rem auto;
+  align-content: start;
+  align-self: stretch;
 }
 
 .service-card-kicker {
-  align-items: flex-start;
-  min-height: 5.25rem;
-  margin-bottom: 0.9rem;
+  position: relative;
+  display: block;
+  height: 4rem;
+  min-height: 4rem;
+  margin: 0;
 }
 
 .service-card-label {
-  display: grid;
-  grid-template-rows: 1rem 2.5rem;
-  gap: 0.7rem;
+  display: block;
   min-width: 0;
 }
 
 .service-card-label .service-card-index {
+  position: absolute;
+  top: 0.15rem;
+  left: 0;
   color: rgba(255, 255, 255, 0.94);
   font-size: 0.62rem;
   font-weight: 850;
@@ -5745,26 +5756,42 @@ li,
 }
 
 .service-card-label p {
+  position: absolute;
+  top: 1.45rem;
+  right: 4.25rem;
+  left: 0;
   max-width: 28rem;
+  margin: 0;
   font-size: 0.62rem;
   line-height: 1.25;
 }
 
+.service-card-kicker img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  flex: 0 0 auto;
+  margin: 0;
+}
+
 .service-card h3 {
   max-width: 13ch;
-  margin-bottom: 0.85rem;
-  font-size: clamp(2.9rem, 4.4vw, 4.35rem);
+  align-self: start;
+  margin: 0;
+  font-size: clamp(2.75rem, 4vw, 3.8rem);
   line-height: 0.98;
 }
 
 .service-card .service-card-summary {
   max-width: 31rem;
-  margin-bottom: 0.85rem;
-  font-size: 0.78rem;
-  line-height: 1.52;
+  align-self: start;
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.45;
 }
 
 .service-card .text-link {
+  align-self: start;
   margin-top: 0;
   padding: 0.7rem 0.95rem;
   font-size: 0.72rem;
@@ -5774,8 +5801,8 @@ li,
 .service-card-hr .service-card-capabilities,
 .service-card-technology .service-card-capabilities {
   width: min(100%, 30rem);
-  height: 11.75rem;
-  min-height: 11.75rem;
+  height: 10.75rem;
+  min-height: 10.75rem;
   justify-self: start;
   align-self: end;
   padding: 1.15rem 1.25rem;
@@ -5823,14 +5850,14 @@ li,
   .service-viewport,
   .js .service-viewport,
   .js .service-track {
-    min-height: 37.5rem;
+    min-height: 35.5rem;
   }
 
   .service-card,
   .js .service-card {
     width: calc(100% - 1rem);
-    height: 37.5rem;
-    padding: 1.2rem;
+    height: 35.5rem;
+    padding: 1.05rem;
   }
 
   .js .service-card[data-deck-position="1"] {
@@ -5854,28 +5881,34 @@ li,
   }
 
   .service-card-label {
-    grid-template-rows: 0.85rem 2.25rem;
-    gap: 0.5rem;
+    display: block;
   }
 
   .service-card-kicker {
-    min-height: 4.5rem;
-    margin-bottom: 0.55rem;
+    height: 3.7rem;
+    min-height: 3.7rem;
+    margin: 0;
   }
 
   .service-card-label p {
+    top: 1.35rem;
+    right: 3.25rem;
     font-size: 0.56rem;
   }
 
   .service-card h3 {
-    margin-bottom: 0.55rem;
-    font-size: clamp(2.05rem, 9.5vw, 2.8rem);
+    margin: 0;
+    font-size: clamp(1.95rem, 8.8vw, 2.6rem);
   }
 
   .service-card .service-card-summary {
-    margin-bottom: 0.65rem;
+    margin: 0;
     font-size: 0.68rem;
     line-height: 1.42;
+  }
+
+  .service-card-intro {
+    grid-template-rows: 4.1rem 5.4rem 3.2rem auto;
   }
 
   .service-card .text-link {
@@ -5887,8 +5920,8 @@ li,
   .service-card-hr .service-card-capabilities,
   .service-card-technology .service-card-capabilities {
     width: 100%;
-    height: 13.5rem;
-    min-height: 13.5rem;
+    height: 12.5rem;
+    min-height: 12.5rem;
     padding: 0.8rem;
   }
 
