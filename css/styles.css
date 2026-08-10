@@ -2013,7 +2013,7 @@ h3 {
   transition: background 620ms var(--ease-out);
 }
 
-.location-index {
+.location-explorer .location-list .location-index {
   position: absolute;
   top: 1.4rem;
   left: 1.35rem;

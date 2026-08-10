@@ -43,17 +43,17 @@ service_cards = document.xpath(
     f'//section[@id="services"]//article[{class_xpath("service-card")}]'
 )
 industry_titles = document.xpath(
-    f'//section[{class_xpath("industries-section")}]//h3'
+    f'//section[{class_xpath("industries-queue-section")}]//h3'
 )
 industry_cards = document.xpath(
-    f'//section[{class_xpath("industries-section")}]'
-    f'//article[{class_xpath("industry-card")}]'
+    f'//section[{class_xpath("industries-queue-section")}]'
+    f'//article[{class_xpath("industry-queue-card")}]'
 )
 industry_buttons = document.xpath(
-    f'//section[{class_xpath("industries-section")}]//*[@data-industry-go]'
+    f'//section[{class_xpath("industries-queue-section")}]//*[@data-industry-queue-go]'
 )
 industry_images = document.xpath(
-    f'//section[{class_xpath("industries-section")}]//img[@src and normalize-space(@alt)]'
+    f'//section[{class_xpath("industries-queue-section")}]//img[@src and normalize-space(@alt)]'
 )
 industry_image_sources = [image.get("src") for image in industry_images]
 why_titles = document.xpath(f'//section[{class_xpath("why-section")}]//h3')
@@ -67,6 +67,17 @@ location_titles = document.xpath(
 )
 location_functions = document.xpath(
     f'//span[{class_xpath("location-function")}]'
+)
+regional_framework = document.xpath(
+    f'//section[{class_xpath("regional-framework-section")}]'
+)
+regional_steps = document.xpath(
+    f'//section[{class_xpath("regional-framework-section")}]'
+    f'//ol[{class_xpath("regional-framework-steps")}]/li'
+)
+regional_benefits = document.xpath(
+    f'//section[{class_xpath("regional-framework-section")}]'
+    f'//div[{class_xpath("regional-framework-benefits-body")}]//li'
 )
 main_sections = document.xpath("//main/section")
 labelled_main_sections = [
@@ -95,7 +106,7 @@ report = {
     "industry_cards": len(industry_cards),
     "industry_controls": len(
         document.xpath(
-            '//*[@data-industry-prev or @data-industry-next]'
+            '//*[@data-industry-queue-prev or @data-industry-queue-next]'
         )
     ),
     "industry_selection_buttons": len(industry_buttons),
@@ -104,7 +115,7 @@ report = {
     "industry_active_buttons": sum(
         button.get("aria-pressed") == "true" for button in industry_buttons
     ),
-    "industry_live_status": len(document.xpath('//*[@data-industry-status]')),
+    "industry_live_status": len(document.xpath('//*[@data-industry-queue-status]')),
     "why_h3": len(why_titles),
     "number_sections": sum(
         document.get_element_by_id(element_id, None) is not None
@@ -120,6 +131,16 @@ report = {
     ),
     "locations": len(location_titles),
     "location_functions": len(location_functions),
+    "regional_framework_sections": len(regional_framework),
+    "regional_framework_images": len(
+        document.xpath(
+            f'//section[{class_xpath("regional-framework-section")}]//img'
+        )
+    ),
+    "regional_framework_steps": len(regional_steps),
+    "regional_framework_benefits": len(regional_benefits),
+    "three_references": source.lower().count("three.js")
+    + source.lower().count("three.module"),
     "events_heading": len(document.xpath('//h2[@id="events-title"]')),
     "social_heading": len(document.xpath('//h2[@id="social-title"]')),
     "project_management_capabilities": len(
@@ -170,9 +191,14 @@ assert report["number_source_labels"] == 1, report
 assert report["partner_links"] == 9, report
 assert report["partner_links_internal"], report
 assert report["locations"] == 5, report
-assert report["location_functions"] == 5, report
-assert report["events_heading"] == 1, report
-assert report["social_heading"] == 1, report
+assert report["location_functions"] == 0, report
+assert report["regional_framework_sections"] == 1, report
+assert report["regional_framework_images"] == 0, report
+assert report["regional_framework_steps"] == 3, report
+assert report["regional_framework_benefits"] == 5, report
+assert report["three_references"] == 0, report
+assert report["events_heading"] == 0, report
+assert report["social_heading"] == 0, report
 assert report["project_management_capabilities"] == 8, report
 assert report["canonical"] == "https://synergi.ae/", report
 assert not report["legacy_opening_present"], report

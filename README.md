@@ -88,60 +88,51 @@ The redesigned prototype now uses `hero-dubai-team.webp`, sourced from [Misbaa e
 
 ## Location photography used in the concept
 
-All five files are cropped to 960 × 640 WebP, lazy-loaded, and sourced under the Unsplash License.
+All five files are cropped to 960 × 640 WebP and lazy-loaded. Source records are also kept in `assets/images/LOCATION-IMAGE-CREDITS.md`.
 
 | Local file | Location | Source |
 |---|---|---|
 | `location-abu-dhabi.webp` | Abu Dhabi | [Sreevishnu Nair on Unsplash](https://unsplash.com/photos/abu-dhabis-skyline-overlooks-the-beautiful-turquoise-water-C9zIo0Kpx6o) |
 | `location-doha.webp` | Doha | [Rhiannon Elliott on Unsplash](https://unsplash.com/photos/a-city-skyline-by-the-water-o_FuyZy4SGk) |
-| `location-riyadh.webp` | Riyadh | [MO B.H on Unsplash](https://unsplash.com/photos/city-skyline-with-modern-buildings-and-palm-trees-IwGttrDWn5Y) |
-| `location-beirut.webp` | Beirut | [Michael Starkie on Unsplash](https://unsplash.com/photos/a-view-of-a-city-and-a-body-of-water-UnF992yroQo) |
-| `location-bucharest.webp` | Bucharest | [Liviu Emanuel on Unsplash](https://unsplash.com/photos/city-skyline-during-night-time-PKxj3g5DQq0) |
+| `location-riyadh-2026.webp` | Riyadh | [Md Amir Umar on Pexels](https://www.pexels.com/photo/aerial-view-of-riyadh-city-skyline-in-saudi-arabia-30320202/) |
+| `location-beirut-2026.webp` | Beirut | [Jo Kassis on Pexels](https://www.pexels.com/photo/beirut-cityscape-5054927/) |
+| `location-bucharest-2026.webp` | Bucharest | [Pexels city view](https://www.pexels.com/photo/aerial-view-of-city-buildings-10560194/) |
 
 ## Project structure
 
 ```text
 synergi-homepage-concept/
 ├── index.html
-├── components/
-│   └── synergi-impact-section.html
 ├── css/
 │   ├── variables.css
 │   ├── styles.css
 │   ├── responsive.css
 │   ├── executive-redesign.css
-│   ├── impact-section.css
-│   └── impact-three-section.css
+│   └── why-section.css
 ├── js/
 │   ├── main.js
-│   ├── impact-section.js
-│   └── impact-three-section.js
+│   └── why-section.js
 ├── assets/
 │   ├── images/
 │   ├── icons/
 │   ├── fonts/
-│   ├── svg/
-│   └── video/
-├── screenshots/
+│   └── svg/
 ├── validate_structure.py
 ├── README.md
 ├── HOMEPAGE-STRUCTURE-CONTENT.md
-├── SYNERGI-IMPACT-INSTALLATION.md
 ├── ELEMENTOR-START-HERE.md
 ├── ELEMENTOR-IMPLEMENTATION.md
 ├── SEO-PRESERVATION.md
 └── CONTENT-MAPPING.md
 ```
 
-The `impact-*` component files are retained only as archived design references. `index.html` no longer loads the removed interactive Numbers option.
+Unused Three.js experiments, impact previews, historical screenshots, superseded location images, and removed media-section assets were deleted from the production folder.
 
 ## Production notes
 
 - The prototype preserves the live canonical URL for migration review.
-- Replace the static insight cards with an Elementor Pro Loop Grid.
-- Keep the native Latest from Social Media cards and footer links. Use manually curated content unless Synergi later approves a controlled feed and its performance/consent cost.
 - Keep the current WordPress URLs. Do not recreate pages under new slugs.
-- Keep partner motion in CSS and ship only the retained Canvas 2D numbers treatment with its accessible static fallback.
+- Keep partner motion in CSS and load only the JavaScript used by visible homepage interactions.
 - Re-test structured data, canonical, title, description, heading order, alt text, analytics, and consent after the design is rebuilt in WordPress.
 
 ## Live-site safety
