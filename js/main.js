@@ -112,15 +112,19 @@ const partnerMarquee = document.querySelector("[data-partner-marquee]");
 if (partnerMarquee) {
   const partnerTrack = partnerMarquee.querySelector(".partner-marquee-track");
   const reducedPartnerMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let partnerStrip = null;
   let partnerLogos = [];
   let partnerLoopWidth = 0;
+  let partnerOffset = 0;
   let partnerPointerId = null;
   let partnerPointerStartX = 0;
-  let partnerStartScrollLeft = 0;
+  let partnerStartOffset = 0;
   let partnerHasDragged = false;
   let partnerIsDragging = false;
-  let partnerIsHovered = false;
+  let partnerIsFocused = false;
   let partnerPreviousFrame = null;
+  let partnerFrameId = 0;
+  let partnerSectionVisible = !("IntersectionObserver" in window);
 
   if (partnerTrack) {
     [...partnerTrack.querySelectorAll("[data-partner-logo]")].forEach(
@@ -128,6 +132,11 @@ if (partnerMarquee) {
         logo.dataset.partnerLogoId = String(index);
       },
     );
+
+    partnerStrip = document.createElement("div");
+    partnerStrip.className = "partner-marquee-strip";
+    partnerTrack.before(partnerStrip);
+    partnerStrip.append(partnerTrack);
 
     ["beforebegin", "afterend"].forEach((position) => {
       const duplicateTrack = partnerTrack.cloneNode(true);
@@ -141,33 +150,63 @@ if (partnerMarquee) {
     partnerLogos = [...partnerMarquee.querySelectorAll("[data-partner-logo]")];
   }
 
-  function highlightPartnerLogo(logo) {
-    partnerIsHovered = Boolean(logo);
-    partnerMarquee.classList.toggle("is-logo-paused", partnerIsHovered);
+  function normalizePartnerOffset() {
+    if (!partnerLoopWidth) return;
+
+    while (partnerOffset <= -partnerLoopWidth * 2) {
+      partnerOffset += partnerLoopWidth;
+    }
+
+    while (partnerOffset >= 0) {
+      partnerOffset -= partnerLoopWidth;
+    }
   }
 
-  partnerLogos.forEach((logo) => {
-    logo.addEventListener("pointerenter", () => highlightPartnerLogo(logo));
-    logo.addEventListener("pointerleave", () => {
-      if (!partnerMarquee.matches(":focus-within")) highlightPartnerLogo(null);
-    });
-    logo.addEventListener("focus", () => highlightPartnerLogo(logo));
-    logo.addEventListener("blur", () => {
-      window.setTimeout(() => {
-        if (!partnerMarquee.matches(":focus-within")) highlightPartnerLogo(null);
-      }, 0);
-    });
-  });
+  function renderPartnerOffset() {
+    if (!partnerStrip) return;
+    partnerStrip.style.transform = `translate3d(${partnerOffset}px, 0, 0)`;
+  }
+
+  function setPartnerOffset(nextOffset) {
+    partnerOffset = nextOffset;
+    normalizePartnerOffset();
+    renderPartnerOffset();
+  }
+
+  function shouldMovePartnerMarquee() {
+    return (
+      partnerSectionVisible &&
+      !document.hidden &&
+      !reducedPartnerMotion.matches &&
+      !partnerIsDragging &&
+      !partnerIsFocused &&
+      partnerLoopWidth > 0
+    );
+  }
+
+  function stopPartnerMarquee() {
+    if (partnerFrameId) {
+      window.cancelAnimationFrame(partnerFrameId);
+      partnerFrameId = 0;
+    }
+    partnerPreviousFrame = null;
+  }
+
+  function schedulePartnerMarquee() {
+    if (partnerFrameId || !shouldMovePartnerMarquee()) return;
+    partnerFrameId = window.requestAnimationFrame(movePartnerMarquee);
+  }
 
   partnerMarquee.addEventListener("pointerdown", (event) => {
     if (event.button !== undefined && event.button !== 0) return;
     partnerPointerId = event.pointerId;
     partnerPointerStartX = event.clientX;
-    partnerStartScrollLeft = partnerMarquee.scrollLeft;
+    partnerStartOffset = partnerOffset;
     partnerHasDragged = false;
     partnerIsDragging = true;
     partnerMarquee.classList.add("is-dragging");
     partnerMarquee.setPointerCapture?.(event.pointerId);
+    stopPartnerMarquee();
   });
 
   partnerMarquee.addEventListener(
@@ -178,8 +217,7 @@ if (partnerMarquee) {
 
       if (Math.abs(distance) > 4) {
         partnerHasDragged = true;
-        partnerMarquee.scrollLeft = partnerStartScrollLeft - distance;
-        keepPartnerMarqueeInLoop();
+        setPartnerOffset(partnerStartOffset + distance);
         event.preventDefault();
       }
     },
@@ -192,6 +230,7 @@ if (partnerMarquee) {
     partnerMarquee.classList.remove("is-dragging");
     partnerPointerId = null;
     partnerIsDragging = false;
+    schedulePartnerMarquee();
   }
 
   partnerMarquee.addEventListener("pointerup", finishPartnerDrag);
@@ -213,46 +252,78 @@ if (partnerMarquee) {
     const nextLoopWidth = partnerTrack.getBoundingClientRect().width;
     if (!nextLoopWidth) return;
 
-    const previousOffset = partnerLoopWidth
-      ? partnerMarquee.scrollLeft - partnerLoopWidth
+    const loopProgress = partnerLoopWidth
+      ? (partnerOffset + partnerLoopWidth) / partnerLoopWidth
       : 0;
     partnerLoopWidth = nextLoopWidth;
-    partnerMarquee.scrollLeft = resetPosition
-      ? partnerLoopWidth
-      : partnerLoopWidth + previousOffset;
-    keepPartnerMarqueeInLoop();
-  }
-
-  function keepPartnerMarqueeInLoop() {
-    if (!partnerLoopWidth) return;
-    if (partnerMarquee.scrollLeft >= partnerLoopWidth * 2) {
-      partnerMarquee.scrollLeft -= partnerLoopWidth;
-    } else if (partnerMarquee.scrollLeft <= 0) {
-      partnerMarquee.scrollLeft += partnerLoopWidth;
-    }
+    setPartnerOffset(
+      resetPosition
+        ? -partnerLoopWidth
+        : -partnerLoopWidth + loopProgress * partnerLoopWidth,
+    );
+    schedulePartnerMarquee();
   }
 
   function movePartnerMarquee(timestamp) {
+    partnerFrameId = 0;
+    if (!shouldMovePartnerMarquee()) {
+      partnerPreviousFrame = null;
+      return;
+    }
+
     if (partnerPreviousFrame === null) partnerPreviousFrame = timestamp;
     const elapsed = Math.min(timestamp - partnerPreviousFrame, 48);
     partnerPreviousFrame = timestamp;
 
-    if (
-      !reducedPartnerMotion.matches &&
-      !partnerIsDragging &&
-      !partnerIsHovered &&
-      partnerLoopWidth
-    ) {
-      partnerMarquee.scrollLeft += elapsed * 0.052;
-      keepPartnerMarqueeInLoop();
-    }
-
-    window.requestAnimationFrame(movePartnerMarquee);
+    setPartnerOffset(partnerOffset - elapsed * 0.052);
+    schedulePartnerMarquee();
   }
 
+  partnerLogos.forEach((logo) => {
+    logo.addEventListener("focus", () => {
+      partnerIsFocused = true;
+      stopPartnerMarquee();
+    });
+
+    logo.addEventListener("blur", () => {
+      window.setTimeout(() => {
+        partnerIsFocused = partnerMarquee.matches(":focus-within");
+        schedulePartnerMarquee();
+      }, 0);
+    });
+  });
+
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(() => measurePartnerMarquee()).observe(partnerTrack);
+  } else {
+    window.addEventListener("resize", () => measurePartnerMarquee(), {
+      passive: true,
+    });
+  }
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(
+      ([entry]) => {
+        partnerSectionVisible = entry.isIntersecting;
+        if (partnerSectionVisible) schedulePartnerMarquee();
+        else stopPartnerMarquee();
+      },
+      { rootMargin: "100px 0px", threshold: 0.01 },
+    ).observe(partnerMarquee);
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) stopPartnerMarquee();
+    else schedulePartnerMarquee();
+  });
+
+  reducedPartnerMotion.addEventListener("change", () => {
+    if (reducedPartnerMotion.matches) stopPartnerMarquee();
+    else schedulePartnerMarquee();
+  });
+
   measurePartnerMarquee(true);
-  window.addEventListener("resize", () => measurePartnerMarquee());
-  window.requestAnimationFrame(movePartnerMarquee);
+  schedulePartnerMarquee();
 }
 
 const serviceCarousel = document.querySelector("[data-service-carousel]");

@@ -2024,7 +2024,7 @@ h3 {
   margin: 0;
   border: 1px solid rgba(255, 255, 255, 0.42);
   border-radius: 50%;
-  color: var(--color-white);
+  color: #fff;
   font-size: 0.61rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -2041,19 +2041,28 @@ h3 {
   transform: translateY(0);
 }
 
+.location-explorer .location-copy h3,
 .location-explorer .location-copy strong {
-  color: var(--color-white);
+  margin: 0;
+  color: #fff;
   font-size: 1.3rem;
   line-height: 1.05;
   white-space: nowrap;
   transition: font-size 620ms var(--ease-out);
 }
 
-.location-explorer .location-copy small {
-  margin-top: 0.35rem;
-  color: rgba(255, 255, 255, 0.72);
-  font-size: 0.7rem;
+.location-country {
+  margin: 0.35rem 0 0;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   white-space: nowrap;
+}
+
+.location-card .location-action,
+.location-card .location-action span {
+  color: #fff;
 }
 
 .location-action {
@@ -2065,7 +2074,7 @@ h3 {
   padding-top: 0;
   overflow: hidden;
   border-top: 1px solid rgba(255, 255, 255, 0.24);
-  color: var(--color-white);
+  color: #fff;
   font-size: 0.66rem;
   font-weight: 750;
   opacity: 0;
@@ -2100,6 +2109,8 @@ h3 {
   transform: translateY(0);
 }
 
+.location-card:hover .location-copy h3,
+.location-card:focus-within .location-copy h3,
 .location-card:hover .location-copy strong,
 .location-card:focus-within .location-copy strong {
   font-size: clamp(1.55rem, 2vw, 2rem);

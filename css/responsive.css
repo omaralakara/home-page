@@ -1002,7 +1002,6 @@
     transform: translateY(0);
   }
 
-  .location-explorer .location-action,
   .location-explorer .location-card:hover .location-action,
   .location-explorer .location-card:focus-within .location-action {
     max-height: 3rem;
