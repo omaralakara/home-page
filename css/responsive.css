@@ -50,7 +50,7 @@
     overflow-y: auto;
     background:
       url("../assets/svg/connection-field.svg") right bottom / 80% auto no-repeat,
-      var(--color-primary-ink);
+      var(--color-primary);
     opacity: 0;
     transform: translateY(-1rem);
     transition:

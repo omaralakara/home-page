@@ -22,11 +22,7 @@
   <link rel="preload" href="assets/images/synergi-logo-white.png" as="image">
   <link rel="preload" href="assets/images/hero-dubai-team.webp" as="image" type="image/webp" fetchpriority="high">
   <link rel="preload" href="assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/responsive.css">
-  <link rel="stylesheet" href="css/executive-redesign.css">
-  <link rel="stylesheet" href="css/why-section.css">
+  <link rel="stylesheet" href="css/main.min.css">
   <script src="js/main.js" defer></script>
   <script src="js/why-section.js" defer></script>
   <script type="application/ld+json">
@@ -84,10 +80,10 @@
 
       <nav class="primary-nav" id="primary-navigation" aria-label="Primary navigation">
         <ul class="nav-list">
-          <li><a href="https://synergi.ae/">Home</a></li>
+          <li><a href="https://synergi.ae/" aria-current="page">Home</a></li>
           <li class="has-submenu">
             <button class="submenu-toggle" type="button" aria-expanded="false">
-              About <span aria-hidden="true">⌄</span>
+              About Us <span aria-hidden="true">⌄</span>
             </button>
             <ul class="submenu">
               <li><a href="https://synergi.ae/about-us/">About Us</a></li>
@@ -96,25 +92,33 @@
               <li><a href="https://synergi.ae/media/">Media</a></li>
             </ul>
           </li>
-          <li><a href="https://synergi.ae/our-approach/">Our Approach</a></li>
           <li class="has-submenu">
             <button class="submenu-toggle" type="button" aria-expanded="false">
-              Services <span aria-hidden="true">⌄</span>
+              Our Approach <span aria-hidden="true">⌄</span>
+            </button>
+            <ul class="submenu">
+              <li><a href="https://synergi.ae/our-approach/">Our Approach</a></li>
+              <li><a href="https://synergi.ae/shared-services-uae/">Shared Services</a></li>
+              <li><a href="https://synergi.ae/bpo-services-in-saudi-arabia-ksa-riyadh/">BPO Services</a></li>
+            </ul>
+          </li>
+          <li class="has-submenu">
+            <button class="submenu-toggle" type="button" aria-expanded="false">
+              Our Services <span aria-hidden="true">⌄</span>
             </button>
             <ul class="submenu submenu-wide">
-              <li><a href="https://synergi.ae/our-services/accounting/">Accounting</a></li>
+              <li><a href="https://synergi.ae/our-services/">Our Services</a></li>
               <li><a href="https://synergi.ae/our-services/human-resources/">Human Resources</a></li>
-              <li><a href="https://synergi.ae/our-services/procurement/">Procurement</a></li>
               <li><a href="https://synergi.ae/our-services/technology-ai/">Technology &amp; AI</a></li>
+              <li><a href="https://synergi.ae/our-services/accounting/">Accounting</a></li>
               <li><a href="https://synergi.ae/our-services/marketing/">Marketing</a></li>
-              <li><a href="https://synergi.ae/our-services/project-management/">Project Management</a></li>
-              <li><a href="https://synergi.ae/shared-services-uae/">Shared Services</a></li>
+              <li><a href="https://synergi.ae/our-services/procurement/">Procurement</a></li>
             </ul>
           </li>
           <li><a href="https://synergi.ae/executive-podcast/">Podcast</a></li>
           <li><a href="https://synergi.ae/blog/">Our Blog</a></li>
+          <li><a href="https://synergi.ae/contact-us/">Contact Us</a></li>
         </ul>
-        <a class="button button-small header-cta" href="https://synergi.ae/contact-us/">Let’s Talk</a>
       </nav>
     </div>
   </header>
@@ -126,7 +130,7 @@
       <div class="hero-layout container">
         <div class="hero-copy reveal">
           <h1 id="hero-title">BPO Services in <span>UAE &amp; the Gulf</span> to Power Your Business</h1>
-          <p class="hero-lead">Synergi runs and transforms non-core business functions through BPO, consulting, manpower augmentation, and technology-enabled shared services across the Gulf.</p>
+          <p class="hero-lead">Synergi runs and transforms non-core business functions through BPO, consulting,<br class="hero-lead-break">manpower augmentation, and technology-enabled shared services across the Gulf.</p>
           <p class="hero-motion-line">
             <span class="sr-only">Helping your business remove manual work, silos, delays, and unnecessary overhead.</span>
             <span class="hero-motion-visual" aria-hidden="true">
@@ -139,13 +143,8 @@
           </p>
           <div class="button-row">
             <a class="button button-primary" href="#services">Explore Our Services <span aria-hidden="true">&searr;</span></a>
-            <a class="button button-ghost" href="https://synergi.ae/contact-us/">Start a Conversation <span aria-hidden="true">&rarr;</span></a>
+            <a class="button button-outline-light" href="https://synergi.ae/contact-us/">Start a Conversation <span aria-hidden="true">&rarr;</span></a>
           </div>
-        </div>
-
-        <div class="hero-positioning reveal">
-          <span>Built around your business</span>
-          <p>Local context.<br><strong>Connected delivery.</strong></p>
         </div>
       </div>
     </section>
@@ -326,25 +325,87 @@
       </div>
     </section>
 
+    <!-- Shared Services — floating 3D bubble hub -->
+    <section class="section ssb-section" id="shared-services-v2" aria-labelledby="ssb-title">
+      <div class="container">
+        <div class="ssb-layout">
+          <div class="ssb-copy reveal">
+            <p class="eyebrow">Regional operations</p>
+            <h2 id="ssb-title">Transform Your Business with Shared Services</h2>
+            <p class="ssb-lead">Centralize and streamline your back-office functions with our Shared Services in UAE, Dubai, and across the GCC. From HR and Finance to <a href="https://synergi.ae/our-services/procurement/">Procurement in UAE</a>, we help you cut costs, boost compliance, and scale faster.</p>
+            <ol class="ssb-ministeps" aria-label="Synergi delivery model">
+              <li><span>01</span>Understand</li>
+              <li aria-hidden="true" class="ssb-ministep-arrow">→</li>
+              <li><span>02</span>Design</li>
+              <li aria-hidden="true" class="ssb-ministep-arrow">→</li>
+              <li><span>03</span>Deliver</li>
+            </ol>
+            <div class="ssb-cta-row">
+              <a class="button button-primary" href="https://synergi.ae/shared-services-uae/">Discover Shared Services UAE <span aria-hidden="true">&rarr;</span></a>
+              <p class="ssb-markets" aria-label="Markets served"><span>UAE</span><i aria-hidden="true"></i><span>GCC</span><i aria-hidden="true"></i><span>KSA</span></p>
+            </div>
+            <ul class="ssb-chips" aria-label="Benefits of outsourcing with Synergi">
+              <li>Cost Savings</li>
+              <li>Regional Reach</li>
+              <li>Access to Expertise</li>
+              <li>Scalable Services</li>
+              <li>Focus on Core Activities</li>
+            </ul>
+          </div>
+
+          <div class="ssb-stage reveal" role="img" aria-label="Shared services hub connecting accounting, human resources, procurement, technology and AI, marketing, and project management under one regional framework">
+            <svg class="ssb-links" viewBox="0 0 100 100" aria-hidden="true">
+              <line x1="50" y1="50" x2="50" y2="10"/>
+              <line x1="50" y1="50" x2="84.6" y2="30"/>
+              <line x1="50" y1="50" x2="84.6" y2="70"/>
+              <line x1="50" y1="50" x2="50" y2="88"/>
+              <line x1="50" y1="50" x2="15.4" y2="70"/>
+              <line x1="50" y1="50" x2="15.4" y2="30"/>
+            </svg>
+            <div class="ssb-bubble ssb-core"><small>Shared Services</small><b>One Regional<br>Framework</b></div>
+            <div class="ssb-bubble ssb-orb ssb-o1">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="13" y="7" width="22" height="34" rx="3"/><path d="M18 15h12M18 23h4M26 23h4M18 31h4M26 31h4"/></svg>
+              <b>Accounting</b>
+            </div>
+            <div class="ssb-bubble ssb-orb ssb-o2">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="17" cy="16" r="5.5"/><circle cx="32" cy="18" r="4.5"/><path d="M7 40c1.6-8.5 5.6-12.5 10-12.5S25.4 31.5 27 40M28 40c1.2-6 4-9 6.5-9s5.3 3 6.5 9"/></svg>
+              <b>Human<br>Resources</b>
+            </div>
+            <div class="ssb-bubble ssb-orb ssb-o3">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="19" cy="39" r="3"/><circle cx="34" cy="39" r="3"/><path d="M6 9h6l5 21h20l5-15H16"/></svg>
+              <b>Procurement</b>
+            </div>
+            <div class="ssb-bubble ssb-orb ssb-o4">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="14" y="14" width="20" height="20" rx="3"/><path d="M20 20h8v8h-8zM18 8v6M24 8v6M30 8v6M18 34v6M24 34v6M30 34v6M8 18h6M8 24h6M8 30h6M34 18h6M34 24h6M34 30h6"/></svg>
+              <b>Technology<br>&amp; AI</b>
+            </div>
+            <div class="ssb-bubble ssb-orb ssb-o5">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M40 9 14 18H9v12h5l26 9zM15 30l3 10 6-2-3-8.5"/></svg>
+              <b>Marketing</b>
+            </div>
+            <div class="ssb-bubble ssb-orb ssb-o6">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="8" width="32" height="32" rx="3"/><path d="M14 18h12M14 25h18M14 32h8"/></svg>
+              <b>Project<br>Management</b>
+            </div>
+            <span class="ssb-dot ssb-d1" aria-hidden="true"></span>
+            <span class="ssb-dot ssb-d2" aria-hidden="true"></span>
+            <span class="ssb-dot ssb-d3" aria-hidden="true"></span>
+            <span class="ssb-dot ssb-d4" aria-hidden="true"></span>
+          </div>
+        </div>
+
+        <p class="ssb-note reveal">Looking to optimize operations beyond shared services? Discover our <a href="https://synergi.ae/bpo-services-in-saudi-arabia-ksa-riyadh/">BPO Services in Saudi Arabia (KSA &amp; Riyadh)</a>, tailored to help businesses streamline workflows, enhance performance, and achieve sustainable growth across the Gulf region.</p>
+      </div>
+    </section>
+
     <section class="section industries-queue-section" id="industries-queue" aria-labelledby="industries-queue-title">
       <div class="container">
         <div class="industries-queue-heading reveal">
-          <p class="eyebrow">Sector experience · Alternative motion concept</p>
+          <p class="eyebrow">Sector expertise</p>
           <h2 id="industries-queue-title">Industries We Serve in the UAE and the Gulf</h2>
         </div>
 
         <div class="industry-queue reveal" data-industry-queue role="region" aria-roledescription="carousel" aria-labelledby="industries-queue-title">
-          <div class="industry-queue-toolbar">
-            <div class="industry-queue-controls" aria-label="Alternative industry carousel controls">
-              <button class="industry-queue-control" type="button" data-industry-queue-prev aria-label="Show previous industry">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 6-6 6 6 6" /></svg>
-              </button>
-              <button class="industry-queue-control" type="button" data-industry-queue-next aria-label="Show next industry">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 6 6 6-6 6" /></svg>
-              </button>
-            </div>
-          </div>
-
           <div class="industry-queue-rail" data-industry-queue-rail>
             <article class="industry-queue-card is-active" data-industry-queue-card data-industry-queue-position="0" role="group" aria-roledescription="slide" aria-label="Private Equity, Family Offices and Holdings">
               <button class="industry-queue-image" type="button" data-industry-queue-go="0" aria-pressed="true" aria-labelledby="queue-industry-title-1" aria-describedby="queue-industry-description-1">
@@ -417,6 +478,17 @@
                 <p id="queue-industry-description-6">Customer care, order management, returns, patient support, medical record management, and billing for service-led operators.</p>
               </div>
             </article>
+          </div>
+
+          <div class="industry-queue-toolbar">
+            <div class="industry-queue-controls" aria-label="Alternative industry carousel controls">
+              <button class="industry-queue-control" type="button" data-industry-queue-prev aria-label="Show previous industry">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 6-6 6 6 6" /></svg>
+              </button>
+              <button class="industry-queue-control" type="button" data-industry-queue-next aria-label="Show next industry">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 6 6 6-6 6" /></svg>
+              </button>
+            </div>
           </div>
 
           <p class="sr-only" data-industry-queue-status aria-live="polite" aria-atomic="true">Showing Private Equity, Family Offices &amp; Holdings.</p>
@@ -524,12 +596,49 @@
       </div>
     </section>
 
-    <section class="partner-marquee-section" aria-labelledby="partners-title">
-      <div class="partner-marquee-intro container reveal">
-        <p class="eyebrow">Partner ecosystem</p>
-        <h2 id="partners-title">Our Partners</h2>
-        <p>Nine technology and specialist alliances that help Synergi deliver connected business solutions.</p>
-        <a class="text-link" href="https://synergi.ae/partners/">Explore the partner ecosystem <span aria-hidden="true">→</span></a>
+    <!-- OPTION B — same Numbers section on the Synergi brand palette (compare with the dark version above; delete one once decided) -->
+    <section id="syg-numbers-brand" class="section scale-section scale-section-brand" aria-labelledby="scale-title-brand" data-scale-section>
+      <canvas class="scale-particles" data-scale-canvas aria-hidden="true"></canvas>
+      <div class="container scale-content">
+        <div class="scale-heading reveal">
+          <p class="eyebrow">Company figures</p>
+          <h2 id="scale-title-brand">Synergi in Numbers</h2>
+          <p class="scale-lead">One regional partner, measured by the outcomes it delivers for businesses across the Gulf and beyond.</p>
+          <p class="stats-source">Figures reported in the Synergi Company Overview dated 25 June 2026.</p>
+        </div>
+
+        <div class="scale-stats reveal" role="group" aria-label="Synergi company figures">
+          <div class="scale-stat">
+            <strong data-stat-number data-target="50" data-suffix="+">50+</strong>
+            <span>clients we have served</span>
+          </div>
+          <div class="scale-stat">
+            <strong data-stat-number data-target="5">5</strong>
+            <span>global delivery locations</span>
+          </div>
+          <div class="scale-stat">
+            <strong data-stat-number data-target="100" data-suffix="+">100+</strong>
+            <span>years of combined experience</span>
+          </div>
+          <div class="scale-stat">
+            <strong data-stat-number data-target="15" data-prefix="10–" data-suffix="%">10–15%</strong>
+            <span>direct savings</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Partners — the platform ecosystem behind the delivery model -->
+    <section class="partner-marquee-section partner-marquee-slim partners-showcase" id="partners" aria-labelledby="partners-title">
+      <div class="container partners-heading reveal">
+        <div class="partners-heading-main">
+          <p class="eyebrow">Partner ecosystem</p>
+          <h2 id="partners-title">Our Partners</h2>
+        </div>
+        <div class="partners-heading-aside">
+          <p>Leading global platforms and regional specialists, integrated into one delivery model — so the systems behind your operations are always best in class.</p>
+          <a class="text-link" href="https://synergi.ae/partners/">Meet all our partners <span aria-hidden="true">&rarr;</span></a>
+        </div>
       </div>
       <div class="partner-marquee" data-partner-marquee aria-label="Partner logos. Drag or swipe to browse.">
         <div class="partner-marquee-track">
@@ -546,114 +655,17 @@
       </div>
     </section>
 
-    <section class="section podcast-section" aria-labelledby="podcast-title">
-      <div class="container podcast-grid">
-        <figure class="podcast-art reveal">
-          <img src="assets/images/synergi-executive-podcast.webp" width="1024" height="683" loading="lazy" decoding="async" alt="Synergi Executive Podcast Series">
-          <span class="media-badge">Business media &middot; MENA</span>
-          <a class="media-play" href="https://synergi.ae/executive-podcast/" aria-label="Explore Synergi Executive Podcast video episodes">
-            <span aria-hidden="true">&#9654;</span>
-            <strong>Explore video episodes</strong>
-          </a>
-        </figure>
-        <div class="podcast-copy reveal">
-          <p class="eyebrow eyebrow-light">Conversations for people who run businesses</p>
-          <h2 id="podcast-title">The Synergi Executive Podcast</h2>
-          <p class="podcast-lead">The Synergi Executive Podcast brings senior leaders together to unpack the decisions behind stronger operations across MENA.</p>
-          <p>Practical perspectives on leadership, shared services, BPO, and operational transformation, grounded in real-world experience.</p>
-          <div class="episode-placeholder">
-            <span>Executive series</span>
-            <strong>Leadership &middot; Strategy &middot; Operations</strong>
-          </div>
-          <a class="button button-dark" href="https://synergi.ae/executive-podcast/">Explore the Podcast <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section regional-framework-section" aria-labelledby="shared-services-title">
-      <div class="container regional-framework-shell">
-        <div class="regional-framework-hero">
-          <div class="regional-framework-copy reveal">
-            <p class="eyebrow">Regional operations</p>
-            <h2 id="shared-services-title">Transform Your Business with Shared Services</h2>
-            <p>Centralize and streamline your back-office functions with our Shared Services in UAE, Dubai, and across the GCC. From HR and Finance to <a href="https://synergi.ae/our-services/procurement/">Procurement in UAE</a>, we help you cut costs, boost compliance, and scale faster.</p>
-            <div class="regional-framework-actions">
-              <a class="button regional-framework-cta" href="https://synergi.ae/shared-services-uae/">Discover Shared Services UAE <span aria-hidden="true">&rarr;</span></a>
-              <p class="regional-framework-markets" aria-label="Markets served"><span>UAE</span><i aria-hidden="true"></i><span>GCC</span><i aria-hidden="true"></i><span>KSA</span></p>
-            </div>
-          </div>
-
-          <div class="regional-framework-diagram reveal" role="img" aria-label="One regional operations framework connecting reporting, technology, delivery, and governance across the UAE, GCC, and KSA">
-            <div class="regional-framework-orbit" aria-hidden="true">
-              <div class="regional-framework-node regional-framework-node-top">
-                <span class="regional-framework-icon"><svg viewBox="0 0 48 48"><path d="M17 12h-4a3 3 0 0 0-3 3v25h28V15a3 3 0 0 0-3-3h-4M18 8h12v8H18zM17 23h14M17 30h14M17 37h9"/></svg></span>
-                <small>Reporting</small>
-              </div>
-              <div class="regional-framework-node regional-framework-node-right">
-                <span class="regional-framework-icon"><svg viewBox="0 0 48 48"><rect x="14" y="14" width="20" height="20" rx="3"/><path d="M20 20h8v8h-8zM18 8v6M24 8v6M30 8v6M18 34v6M24 34v6M30 34v6M8 18h6M8 24h6M8 30h6M34 18h6M34 24h6M34 30h6"/></svg></span>
-                <small>Technology</small>
-              </div>
-              <div class="regional-framework-node regional-framework-node-bottom">
-                <span class="regional-framework-icon"><svg viewBox="0 0 48 48"><path d="m24 7 15 8v18l-15 8-15-8V15zM9 15l15 8 15-8M24 23v18"/></svg></span>
-                <small>Delivery</small>
-              </div>
-              <div class="regional-framework-node regional-framework-node-left">
-                <span class="regional-framework-icon"><svg viewBox="0 0 48 48"><path d="M24 6 39 12v11c0 10-6.4 15.7-15 19-8.6-3.3-15-9-15-19V12zM24 15v17"/></svg></span>
-                <small>Governance</small>
-              </div>
-              <div class="regional-framework-core">
-                <span class="regional-framework-icon regional-framework-core-icon"><svg viewBox="0 0 48 48"><circle cx="24" cy="9" r="4"/><circle cx="10" cy="31" r="4"/><circle cx="38" cy="31" r="4"/><circle cx="24" cy="39" r="4"/><path d="m21 12-8 15M27 12l8 15M14 32l6 4M34 32l-6 4M14 29h20"/></svg></span>
-                <strong>One Regional<br>Framework</strong>
-                <div class="regional-framework-core-markets"><span>UAE</span><span>GCC</span><span>KSA</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="regional-framework-intro reveal">
-          <h3>Connected support across Gulf markets</h3>
-          <p>Looking to optimize operations beyond shared services? Discover our <a href="https://synergi.ae/bpo-services-in-saudi-arabia-ksa-riyadh/">BPO Services in Saudi Arabia (KSA &amp; Riyadh)</a>, tailored to help businesses streamline workflows, enhance performance, and achieve sustainable growth across the Gulf region.</p>
-        </div>
-
-        <ol class="regional-framework-steps reveal" aria-label="Synergi delivery model">
-          <li>
-            <div class="regional-framework-step-heading"><span>01</span><strong>Understand</strong></div>
-            <small>Map the pressure, priorities, and operating context.</small>
-            <svg aria-hidden="true" viewBox="0 0 64 64"><circle cx="27" cy="27" r="16"/><path d="m39 39 14 14M20 27h14M27 20v14"/></svg>
-          </li>
-          <li>
-            <div class="regional-framework-step-heading"><span>02</span><strong>Design</strong></div>
-            <small>Build the right mix of expertise, process, and technology.</small>
-            <svg aria-hidden="true" viewBox="0 0 64 64"><circle cx="17" cy="20" r="6"/><circle cx="47" cy="20" r="6"/><circle cx="32" cy="46" r="6"/><path d="m22 23 8 18M42 23l-8 18M23 20h18"/></svg>
-          </li>
-          <li>
-            <div class="regional-framework-step-heading"><span>03</span><strong>Deliver</strong></div>
-            <small>Run with clear ownership and room to scale.</small>
-            <svg aria-hidden="true" viewBox="0 0 64 64"><path d="M10 54h44M16 48V35h8v13M29 48V26h8v22M42 48V16h8v32M14 24l13-10 10 6 15-12M43 8h9v9"/></svg>
-          </li>
-        </ol>
-
-        <details class="regional-framework-benefits reveal" open>
-          <summary>Benefits of Outsourcing with Synergi <span aria-hidden="true"></span></summary>
-          <div class="regional-framework-benefits-body">
-            <p>Choosing Synergi for your BPO services in UAE and the Gulf offers clear advantages:</p>
-            <ul>
-              <li><span class="regional-framework-check" aria-hidden="true">✓</span><div><strong>Cost Savings</strong><small>Reduce overhead and operational expenses.</small></div></li>
-              <li><span class="regional-framework-check" aria-hidden="true">✓</span><div><strong>Regional Reach</strong><small>One partner for UAE and wider Gulf markets.</small></div></li>
-              <li><span class="regional-framework-check" aria-hidden="true">✓</span><div><strong>Access to Expertise</strong><small>Skilled teams ready to serve across industries.</small></div></li>
-              <li><span class="regional-framework-check" aria-hidden="true">✓</span><div><strong>Scalable Services</strong><small>Flexible solutions that expand as your business grows.</small></div></li>
-              <li><span class="regional-framework-check" aria-hidden="true">✓</span><div><strong>Focus on Core Activities</strong><small>Let your teams focus on strategy while we handle operations.</small></div></li>
-            </ul>
-          </div>
-        </details>
-      </div>
-    </section>
-
     <section class="section region-section" aria-labelledby="region-title">
       <div class="container">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Regional presence</p>
-          <h2 id="region-title">Our Locations</h2>
+        <div class="region-heading reveal">
+          <div class="region-heading-main">
+            <p class="eyebrow">Regional presence</p>
+            <h2 id="region-title">Our Locations</h2>
+          </div>
+          <div class="region-heading-aside">
+            <p>Delivery hubs across the Gulf and the Levant, run as one connected team — so the work moves with your business rather than around it.</p>
+            <a class="text-link" href="https://synergi.ae/global-locations/">See all our locations <span aria-hidden="true">&rarr;</span></a>
+          </div>
         </div>
         <div class="location-explorer reveal">
           <ol class="location-list">
@@ -683,7 +695,7 @@
             </li>
             <li class="location-card">
               <a href="https://synergi.ae/global-locations/" aria-label="Explore Synergi in Riyadh, Saudi Arabia">
-                <img src="assets/images/location-riyadh-2026.webp" width="960" height="640" loading="lazy" decoding="async" alt="Wide aerial view of the Riyadh city skyline in Saudi Arabia">
+                <img src="assets/images/location-riyadh-2026.webp" width="1200" height="800" loading="lazy" decoding="async" alt="Kingdom Centre tower rising above the Riyadh skyline in Saudi Arabia">
                 <span class="location-shade" aria-hidden="true"></span>
                 <span class="location-index">03</span>
                 <div class="location-copy">
@@ -695,7 +707,7 @@
             </li>
             <li class="location-card">
               <a href="https://synergi.ae/global-locations/" aria-label="Explore Synergi in Beirut, Lebanon">
-                <img src="assets/images/location-beirut-2026.webp" width="960" height="640" loading="lazy" decoding="async" alt="Wide aerial view of Beirut city and its Mediterranean coastline in Lebanon">
+                <img src="assets/images/location-beirut-2026.webp" width="1200" height="800" loading="lazy" decoding="async" alt="Raouche Rocks and the Beirut seafront on the Mediterranean coast of Lebanon">
                 <span class="location-shade" aria-hidden="true"></span>
                 <span class="location-index">04</span>
                 <div class="location-copy">
@@ -705,33 +717,56 @@
                 </div>
               </a>
             </li>
-            <li class="location-card">
-              <a href="https://synergi.ae/global-locations/" aria-label="Explore Synergi in Bucharest, Romania">
-                <img src="assets/images/location-bucharest-2026.webp" width="960" height="640" loading="lazy" decoding="async" alt="Wide aerial view of Bucharest city and its green parks in Romania">
-                <span class="location-shade" aria-hidden="true"></span>
-                <span class="location-index">05</span>
-                <div class="location-copy">
-                  <h3>Bucharest</h3>
-                  <p class="location-country">Romania</p>
-                  <span class="location-action">Explore location <span aria-hidden="true">&nearr;</span></span>
-                </div>
-              </a>
+            <li class="location-card location-card-soon">
+              <img src="assets/images/location-damascus-2026.webp" width="1200" height="675" loading="lazy" decoding="async" alt="Damascus at golden hour, with Mount Qasioun rising behind the city and the minarets of the old city below">
+              <span class="location-shade" aria-hidden="true"></span>
+              <span class="location-index">05</span>
+              <div class="location-copy">
+                <span class="location-badge">Coming soon</span>
+                <h3>Damascus</h3>
+                <p class="location-country">Syria</p>
+                <span class="location-action">Our next delivery hub</span>
+              </div>
             </li>
           </ol>
         </div>
       </div>
     </section>
 
+    <section class="section podcast-section" aria-labelledby="podcast-title">
+      <div class="container podcast-grid">
+        <div class="podcast-copy reveal">
+          <p class="eyebrow eyebrow-light">Conversations for people who run businesses</p>
+          <h2 id="podcast-title">The Synergi Executive Podcast</h2>
+          <p class="podcast-lead">The Synergi Executive Podcast brings senior leaders together to unpack the decisions behind stronger operations across MENA.</p>
+          <p>Practical perspectives on leadership, shared services, BPO, and operational transformation, grounded in real-world experience.</p>
+          <div class="episode-placeholder">
+            <span>Executive series</span>
+            <strong>Leadership &middot; Strategy &middot; Operations</strong>
+          </div>
+          <a class="button button-primary" href="https://synergi.ae/executive-podcast/">Explore the Podcast <span aria-hidden="true">&rarr;</span></a>
+        </div>
+        <figure class="podcast-art reveal">
+          <img src="assets/images/synergi-executive-podcast.webp" width="1024" height="683" loading="lazy" decoding="async" alt="Synergi Executive Podcast Series">
+          <span class="media-badge">Business media &middot; MENA</span>
+          <a class="media-play" href="https://synergi.ae/executive-podcast/" aria-label="Explore Synergi Executive Podcast video episodes">
+            <span aria-hidden="true">&#9654;</span>
+            <strong>Explore video episodes</strong>
+          </a>
+        </figure>
+      </div>
+    </section>
+
     <section class="section final-cta" aria-labelledby="final-cta-title">
       <div class="container final-cta-inner">
         <div class="reveal">
-          <p class="eyebrow eyebrow-light">Your next operational move</p>
+          <p class="eyebrow">Your next operational move</p>
           <h2 id="final-cta-title">Make the work behind growth easier to run.</h2>
           <p>If your company is looking for reliable BPO services in the UAE and the Gulf, Synergi is your partner for growth. From customer support outsourcing to HR, finance, procurement, project management, marketing, and IT services, we deliver tailored solutions that improve efficiency and performance.</p>
         </div>
         <div class="cta-actions reveal">
           <a class="button button-primary" href="https://synergi.ae/contact-us/">Start a Conversation <span aria-hidden="true">&rarr;</span></a>
-          <a class="button button-outline-light" href="#services">Explore Our Services <span aria-hidden="true">&searr;</span></a>
+          <a class="button button-outline" href="#services">Explore Our Services <span aria-hidden="true">&searr;</span></a>
           <small>No generic package. Start with what your business needs next.</small>
         </div>
       </div>
@@ -748,22 +783,29 @@
         <p>Synergi is a boutique BPO partner delivering personalized, high-impact business solutions.</p>
         <a class="footer-email" href="mailto:info@synergibpo.com">info@synergibpo.com</a>
         <ul class="social-links" aria-label="Social media">
-          <li><a href="https://www.linkedin.com/company/synergi-ae/" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://www.instagram.com/synergi.ae/" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="https://www.facebook.com/profile.php?id=61553776125146" target="_blank" rel="noopener">Facebook</a></li>
-          <li><a href="https://www.youtube.com/@SynergiAE" target="_blank" rel="noopener">YouTube</a></li>
+          <li><a href="https://www.linkedin.com/company/synergi-ae/" target="_blank" rel="noopener" aria-label="Synergi on LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.13 1.44-2.13 2.93v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56v11.45z"/></svg>
+          </a></li>
+          <li><a href="https://www.instagram.com/synergi.ae/" target="_blank" rel="noopener" aria-label="Synergi on Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="icon-stroke"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1"/></svg>
+          </a></li>
+          <li><a href="https://www.facebook.com/profile.php?id=61553776125146" target="_blank" rel="noopener" aria-label="Synergi on Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15.12 5.32H17V2.14A26.11 26.11 0 0 0 14.26 2C11.54 2 9.68 3.66 9.68 6.7v2.62H6.61v3.56h3.07V22h3.68v-9.12h3.06l.46-3.56h-3.52V7.05c0-1.03.28-1.73 1.76-1.73z"/></svg>
+          </a></li>
+          <li><a href="https://www.youtube.com/@SynergiAE" target="_blank" rel="noopener" aria-label="Synergi on YouTube">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+          </a></li>
         </ul>
       </div>
       <div>
         <h2 class="footer-heading">Company</h2>
         <ul class="footer-links">
           <li><a href="https://synergi.ae/about-us/">About Us</a></li>
-          <li><a href="https://synergi.ae/global-locations/">Global Locations</a></li>
           <li><a href="https://synergi.ae/our-approach/">Our Approach</a></li>
           <li><a href="https://synergi.ae/engagement-team/">Engagement Team</a></li>
+          <li><a href="https://synergi.ae/global-locations/">Global Locations</a></li>
           <li><a href="https://synergi.ae/media/">Media</a></li>
           <li><a href="https://synergi.ae/blog/">Our Blog</a></li>
-          <li><a href="https://synergi.ae/contact-us/">Contact Us</a></li>
         </ul>
       </div>
       <div>
@@ -775,13 +817,17 @@
           <li><a href="https://synergi.ae/our-services/technology-ai/">Technology &amp; AI</a></li>
           <li><a href="https://synergi.ae/our-services/marketing/">Marketing</a></li>
           <li><a href="https://synergi.ae/our-services/project-management/">Project Management</a></li>
-          <li><a href="https://synergi.ae/shared-services-uae/">Shared Services</a></li>
-          <li><a href="https://synergi.ae/bpo-services-in-saudi-arabia-ksa-riyadh/">BPO Services</a></li>
         </ul>
       </div>
-      <div class="footer-conversation">
-        <p>Ready to connect the moving parts?</p>
-        <a class="button button-outline-light" href="https://synergi.ae/contact-us/">Let’s Talk <span aria-hidden="true">↗</span></a>
+      <div>
+        <h2 class="footer-heading">Outsourcing</h2>
+        <ul class="footer-links">
+          <li><a href="https://synergi.ae/shared-services-uae/">Shared Services</a></li>
+          <li><a href="https://synergi.ae/bpo-services-in-saudi-arabia-ksa-riyadh/">BPO Services</a></li>
+          <li><a href="https://synergi.ae/executive-podcast/">Executive Podcast</a></li>
+          <li><a href="https://synergi.ae/partners/">Our Partners</a></li>
+          <li><a href="https://synergi.ae/contact-us/">Contact Us</a></li>
+        </ul>
       </div>
     </div>
     <div class="container footer-bottom">

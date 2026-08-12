@@ -618,7 +618,7 @@ if (industryQueue) {
     }
 
     industryQueueMoving = true;
-    const transitionDuration = reducedMotion.matches ? 0 : 900;
+    const transitionDuration = reducedMotion.matches ? 0 : 720;
     const previousOrder = [...industryQueueOrder];
     const outgoingCards = previousOrder.slice(0, selectedPosition);
     const remainingCards = previousOrder.slice(selectedPosition);
@@ -679,11 +679,9 @@ if (industryQueue) {
     syncIndustryQueue();
     void industryQueueRail.offsetWidth;
 
-    const firstTailRect = outgoingCards[0].getBoundingClientRect();
-    const lastTailRect = outgoingCards[
-      outgoingCards.length - 1
-    ].getBoundingClientRect();
-    const reservedTailWidth = lastTailRect.right - firstTailRect.left;
+    const tailWidths = outgoingCards.map(
+      (queueCard) => queueCard.getBoundingClientRect().width,
+    );
 
     industryQueueOrder = previousOrder;
     industryQueueOrder.forEach((queueCard) => industryQueueRail.append(queueCard));
@@ -694,10 +692,18 @@ if (industryQueue) {
       queueCard.style.transition = "";
     });
 
-    const tailPlaceholder = document.createElement("span");
-    tailPlaceholder.className = "industry-queue-placeholder";
-    tailPlaceholder.setAttribute("aria-hidden", "true");
-    industryQueueRail.append(tailPlaceholder);
+    const tailPlaceholders = outgoingCards.map((queueCard) => {
+      const ghost = document.createElement("span");
+      ghost.className = "industry-queue-placeholder";
+      ghost.setAttribute("aria-hidden", "true");
+      const ghostImage = queueCard.querySelector(".industry-queue-image img");
+      const ghostSource = ghostImage && (ghostImage.currentSrc || ghostImage.src);
+      if (ghostSource) {
+        ghost.style.backgroundImage = `url("${ghostSource}")`;
+      }
+      industryQueueRail.append(ghost);
+      return ghost;
+    });
 
     industryQueueRail.style.setProperty(
       "--industry-queue-step-duration",
@@ -711,20 +717,24 @@ if (industryQueue) {
       });
       industryQueueOrder = nextOrder;
       syncIndustryQueue();
-      tailPlaceholder.style.flexBasis = `${reservedTailWidth}px`;
+      tailPlaceholders.forEach((ghost, ghostIndex) => {
+        ghost.style.flexBasis = `${tailWidths[ghostIndex]}px`;
+      });
     });
 
     window.setTimeout(() => {
       industryQueueCards.forEach((queueCard) => {
         queueCard.style.transition = "none";
       });
-      tailPlaceholder.style.transition = "none";
+      tailPlaceholders.forEach((ghost) => {
+        ghost.style.transition = "none";
+      });
 
       industryQueueOrder.forEach((queueCard) => industryQueueRail.append(queueCard));
       outgoingCards.forEach((queueCard) => {
         queueCard.classList.remove("is-exiting");
       });
-      tailPlaceholder.remove();
+      tailPlaceholders.forEach((ghost) => ghost.remove());
       syncIndustryQueue();
       void industryQueueRail.offsetWidth;
 
@@ -876,9 +886,7 @@ if (heroTypeword) {
   }
 }
 
-const scaleSection = document.querySelector("[data-scale-section]");
-
-if (scaleSection) {
+document.querySelectorAll("[data-scale-section]").forEach((scaleSection) => {
   const scaleCanvas = scaleSection.querySelector("[data-scale-canvas]");
   const scaleContext = scaleCanvas?.getContext("2d", { alpha: true });
   const compactScale = window.matchMedia("(max-width: 47.99rem)");
@@ -887,6 +895,14 @@ if (scaleSection) {
     const FRAME_INTERVAL = 1000 / 30;
     const LINK_DISTANCE = 130;
     const LINK_DISTANCE_SQ = LINK_DISTANCE * LINK_DISTANCE;
+    /* The brand-blue variant of this section has a much lighter
+       background, so the same particle values wash out on it.
+       Brighter, slightly more opaque tones there only. */
+    const brandScale = scaleSection.classList.contains("scale-section-brand");
+    const LINK_RGB = brandScale ? "224, 244, 255" : "96, 182, 232";
+    const LINK_ALPHA = brandScale ? 0.3 : 0.14;
+    const DOT_RGB = brandScale ? "238, 250, 255" : "158, 213, 244";
+    const DOT_ALPHA_SCALE = brandScale ? 1.55 : 1;
 
     let canvasWidth = 1;
     let canvasHeight = 1;
@@ -947,7 +963,7 @@ if (scaleSection) {
             const strength =
               1 - Math.sqrt(distanceSquared) / LINK_DISTANCE;
             scaleContext.strokeStyle =
-              `rgba(96, 182, 232, ${(strength * 0.14).toFixed(3)})`;
+              `rgba(${LINK_RGB}, ${(strength * LINK_ALPHA).toFixed(3)})`;
             scaleContext.beginPath();
             scaleContext.moveTo(
               particles[first].x,
@@ -974,7 +990,10 @@ if (scaleSection) {
           Math.PI * 2,
         );
         scaleContext.fillStyle =
-          `rgba(158, 213, 244, ${(particle.alpha * twinkle).toFixed(3)})`;
+          `rgba(${DOT_RGB}, ${Math.min(
+            particle.alpha * twinkle * DOT_ALPHA_SCALE,
+            1,
+          ).toFixed(3)})`;
         scaleContext.fill();
       });
     }
@@ -1069,9 +1088,11 @@ if (scaleSection) {
     resizeScaleCanvas();
     scheduleScaleFrame();
   }
+});
 
+{
   const statNumbers = [
-    ...scaleSection.querySelectorAll("[data-stat-number]"),
+    ...document.querySelectorAll("[data-stat-number]"),
   ];
 
   if (

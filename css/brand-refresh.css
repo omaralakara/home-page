@@ -1,0 +1,537 @@
+/* ============================================================
+   BRAND REFRESH — 2026-08-12
+   Loaded LAST (after why-section.css) so it wins the cascade.
+   1. One clean button system: gradient 45deg #1D4E89 -> #28ABE5
+   2. Footer on the same brand gradient
+   3. Text + heading colors aligned with synergi.ae kit tokens
+   4. Final CTA detached from the footer (own light section)
+   ============================================================ */
+
+:root {
+  --gradient-brand: linear-gradient(45deg, #1d4e89 0%, #28abe5 100%);
+  --gradient-brand-deep: linear-gradient(45deg, #1d4e89 30%, #28abe5 100%);
+}
+
+/* ------------------------------------------------------------
+   1. BUTTON SYSTEM
+   Base geometry is identical everywhere; exactly three variants:
+   .button-primary        gradient fill (default action)
+   .button-outline        primary outline, for light backgrounds
+   .button-outline-light  white outline, for dark/gradient backgrounds
+   (.button-small is the only size modifier)
+   Legacy classes .button-dark / .button-ghost / .button-light are
+   mapped onto the system so nothing left in the page can drift.
+   ------------------------------------------------------------ */
+
+.button {
+  min-height: 3.2rem;
+  padding: 0.78rem 1.4rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  letter-spacing: 0;
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    filter var(--duration-fast),
+    background-color var(--duration-fast),
+    color var(--duration-fast),
+    border-color var(--duration-fast),
+    box-shadow var(--duration-fast);
+}
+
+.button-primary,
+.button-dark,
+.button-light,
+.header-cta {
+  border-color: transparent;
+  background: var(--gradient-brand);
+  color: var(--color-white);
+  box-shadow: 0 0.5rem 1.4rem rgba(29, 78, 137, 0.28);
+}
+
+.button-primary:hover,
+.button-dark:hover,
+.button-light:hover,
+.header-cta:hover {
+  background: var(--gradient-brand);
+  color: var(--color-white);
+  filter: brightness(1.12);
+  box-shadow: 0 0.7rem 1.8rem rgba(29, 78, 137, 0.34);
+}
+
+.button-outline {
+  border-color: var(--color-primary);
+  background: transparent;
+  color: var(--color-primary);
+}
+
+.button-outline:hover {
+  border-color: transparent;
+  background: var(--gradient-brand);
+  color: var(--color-white);
+}
+
+.button-ghost,
+.button-outline-light {
+  border-color: rgba(255, 255, 255, 0.55);
+  background: transparent;
+  color: var(--color-white);
+}
+
+.button-ghost:hover,
+.button-outline-light:hover {
+  border-color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-primary);
+}
+
+/* Carousel arrows (services deck + industries queue): identical
+   treatment — white resting, Synergi primary fill on hover. */
+.service-controls button,
+.industry-queue-control {
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  color: var(--color-primary);
+}
+
+.service-controls button:hover,
+.industry-queue-control:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+/* ------------------------------------------------------------
+   Industries queue: kill the zoom during card transitions.
+   The image is fixed at the ACTIVE card's size and centered, so
+   when a card expands/collapses the motion is a pure reveal —
+   object-fit never rescales mid-animation. Desktop only; mobile
+   uses the fade transition and keeps plain cover.
+   ------------------------------------------------------------ */
+@media (min-width: 48rem) {
+  .js .industry-queue-image img {
+    left: 50%;
+    right: auto;
+    width: calc(clamp(21.5rem, 27vw, 25rem) * 2.3);
+    min-width: 100%;
+    max-width: none;
+    transform: translateX(-50%);
+    transition: none;
+  }
+
+  .js .industry-queue-card:hover .industry-queue-image img,
+  .js .industry-queue-card:focus-within .industry-queue-image img {
+    transform: translateX(-50%);
+  }
+}
+
+/* ------------------------------------------------------------
+   HEADER — matched to the live synergi.ae bar:
+   solid navy at all times (not transparent over the hero),
+   plain white uppercase links with no CTA pill, and a small
+   white pointer under the current page.
+   ------------------------------------------------------------ */
+
+/* Transparent while sitting on the hero, solid navy once the page
+   scrolls (main.js toggles .is-scrolled past 24px), transparent
+   again on the way back to the top. */
+.site-header {
+  border-bottom: 0;
+  background: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
+.site-header.is-scrolled,
+.site-header.is-menu-open {
+  background: var(--color-primary);
+  backdrop-filter: none;
+  box-shadow: 0 0.4rem 1.6rem rgba(7, 26, 49, 0.22);
+}
+
+.nav-list {
+  gap: clamp(0.9rem, 2vw, 2.15rem);
+}
+
+.nav-list > li > a,
+.submenu-toggle {
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+/* Current-page pointer: white triangle at the bottom edge of the bar. */
+.nav-list > li > a[aria-current="page"]::before {
+  position: absolute;
+  bottom: -1.15rem;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-right: 0.45rem solid transparent;
+  border-bottom: 0.42rem solid var(--color-white);
+  border-left: 0.45rem solid transparent;
+  content: "";
+  transform: translateX(-50%);
+}
+
+/* ------------------------------------------------------------
+   SECTION BACKGROUND RHYTHM
+   One consistent alternation down the page, two tones only
+   (white / --color-surface-soft) with the dark Numbers section
+   as the mid-page anchor:
+   hero(dark) → services(white) → shared-services(soft gradient)
+   → industries(white) → why(soft) → numbers(dark)
+   → partners(white) → locations(soft) → podcast(white)
+   → CTA(soft) → footer(gradient)
+   Dividing borders removed — the tone change marks each boundary.
+   ------------------------------------------------------------ */
+
+.industries-queue-section {
+  border-top: 0;
+  background: var(--color-white);
+}
+
+.why-section {
+  background: var(--color-surface-soft);
+}
+
+.region-section {
+  background: var(--color-surface-soft);
+}
+
+.podcast-section {
+  border-bottom: 0;
+  background: var(--color-white);
+}
+
+/* ------------------------------------------------------------
+   BENEFIT CHIPS (Shared Services section)
+   Cleaner pill: brand-blue text, soft primary-tinted border,
+   gradient check badge that ties into the button system.
+   ------------------------------------------------------------ */
+
+.ssb-chips {
+  gap: 0.6rem;
+}
+
+.ssb-chips li {
+  gap: 0.6rem;
+  padding: 0.5rem 1.15rem 0.5rem 0.55rem;
+  border: 1px solid rgba(29, 78, 137, 0.16);
+  border-radius: 10rem;
+  background: var(--color-white);
+  box-shadow: 0 2px 10px rgba(29, 78, 137, 0.07);
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.ssb-chips li::before {
+  width: 1.4rem;
+  height: 1.4rem;
+  background: var(--gradient-brand);
+  color: var(--color-white);
+  font-size: 0.62rem;
+}
+
+/* ------------------------------------------------------------
+   LOCATIONS — heading laid out like the Partners section
+   (eyebrow + h2 left, lead + link right) and a "coming soon"
+   card variant for hubs that aren't open yet.
+   ------------------------------------------------------------ */
+
+.region-heading {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.9fr) minmax(20rem, 1.1fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: end;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.region-heading-main .eyebrow {
+  margin-bottom: 0.85rem;
+}
+
+.region-heading-main h2 {
+  margin: 0;
+}
+
+.region-heading-aside p {
+  margin: 0 0 0.9rem;
+  max-width: 40rem;
+  color: var(--color-text-soft);
+}
+
+@media (max-width: 61.25rem) {
+  .region-heading {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+/* Coming-soon card: no photo, brand gradient + faint dot texture,
+   quieter than the live hubs but still part of the row. */
+/* Prefixed with .location-explorer to beat the explorer's own
+   card background, and repeated on :hover because the legacy
+   .location-list li:hover rule paints white (harmless behind a
+   photo, but this card has none). */
+.location-explorer .location-card-soon,
+.location-explorer .location-card-soon:hover {
+  background: linear-gradient(160deg, #1d4e89 0%, #12365f 55%, #0b2341 100%);
+}
+
+/* The photo is 16:9 and the card is a tall column, so nudge the
+   crop left to keep the old city's domes and minarets in frame. */
+.location-card-soon img {
+  object-position: 38% center;
+}
+
+/* Sits inside .location-copy, directly above "Damascus", so it
+   clearly belongs to that card — pinned to the card's top-right
+   it read as a label for the whole section.
+   .location-explorer prefix needed: the legacy `.location-list span`
+   rule colours every span brand-navy, which is invisible here. */
+.location-explorer .location-badge {
+  align-self: flex-start;
+  margin: 0 0 0.6rem;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 10rem;
+  color: var(--color-white);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+}
+
+/* The soon card has no link, so its detail line reveals on hover
+   of the card itself rather than on focus-within. */
+.location-card-soon:hover .location-action {
+  max-height: 3rem;
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  opacity: 1;
+}
+
+.location-card-soon .location-action {
+  justify-content: flex-start;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* ------------------------------------------------------------
+   Partners marquee: align with the page container (same width
+   as every other section) and fade the logos out as they reach
+   the container edges.
+   ------------------------------------------------------------ */
+.partner-marquee-slim .partner-marquee {
+  width: min(100% - (2 * var(--gutter)), var(--container));
+  margin-inline: auto;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 4rem,
+    #000 calc(100% - 4rem),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 4rem,
+    #000 calc(100% - 4rem),
+    transparent 100%
+  );
+}
+
+/* ------------------------------------------------------------
+   2. FOOTER — brand gradient (navy anchors the reading area,
+   cyan lifts toward the top-right corner)
+   ------------------------------------------------------------ */
+
+.site-footer {
+  background: var(--gradient-brand-deep);
+}
+
+/* Four even columns: brand block + three link groups (the boxed
+   "Let's Talk" card is gone — the CTA section now sits directly
+   above the footer, so repeating it here just competed with it). */
+.footer-grid {
+  grid-template-columns: minmax(16rem, 1.35fr) repeat(3, minmax(0, 0.8fr));
+  gap: clamp(2rem, 4.5vw, 4rem);
+}
+
+.footer-brand > p {
+  max-width: 24rem;
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.footer-email {
+  display: inline-block;
+  margin-top: 0.35rem;
+  color: var(--color-white);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  padding-bottom: 0.15rem;
+  transition: border-color var(--duration-fast);
+}
+
+.footer-email:hover {
+  border-bottom-color: var(--color-white);
+}
+
+/* Social: circular icon buttons (matching synergi.ae) rather
+   than the old plain text labels. */
+.social-links {
+  gap: 0.6rem;
+  margin-top: 1.75rem;
+}
+
+.social-links a {
+  display: grid;
+  width: 2.4rem;
+  height: 2.4rem;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 50%;
+  color: var(--color-white);
+  transition:
+    background-color var(--duration-fast),
+    border-color var(--duration-fast),
+    color var(--duration-fast),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.social-links a:hover,
+.social-links a:focus-visible {
+  border-color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.social-links svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  fill: currentColor;
+}
+
+.social-links svg.icon-stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.footer-heading {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.7rem;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.8rem;
+  transition: color var(--duration-fast);
+}
+
+.footer-links a:hover {
+  color: var(--color-white);
+}
+
+/* ------------------------------------------------------------
+   3. TEXT + HEADING COLORS (synergi.ae kit tokens)
+   body text  #232324  (--color-text)
+   soft text  #5C6673  (--color-text-soft)
+   headings   #1D4E89  (--color-primary)
+   Dark sections (numbers, footer) keep their scoped whites.
+   Hero h1 stays white over the photo; its accent span uses the
+   true secondary token.
+   ------------------------------------------------------------ */
+
+body {
+  color: var(--color-text);
+}
+
+h2,
+h3,
+.split-heading h2,
+.impact-intro h2,
+.podcast-copy h2,
+.why-copy h2,
+.partner-marquee-intro h2,
+.industries-copy h2,
+.industries-queue-heading h2,
+.ssb-copy h2,
+.partners-heading-main h2,
+.event-card h3,
+.social-card h3,
+.industry-card-copy h3,
+.industry-queue-card-copy h3,
+.industry-list h3,
+.seo-support h3,
+.insight-card h3 {
+  color: var(--color-primary);
+}
+
+.hero h1 span,
+.hero h1 .hero-typeword {
+  color: var(--color-secondary);
+}
+
+/* Why-section cards: copy sits on top of photos — always white. */
+.why-card h3,
+.why-card-copy,
+.why-card-copy h3 {
+  color: var(--color-white);
+}
+
+/* ------------------------------------------------------------
+   4. FINAL CTA — its own section, no longer fused to the footer.
+   Light surface + top border, brand headings, gradient primary
+   button. The gradient footer below reads as a clearly separate
+   block.
+   ------------------------------------------------------------ */
+
+.final-cta {
+  margin-bottom: 0;
+  padding-block: clamp(4.5rem, 8vw, 6.5rem);
+  border-top: 0;
+  background: var(--color-surface-soft);
+  color: var(--color-text);
+}
+
+.final-cta::before,
+.final-cta::after {
+  content: none;
+}
+
+.final-cta h2 {
+  max-width: 18ch;
+  color: var(--color-primary);
+  font-size: clamp(2.1rem, 1.4rem + 2.2vw, 3rem);
+}
+
+.final-cta p:not(.eyebrow) {
+  color: var(--color-text-soft);
+}
+
+.final-cta .eyebrow {
+  color: var(--color-primary);
+}
+
+.final-cta .button-primary {
+  background: var(--gradient-brand);
+  color: var(--color-white);
+}
+
+.final-cta .button-primary:hover {
+  background: var(--gradient-brand);
+  color: var(--color-white);
+}
+
+.final-cta .cta-actions small {
+  color: var(--color-text-soft);
+}

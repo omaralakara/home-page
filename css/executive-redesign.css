@@ -101,7 +101,7 @@ h2 {
 
 .site-header.is-scrolled,
 .site-header.is-menu-open {
-  background: rgba(7, 26, 49, 0.96);
+  background: rgba(29, 78, 137, 0.96);
   box-shadow: 0 0.6rem 2rem rgba(7, 26, 49, 0.2);
 }
 
@@ -116,7 +116,7 @@ h2 {
 
 .submenu {
   border-radius: var(--radius-lg);
-  background: var(--color-charcoal);
+  background: var(--color-primary);
 }
 
 /* Image-led executive hero */
@@ -161,8 +161,8 @@ h2 {
   display: grid;
   height: 100%;
   min-height: inherit;
-  grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.34fr);
-  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
   gap: 2.5rem 4rem;
   align-items: center;
   padding-top: calc(var(--header-height) + 3.5rem);
@@ -185,7 +185,7 @@ h2 {
 }
 
 .hero h1 {
-  max-width: 15ch;
+  max-width: none;
   margin-bottom: 1.4rem;
   color: var(--color-white);
   font-size: 4.15rem;
@@ -226,42 +226,26 @@ h2 {
 }
 
 .hero-lead {
-  max-width: 43rem;
+  max-width: none;
   margin-bottom: 0;
   color: rgba(255, 255, 255, 0.78);
   font-size: 1.05rem;
   line-height: 1.62;
 }
 
+/* Below desktop widths, let the lead flow naturally instead of the fixed two-line break. */
+@media (max-width: 74rem) {
+  .hero-lead {
+    max-width: 43rem;
+  }
+
+  .hero-lead .hero-lead-break {
+    display: none;
+  }
+}
+
 .hero-copy .button-row {
   margin-top: 2rem;
-}
-
-.hero-positioning {
-  align-self: end;
-  margin-bottom: 1.25rem;
-  padding-left: 1.4rem;
-  border-left: 2px solid var(--color-signal);
-}
-
-.hero-positioning > span {
-  display: block;
-  margin-bottom: 0.6rem;
-  color: rgba(255, 255, 255, 0.62);
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.hero-positioning p {
-  margin: 0;
-  color: var(--color-white);
-  font-size: 1.35rem;
-  line-height: 1.35;
-}
-
-.hero-positioning strong {
-  color: var(--color-mint);
 }
 
 .hero-service-rail {
@@ -1178,7 +1162,7 @@ h2 {
 }
 
 .podcast-grid {
-  grid-template-columns: minmax(0, 1.08fr) minmax(23rem, 0.92fr);
+  grid-template-columns: minmax(23rem, 0.92fr) minmax(0, 1.08fr);
   gap: 6rem;
 }
 
@@ -1506,7 +1490,7 @@ h2 {
 }
 
 .site-footer {
-  background: var(--color-primary-ink);
+  background: var(--color-primary);
 }
 
 @media (max-width: 74rem) {
@@ -1515,7 +1499,7 @@ h2 {
   }
 
   .primary-nav {
-    background: var(--color-charcoal);
+    background: var(--color-primary);
   }
 
   .hero {
@@ -1523,16 +1507,12 @@ h2 {
   }
 
   .hero-layout {
-    grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.3fr);
+    grid-template-columns: minmax(0, 1fr);
     gap: 2rem 2.5rem;
   }
 
   .hero h1 {
     font-size: 3.9rem;
-  }
-
-  .hero-positioning p {
-    font-size: 1.1rem;
   }
 
   .hero-service-rail a,
@@ -1617,12 +1597,8 @@ h2 {
     align-self: center;
   }
 
-  .hero-positioning {
-    display: none;
-  }
-
   .hero h1 {
-    max-width: 14ch;
+    max-width: none;
     font-size: 3.45rem;
   }
 
@@ -2719,7 +2695,7 @@ li,
 }
 
 .hero-layout {
-  grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.22fr);
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: 1fr;
   padding-bottom: 3.5rem;
 }
@@ -2729,7 +2705,7 @@ li,
 }
 
 .hero h1 {
-  max-width: 17ch;
+  max-width: none;
 }
 
 .hero h1 .hero-type-line {
@@ -3307,7 +3283,7 @@ li,
 
 @media (max-width: 74rem) {
   .hero h1 {
-    max-width: 17ch;
+    max-width: none;
   }
 
   .hero h1 .hero-type-line {
@@ -4443,7 +4419,7 @@ li,
 
 /* Alternative Sector Experience concept: stepped queue with a concealed wraparound. */
 .industries-queue-section {
-  padding-block: clamp(3.5rem, 5vw, 5.25rem);
+  padding-block: clamp(2.25rem, 3.25vw, 3.25rem) clamp(1.5rem, 2.5vw, 2.25rem);
   border-top: 1px solid rgba(7, 26, 49, 0.12);
   background: var(--color-paper);
   color: var(--color-primary-ink);
@@ -4451,7 +4427,9 @@ li,
 
 .industries-queue-heading {
   display: grid;
-  gap: 0.75rem;
+  justify-items: center;
+  gap: 0.5rem;
+  text-align: center;
 }
 
 .industries-queue-heading .eyebrow {
@@ -4459,24 +4437,25 @@ li,
 }
 
 .industries-queue-heading h2 {
-  max-width: 17ch;
-  margin: 0;
+  max-width: 30ch;
+  margin: 0 auto;
   color: var(--color-primary-ink);
-  font-size: clamp(2.35rem, 3.8vw, 3.35rem);
-  line-height: 1.08;
+  font-size: clamp(2.05rem, 3vw, 2.7rem);
+  line-height: 1.12;
 }
 
 .industry-queue {
-  margin-top: clamp(1.4rem, 2.8vw, 2.2rem);
+  position: relative;
+  margin-top: clamp(0.9rem, 1.8vw, 1.4rem);
 }
 
 .industry-queue-toolbar {
+  position: absolute;
+  top: calc(clamp(21.5rem, 27vw, 25rem) + 0.85rem);
+  right: 0;
   display: flex;
-  min-height: 4.25rem;
   align-items: center;
   justify-content: flex-end;
-  padding-block: 0.75rem;
-  border-top: 1px solid rgba(7, 26, 49, 0.14);
 }
 
 .industry-queue-controls {
@@ -4589,10 +4568,10 @@ li,
   padding-top: 0;
   opacity: 0;
   transition:
-    height 480ms ease,
-    max-height 480ms ease,
-    padding-top 480ms ease,
-    opacity 260ms ease 80ms;
+    height 560ms cubic-bezier(0.16, 1, 0.3, 1),
+    max-height 560ms cubic-bezier(0.16, 1, 0.3, 1),
+    padding-top 560ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 320ms ease 140ms;
 }
 
 .industry-queue-card-copy h3 {
@@ -4613,7 +4592,8 @@ li,
 
 .js .industry-queue-rail {
   --industry-queue-gap: clamp(0.38rem, 0.7vw, 0.65rem);
-  --industry-queue-step-duration: 900ms;
+  --industry-queue-step-duration: 720ms;
+  --industry-queue-ease: cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   display: flex;
   min-height: calc(clamp(21.5rem, 27vw, 25rem) + 8.75rem);
@@ -4629,13 +4609,12 @@ li,
   opacity: 1;
   transform: translateX(0);
   transition:
-    flex-grow var(--industry-queue-step-duration) cubic-bezier(0.22, 1, 0.36, 1),
-    flex-basis var(--industry-queue-step-duration) cubic-bezier(0.22, 1, 0.36, 1),
-    min-width var(--industry-queue-step-duration) cubic-bezier(0.22, 1, 0.36, 1),
-    margin-inline-end var(--industry-queue-step-duration) cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 180ms ease,
-    transform var(--industry-queue-step-duration) cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: flex-grow, transform, opacity;
+    flex-grow var(--industry-queue-step-duration) var(--industry-queue-ease),
+    flex-basis var(--industry-queue-step-duration) var(--industry-queue-ease),
+    min-width var(--industry-queue-step-duration) var(--industry-queue-ease),
+    margin-inline-end var(--industry-queue-step-duration) var(--industry-queue-ease),
+    transform var(--industry-queue-step-duration) var(--industry-queue-ease);
+  will-change: flex-grow, flex-basis;
 }
 
 .js .industry-queue-card[data-industry-queue-position="0"] { flex-grow: 16; }
@@ -4654,19 +4633,34 @@ li,
   flex-basis: 0 !important;
   flex-grow: 0 !important;
   margin-inline-end: calc(-1 * var(--industry-queue-gap));
-  opacity: 0;
-  transform: translateX(-2.5rem);
   pointer-events: none;
+  /* The layout gap is absorbed immediately (so the row never shifts late),
+     while the visible gap next to the incoming card is preserved by clipping
+     the exiting card's right edge. */
+  clip-path: inset(0 var(--industry-queue-gap) 0 0);
 }
 
 .js .industry-queue-placeholder {
   display: block;
-  width: 0;
+  overflow: hidden;
+  width: auto;
   min-width: 0;
-  height: 1px;
+  height: clamp(21.5rem, 27vw, 25rem);
   flex: 0 0 0;
+  border-radius: 0.65rem;
+  background-color: #0d2a4b;
+  background-position: center;
+  background-size: cover;
   pointer-events: none;
-  transition: flex-basis var(--industry-queue-step-duration) cubic-bezier(0.22, 1, 0.36, 1);
+  transition: flex-basis var(--industry-queue-step-duration) var(--industry-queue-ease);
+}
+
+.js .industry-queue-placeholder::after {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(4, 17, 33, 0.14), rgba(4, 17, 33, 0.72));
+  content: "";
 }
 
 .js .industry-queue-card:not(.is-active) .industry-queue-preview {
@@ -4693,6 +4687,14 @@ li,
 }
 
 @media (max-width: 61.25rem) {
+  .industry-queue-toolbar {
+    top: calc(clamp(20rem, 61vw, 24rem) + 0.85rem);
+  }
+
+  .js .industry-queue-placeholder {
+    height: clamp(20rem, 61vw, 24rem);
+  }
+
   .js .industry-queue-rail {
     --industry-queue-gap: 0.4rem;
     min-height: calc(clamp(20rem, 61vw, 24rem) + 8.75rem);
@@ -4716,9 +4718,9 @@ li,
 }
 
 @media (max-width: 47.99rem) {
-  .industries-queue-section { padding-block: 3.25rem 3.75rem; }
+  .industries-queue-section { padding-block: 3.25rem 1.5rem; }
   .industries-queue-heading h2 { font-size: clamp(2.05rem, 9vw, 2.75rem); }
-  .industry-queue-toolbar { min-height: 3.65rem; padding-top: 0.25rem; }
+  .industry-queue-toolbar { position: static; margin-top: 0.75rem; min-height: 3rem; padding-top: 0.25rem; }
   .industry-queue-control { width: 2.75rem; height: 2.75rem; }
   .js .industry-queue-rail {
     display: block;
@@ -5988,4 +5990,548 @@ main .container > * {
   .footer-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Brand-blue variant of the Synergi in Numbers section (#1D4E89) */
+.scale-section-brand {
+  background:
+    radial-gradient(58rem 30rem at 88% 112%, rgba(11, 35, 65, 0.55), transparent 62%),
+    radial-gradient(44rem 24rem at 4% -12%, rgba(40, 171, 229, 0.22), transparent 60%),
+    linear-gradient(180deg, #235a9c 0%, var(--color-primary) 48%, #173f70 100%);
+}
+
+.scale-section-brand .scale-heading .eyebrow {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.scale-section-brand .scale-lead {
+  color: rgba(223, 236, 249, 0.88);
+}
+
+.scale-section-brand .stats-source {
+  color: rgba(214, 229, 244, 0.62);
+}
+
+.scale-section-brand .scale-stat {
+  border-top-color: rgba(255, 255, 255, 0.24);
+}
+
+.scale-section-brand .scale-stat span {
+  color: rgba(223, 236, 249, 0.92);
+}
+
+/* Slim "in partnership with" logo strip directly under the hero. */
+.partner-marquee-slim {
+  padding: 2.1rem 0 2.4rem;
+  border-bottom: 1px solid rgba(7, 26, 49, 0.08);
+  background: var(--color-white);
+}
+
+.partner-marquee-caption {
+  margin: 0 auto 1.4rem;
+  color: rgba(7, 26, 49, 0.48);
+  font-size: 0.66rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.partner-marquee-slim .partner-marquee {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+}
+
+.partner-marquee-slim .partner-marquee-track > a {
+  width: auto;
+  min-width: 11.5rem;
+  min-height: 4.6rem;
+  padding: 0.85rem 2.4rem;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.partner-marquee-slim .partner-marquee-track > a:first-child {
+  border-left: 0;
+}
+
+.partner-marquee-slim .partner-marquee-track a > span {
+  display: none;
+}
+
+.partner-marquee-slim .partner-marquee img {
+  width: min(100%, 8.4rem);
+  height: 2.6rem;
+  filter: none;
+  opacity: 1;
+}
+
+.partner-marquee-slim .partner-marquee-track > a:hover,
+.partner-marquee-slim .partner-marquee-track > a:focus-visible {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Logos show their own colors by default; hovering one grays out all the
+   others and keeps only the hovered logo in color. */
+.partner-marquee-slim .partner-marquee:has(a:hover) img,
+.partner-marquee-slim .partner-marquee:has(a:focus-visible) img {
+  filter: grayscale(1);
+  opacity: 0.45;
+}
+
+.partner-marquee-slim .partner-marquee-track > a:hover img,
+.partner-marquee-slim .partner-marquee-track > a:focus-visible img {
+  filter: none;
+  opacity: 1;
+}
+
+@media (max-width: 47.99rem) {
+  .partner-marquee-slim {
+    padding: 1.6rem 0 1.8rem;
+  }
+
+  .partner-marquee-slim .partner-marquee-track > a {
+    min-width: 9rem;
+    padding: 0.7rem 1.6rem;
+  }
+
+  .partner-marquee-slim .partner-marquee img {
+    height: 2.1rem;
+  }
+}
+
+/* ============================================================
+   Shared Services v2 — floating 3D bubble hub (brand colors)
+   ============================================================ */
+.ssb-section {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(4rem, 7vw, 6.25rem) clamp(3.25rem, 5vw, 4.5rem);
+  background:
+    radial-gradient(38rem 26rem at 86% 8%, rgba(223, 244, 252, 0.85), transparent 62%),
+    radial-gradient(32rem 24rem at 4% 96%, rgba(237, 245, 250, 0.9), transparent 58%),
+    linear-gradient(180deg, #ffffff 0%, #f3f7fb 100%);
+  color: var(--color-primary-ink);
+}
+
+/* Faint dot texture — a light-mode nod to the Synergi Numbers particles */
+.ssb-section::before {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(29, 78, 137, 0.11) 1px, transparent 1.5px);
+  background-size: 1.4rem 1.4rem;
+  content: "";
+  -webkit-mask-image: radial-gradient(72rem 42rem at 62% 42%, #000 25%, transparent 88%);
+  mask-image: radial-gradient(72rem 42rem at 62% 42%, #000 25%, transparent 88%);
+  pointer-events: none;
+}
+
+.ssb-section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.ssb-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.ssb-copy .eyebrow {
+  color: var(--color-primary);
+}
+
+.ssb-copy h2 {
+  max-width: 18ch;
+  margin: 0 0 1.1rem;
+  color: var(--color-primary-ink);
+  font-size: clamp(2.15rem, 3.4vw, 3.05rem);
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+}
+
+.ssb-lead {
+  max-width: 34rem;
+  margin: 0;
+  color: var(--color-text-soft);
+  font-size: 0.96rem;
+  line-height: 1.68;
+}
+
+.ssb-lead a {
+  color: var(--color-primary);
+  font-weight: 650;
+}
+
+.ssb-ministeps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-primary-ink);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.ssb-ministeps li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.ssb-ministeps li span {
+  color: var(--color-secondary);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.ssb-ministep-arrow {
+  color: rgba(7, 26, 49, 0.32);
+  font-weight: 500;
+}
+
+.ssb-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.4rem;
+  margin-top: 1.6rem;
+}
+
+.ssb-markets {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0;
+  color: rgba(7, 26, 49, 0.55);
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+}
+
+.ssb-markets i {
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 50%;
+  background: var(--color-secondary);
+}
+
+.ssb-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 1.7rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ssb-chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.95rem;
+  border: 1px solid var(--color-border);
+  border-radius: 10rem;
+  background: var(--color-white);
+  box-shadow: 0 2px 8px rgba(7, 26, 49, 0.05);
+  color: var(--color-primary-ink);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.ssb-chips li::before {
+  display: grid;
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 50%;
+  background: var(--color-secondary-soft);
+  color: var(--color-primary);
+  content: "✓";
+  font-size: 0.6rem;
+  font-weight: 900;
+  place-items: center;
+}
+
+/* Bubble stage */
+.ssb-stage {
+  position: relative;
+  width: min(100%, 35rem);
+  aspect-ratio: 1;
+  margin-inline: auto;
+  container-type: inline-size;
+}
+
+.ssb-links {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ssb-links line {
+  stroke: rgba(29, 78, 137, 0.28);
+  stroke-dasharray: 1.5 1.9;
+  stroke-width: 0.32;
+}
+
+.ssb-bubble {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1cqw;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  text-align: center;
+  animation: ssb-float 7s ease-in-out infinite alternate;
+}
+
+/* glossy specular highlight for the 3D look */
+.ssb-bubble::before {
+  position: absolute;
+  top: 9%;
+  left: 16%;
+  width: 34%;
+  height: 22%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0));
+  content: "";
+  transform: rotate(-24deg);
+  pointer-events: none;
+}
+
+@keyframes ssb-float {
+  from { transform: translateY(-1.5cqw); }
+  to { transform: translateY(1.5cqw); }
+}
+
+.ssb-core {
+  top: 33.5%;
+  left: 33.5%;
+  width: 33%;
+  background: radial-gradient(circle at 31% 26%, #4a7cb5 0%, var(--color-primary) 46%, var(--color-primary-deep) 78%, #081a30 100%);
+  box-shadow:
+    inset -1.2cqw -1.6cqw 3cqw rgba(4, 14, 28, 0.55),
+    inset 1cqw 1.2cqw 2.4cqw rgba(160, 205, 240, 0.35),
+    0 2.4cqw 4.5cqw rgba(7, 26, 49, 0.38);
+  color: var(--color-white);
+  animation-duration: 9s;
+}
+
+.ssb-core::before {
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+}
+
+.ssb-core small {
+  color: #9fd3f0;
+  font-size: 2.15cqw;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.ssb-core b {
+  font-size: 3.55cqw;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.ssb-orb {
+  background: radial-gradient(circle at 30% 24%, #ffffff 0%, #eef7fc 38%, var(--color-secondary-soft) 62%, #b7dff2 88%, #9fd0ea 100%);
+  box-shadow:
+    inset -1cqw -1.4cqw 2.6cqw rgba(29, 78, 137, 0.22),
+    inset 0.8cqw 1cqw 2cqw rgba(255, 255, 255, 0.9),
+    0 1.8cqw 3.4cqw rgba(7, 26, 49, 0.16);
+  transition: scale var(--duration) var(--ease-out);
+}
+
+.ssb-orb:hover {
+  scale: 1.06;
+}
+
+.ssb-orb svg {
+  width: 27%;
+  aspect-ratio: 1;
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.6;
+}
+
+.ssb-orb b {
+  color: var(--color-primary-deep);
+  font-size: 2.6cqw;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.ssb-o1 { top: 0%; left: 40%; width: 20%; animation-delay: 0.5s; }
+.ssb-o2 { top: 18.5%; left: 73.1%; width: 23%; animation-delay: 1.3s; }
+.ssb-o3 { top: 60.5%; left: 75.1%; width: 19%; animation-delay: 2s; }
+.ssb-o4 { top: 77.5%; left: 39.5%; width: 21%; animation-delay: 0.2s; }
+.ssb-o5 { top: 61%; left: 6.4%; width: 18%; animation-delay: 1.7s; }
+.ssb-o6 { top: 19%; left: 4.4%; width: 22%; animation-delay: 2.6s; }
+
+.ssb-dot {
+  position: absolute;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: ssb-float 6s ease-in-out infinite alternate;
+}
+
+.ssb-d1 { top: 87%; left: 24%; width: 4.6%; background: radial-gradient(circle at 32% 28%, #dff4fc, #9fd0ea); animation-delay: 0.9s; }
+.ssb-d2 { top: 5%; left: 27%; width: 3.2%; background: radial-gradient(circle at 32% 28%, #ffffff, #bde4f5); animation-delay: 1.6s; }
+.ssb-d3 { top: 46%; left: 95%; width: 2.6%; background: radial-gradient(circle at 32% 28%, #dff4fc, #8fc9e8); animation-delay: 2.4s; }
+.ssb-d4 { top: 12%; left: 92%; width: 2.2%; background: radial-gradient(circle at 32% 28%, #ffffff, #b3dff3); animation-delay: 0.3s; }
+
+.ssb-note {
+  max-width: 56rem;
+  margin: clamp(2rem, 3.5vw, 2.75rem) 0 0;
+  color: var(--color-text-soft);
+  font-size: 0.82rem;
+  line-height: 1.65;
+}
+
+.ssb-note a {
+  color: var(--color-primary);
+  font-weight: 650;
+}
+
+/* Responsive */
+@media (max-width: 61.25rem) {
+  .ssb-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .ssb-stage {
+    width: min(100%, 26rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ssb-bubble,
+  .ssb-dot {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   Our Partners — dedicated section between Shared Services and
+   Locations. Reuses the slim marquee logo treatment (full-color
+   logos, hover grays the rest) but frames it as a proper section
+   with an eyebrow + heading + supporting copy.
+   ============================================================ */
+.partners-showcase {
+  padding: clamp(3.5rem, 6vw, 5rem) 0 clamp(3.5rem, 6vw, 5rem);
+  border-top: 1px solid rgba(7, 26, 49, 0.08);
+  border-bottom: 0;
+  background: var(--color-white);
+}
+
+.partners-heading {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.9fr) minmax(20rem, 1.1fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: end;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.partners-heading-main .eyebrow {
+  margin-bottom: 0.85rem;
+}
+
+.partners-heading-main h2 {
+  margin: 0;
+  color: var(--color-primary-ink);
+}
+
+.partners-heading-aside {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+  max-width: 34rem;
+}
+
+.partners-heading-aside p {
+  margin: 0;
+  color: var(--color-text-soft);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 61.25rem) {
+  .partners-heading {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 1.25rem;
+  }
+}
+
+/* Tighten the gap above "Regional presence / Our Locations". */
+.region-section.section {
+  padding-top: clamp(3.25rem, 5vw, 4.5rem);
+}
+
+/* ============================================================
+   Final CTA — brought onto the Synergi brand palette
+   (primary #1D4E89 like synergi.ae / the footer) and scaled
+   down. Scoped to .final-cta only; no other section changes.
+   ============================================================ */
+.final-cta {
+  padding-block: clamp(4rem, 7vw, 5.5rem);
+  border-top: 0;
+  background:
+    radial-gradient(42rem 30rem at 88% 12%, rgba(40, 171, 229, 0.22), transparent 62%),
+    var(--color-primary);
+}
+
+.final-cta h2 {
+  max-width: 18ch;
+  font-size: clamp(2.1rem, 1.4rem + 2.2vw, 3rem);
+}
+
+.final-cta p:not(.eyebrow) {
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.final-cta .eyebrow-light {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.final-cta .button-primary {
+  background: var(--color-white);
+  color: var(--color-primary);
+}
+
+.final-cta .button-primary:hover {
+  background: var(--color-secondary-soft);
+}
+
+.final-cta .button-outline-light {
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.final-cta .cta-actions small {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+/* Industries heading — align left like every other section heading. */
+.industries-queue-heading {
+  justify-items: start;
+  text-align: left;
+}
+
+.industries-queue-heading h2 {
+  margin: 0;
 }

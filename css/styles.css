@@ -295,7 +295,7 @@ h3 {
 
 .site-header.is-scrolled,
 .site-header.is-menu-open {
-  background: rgba(7, 26, 49, 0.94);
+  background: rgba(29, 78, 137, 0.94);
   box-shadow: 0 0.5rem 2rem rgba(7, 26, 49, 0.18);
   backdrop-filter: blur(14px);
 }
@@ -1995,8 +1995,8 @@ h3 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: saturate(0.72) contrast(1.04);
-  opacity: 0.72;
+  filter: saturate(1) contrast(1.02);
+  opacity: 1;
   transform: scale(1.03);
   transition:
     filter 620ms var(--ease-out),
@@ -2125,7 +2125,7 @@ h3 {
 }
 
 .location-list:hover .location-card:not(:hover) img {
-  filter: saturate(0.4) brightness(0.72);
+  filter: saturate(0.92) brightness(0.9);
 }
 
 /* Partners */
@@ -2304,7 +2304,7 @@ h3 {
 /* Footer */
 .site-footer {
   padding-top: clamp(4rem, 8vw, 7rem);
-  background: var(--color-primary-ink);
+  background: var(--color-primary);
   color: var(--color-white);
 }
 
