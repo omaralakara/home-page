@@ -618,7 +618,7 @@ if (industryQueue) {
     }
 
     industryQueueMoving = true;
-    const transitionDuration = reducedMotion.matches ? 0 : 720;
+    const transitionDuration = reducedMotion.matches ? 0 : 1100;
     const previousOrder = [...industryQueueOrder];
     const outgoingCards = previousOrder.slice(0, selectedPosition);
     const remainingCards = previousOrder.slice(selectedPosition);

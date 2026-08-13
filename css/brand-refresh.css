@@ -535,3 +535,12 @@ h3,
 .final-cta .cta-actions small {
   color: var(--color-text-soft);
 }
+
+/* Partner logos: not clickable (no href) — show the drag hand instead of a link cursor */
+.partner-marquee-track > a {
+  cursor: grab;
+}
+
+.partner-marquee.is-dragging .partner-marquee-track > a {
+  cursor: grabbing;
+}

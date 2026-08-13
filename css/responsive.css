@@ -125,23 +125,15 @@
     align-self: center;
   }
 
-  .hero-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(24rem, 0.82fr);
-    gap: 2rem;
-  }
+  
 
   .hero h1 {
     font-size: clamp(2.8rem, 5.5vw, 4.6rem);
   }
 
-  .system-node {
-    min-width: 7.6rem;
-  }
+  
 
-  .system-core {
-    width: 12.5rem;
-    padding: 1.45rem;
-  }
+  
 
   .impact-grid,
   .podcast-grid,
@@ -158,21 +150,11 @@
     grid-template-columns: 1.4fr 0.75fr 0.85fr;
   }
 
-  .footer-conversation {
-    grid-column: 1 / -1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-  }
+  
 
-  .footer-conversation p {
-    margin: 0;
-  }
+  
 
-  .footer-conversation .button {
-    width: auto;
-  }
+  
 }
 
 @media (max-width: 61.25rem) {
@@ -180,68 +162,25 @@
     min-height: 100svh;
   }
 
-  .hero-grid {
-    min-height: 100svh;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    align-content: center;
-    padding-top: calc(var(--header-height) + 2rem);
-    padding-bottom: 2rem;
-  }
+  
 
   .hero-copy {
     max-width: 50rem;
   }
 
-  .hero-system {
-    width: 100%;
-    margin-inline: auto;
-  }
+  
 
-  .system-frame {
-    display: grid;
-    width: 100%;
-    aspect-ratio: auto;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0.6rem;
-  }
+  
 
-  .system-frame::before,
-  .system-lines {
-    display: none;
-  }
+  
 
-  .system-core {
-    position: relative;
-    top: auto;
-    left: auto;
-    width: 100%;
-    min-height: 8.5rem;
-    aspect-ratio: auto;
-    grid-column: 1 / -1;
-    grid-row: 1;
-    border-radius: var(--radius-lg);
-    transform: none;
-  }
+  
 
-  .system-node {
-    position: relative;
-    top: auto;
-    right: auto;
-    bottom: auto;
-    left: auto;
-    width: 100%;
-    min-width: 0;
-    min-height: 3.5rem;
-  }
+  
 
-  .system-hint {
-    display: none;
-  }
+  
 
-  .scroll-cue {
-    display: none;
-  }
+  
 
   .service-card {
     min-height: 0;
@@ -265,21 +204,15 @@
     grid-template-columns: 1fr;
   }
 
-  .impact-proof {
-    padding-top: 0;
-  }
+  
 
-  .industries-copy {
-    position: static;
-  }
+  
 
   .podcast-art {
     max-width: 42rem;
   }
 
-  .seo-lead h2 {
-    font-size: var(--step-3);
-  }
+  
 
   .location-list {
     grid-template-columns: repeat(3, 1fr);
@@ -303,17 +236,11 @@
     min-height: 28rem;
   }
 
-  .insight-card {
-    grid-column: span 6;
-  }
+  
 
-  .insight-card:nth-child(2) {
-    margin-top: 2rem;
-  }
+  
 
-  .insight-card:nth-child(3) {
-    grid-column: 4 / span 6;
-  }
+  
 
   .final-cta-inner {
     grid-template-columns: 1fr;
@@ -339,15 +266,9 @@
     width: 7.9rem;
   }
 
-  .split-heading {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-    margin-bottom: 2.75rem;
-  }
+  
 
-  .split-heading h2 {
-    max-width: 18ch;
-  }
+  
 
   .eyebrow {
     font-size: 0.67rem;
@@ -357,11 +278,7 @@
     background-size: 3rem 3rem;
   }
 
-  .hero-grid {
-    gap: 1rem;
-    padding-top: calc(var(--header-height) + 1rem);
-    padding-bottom: 1.5rem;
-  }
+  
 
   .hero h1 {
     max-width: 12ch;
@@ -394,41 +311,19 @@
     font-size: 0.66rem;
   }
 
-  .system-frame {
-    grid-template-columns: 1fr 1fr;
-    gap: 0.45rem;
-  }
+  
 
-  .system-core {
-    min-height: 7.25rem;
-    padding: 1.1rem 1.25rem;
-    border-radius: var(--radius-lg);
-  }
+  
 
-  .system-core p {
-    max-width: 26rem;
-    margin-bottom: 0.35rem;
-    font-size: 0.62rem;
-    line-height: 1.4;
-  }
+  
 
-  .system-node {
-    min-height: 2.8rem;
-    padding: 0.45rem 0.6rem;
-    font-size: 0.65rem;
-  }
+  
 
-  .node-marketing {
-    grid-column: 1 / -1;
-  }
+  
 
-  .node-index {
-    font-size: 0.55rem;
-  }
+  
 
-  .service-carousel-head {
-    margin-bottom: 0.75rem;
-  }
+  
 
   .service-controls button {
     width: 2.8rem;
@@ -467,44 +362,24 @@
     font-size: 0.76rem;
   }
 
-  .service-pagination button {
-    min-height: 3rem;
-    font-size: 0;
-  }
+  
 
-  .service-pagination button::before {
-    content: attr(data-short);
-    font-size: 0.68rem;
-  }
+  
 
-  .service-pagination button::after {
-    right: 25%;
-    left: 25%;
-  }
+  
 
   .impact-statement h2,
   .final-cta h2 {
     font-size: var(--step-3);
   }
 
-  .impact-list li {
-    grid-template-columns: 2rem 6.5rem 1fr;
-    gap: 0.55rem;
-  }
+  
 
-  .impact-list small {
-    font-size: 0.7rem;
-  }
+  
 
-  .industry-list article {
-    min-height: 8rem;
-    grid-template-columns: 2.5rem 1fr;
-    padding-inline: 0.5rem;
-  }
+  
 
-  .industry-list article:hover {
-    padding-left: 1rem;
-  }
+  
 
   .podcast-art::before {
     display: none;
@@ -514,17 +389,11 @@
     font-size: 1.05rem;
   }
 
-  .seo-support {
-    padding: 1.25rem;
-  }
+  
 
-  .region-visual {
-    min-height: 0;
-  }
+  
 
-  .region-visual > img {
-    display: none;
-  }
+  
 
   .location-list {
     min-height: 0;
@@ -549,29 +418,15 @@
     margin: 0;
   }
 
-  .partner-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+  
 
-  .partner-grid a {
-    min-height: 8rem;
-    padding: 1.25rem;
-  }
+  
 
-  .insight-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
+  
 
-  .insight-card,
-  .insight-card:nth-child(3) {
-    grid-column: auto;
-  }
+  
 
-  .insight-card:nth-child(2) {
-    margin-top: 0;
-  }
+  
 
   .cta-actions,
   .cta-actions .button {
@@ -586,18 +441,11 @@
     grid-column: 1 / -1;
   }
 
-  .footer-conversation {
-    grid-column: 1 / -1;
-    display: block;
-  }
+  
 
-  .footer-conversation p {
-    margin-bottom: 1.25rem;
-  }
+  
 
-  .footer-conversation .button {
-    width: 100%;
-  }
+  
 
   .footer-bottom {
     flex-direction: column;
@@ -612,9 +460,7 @@
     grid-template-columns: 1fr;
   }
 
-  .partner-grid {
-    grid-template-columns: 1fr;
-  }
+  
 
   .footer-grid {
     grid-template-columns: 1fr;
@@ -686,27 +532,13 @@
     grid-column: 1 / -1;
   }
 
-  .service-deck-meta,
-  .service-pagination {
-    max-width: none;
-  }
+  
 
-  .service-pagination,
-  .js .service-pagination {
-    grid-template-columns: repeat(6, 1fr);
-  }
+  
 
-  .service-pagination button {
-    min-height: 3.3rem;
-    grid-template-columns: 1fr;
-    place-items: center;
-    padding-right: 0;
-    border-right: 1px solid var(--color-border);
-  }
+  
 
-  .service-pagination button:last-child {
-    border-right: 0;
-  }
+  
 
   .service-deck-stage {
     width: min(100%, 47rem);
@@ -757,65 +589,31 @@
     font-size: 0.9rem;
   }
 
-  .service-deck-meta {
-    grid-column: 1;
-    margin-top: 1.75rem;
-  }
+  
 
   .service-controls {
     grid-column: 2;
     margin: 1.75rem 0 1rem;
   }
 
-  .service-deck-hint,
-  .js .service-deck-hint {
-    display: none;
-  }
+  
 
   .service-controls button {
     width: 3rem;
     height: 3rem;
   }
 
-  .service-pagination,
-  .js .service-pagination {
-    grid-template-columns: repeat(6, 1fr);
-  }
+  
 
-  .service-pagination button {
-    display: grid;
-    min-height: 3.15rem;
-    grid-template-columns: 1fr;
-    place-items: center;
-    padding: 0;
-    border-right: 1px solid var(--color-border);
-    font-size: 0;
-    transform: none;
-  }
+  
 
-  .service-pagination button::before {
-    font-size: 0.68rem;
-  }
+  
 
-  .service-pagination button::after {
-    top: auto;
-    right: 25%;
-    bottom: -1px;
-    left: 25%;
-    width: auto;
-    height: 3px;
-    border-radius: 0;
-    transform: scaleX(0);
-  }
+  
 
-  .service-pagination button:hover,
-  .service-pagination button.is-active {
-    transform: none;
-  }
+  
 
-  .service-pagination button.is-active::after {
-    transform: scaleX(1);
-  }
+  
 
   .service-deck-stage {
     width: 100%;
@@ -908,9 +706,7 @@
 }
 
 @media (max-width: 27rem) {
-  .service-deck-hint {
-    font-size: 0.61rem;
-  }
+  
 
   .service-card,
   .js .service-card {
