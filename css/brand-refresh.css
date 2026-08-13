@@ -561,3 +561,38 @@ h3,
   max-width: 10.5em;
   font-size: clamp(2.2rem, 3.2vw, 3rem);
 }
+
+/* --------------------------------------------------------------------------
+   Mobile/tablet fixes
+   1. A legacy rule (`width:100%; max-width:100%` under 61.25rem) was written for
+      inner grids, but .podcast-grid and .final-cta-inner ARE the .container
+      element, so below 980px they lost their side gutters and ran edge to edge.
+      Restore the container width formula for those two only.
+   2. .footer-grid's four-column rule above sits outside any media query, so it
+      overrode every responsive override in responsive.css — the three link
+      columns collapsed to ~1px and wrapped one letter per line on phones.
+   -------------------------------------------------------------------------- */
+@media (max-width: 61.25rem) {
+  .podcast-grid,
+  .final-cta-inner {
+    width: min(100% - (2 * var(--gutter)), var(--container));
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 61.25rem) {
+  .footer-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 34rem) {
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.25rem clamp(1.25rem, 6vw, 2rem);
+  }
+}
