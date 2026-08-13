@@ -544,3 +544,20 @@ h3,
 .partner-marquee.is-dragging .partner-marquee-track > a {
   cursor: grabbing;
 }
+
+/* --------------------------------------------------------------------------
+   Two-line section titles
+   "Our Core BPO Services" and "The Synergi Executive Podcast" sat in narrow
+   grid columns and broke onto three lines at most desktop/tablet widths.
+   max-width is set in em so the wrap point scales with the type; the font
+   sizes are capped only as far as needed for the two-line break to hold.
+   -------------------------------------------------------------------------- */
+.service-deck-copy h2 {
+  max-width: 8em;
+  font-size: clamp(2.2rem, 3.6vw, 3.5rem);
+}
+
+.podcast-copy h2 {
+  max-width: 10.5em;
+  font-size: clamp(2.2rem, 3.2vw, 3rem);
+}
